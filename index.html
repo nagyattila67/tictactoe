@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/selectors.css">
+    <link rel="stylesheet"
+        href="lib/bootstrap/bootstrap-5.0.0-beta2-dist/bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="behind col-2 col-sm-2 col-md-2 col-lg-2">
+                <div id="infoAboutNoStrategy" class="info" style="display:none;position:absolute;">
+                    <p>Ennél a lépéskombinációnál a gépnek nincs stratégiája.</p>
+                </div>
+                <div id="infoAboutAvoidStrategy" class="info" style="display:none;position:absolute;">
+                    <p>Ezzel a lépéssel meghiúsította a gép <i><span id="avoidStrategy"> stratégiáját.</span></i></p>
+                </div>
+                <div id="infoAboutComputerWins" class="info" style="display:none;position:absolute;">
+                    <p>A gép győzni fog, de még több befejező állás lehetséges.</p>
+                </div>
+                <div id="infoBox" style="visibility: hidden;">
+                    <div id="divForComputerWon">
+                        <p id="computerWon" style="color:red"></p>
+                    </div>
+                    <div id="divForBr">
+                        <br id="newBr">
+                    </div>
+                    <div>
+                        <p>A nyerő stratégia: </p>
+                        <p><span id="theWinnerStrategy"> - </span></p>
+                    </div>
+
+                    <button class="mb-3 button btn-secondary" onclick="showTheTable()">Mutasd, hogyan!</button>
+                </div>
+                <div id="divForLittleTable">
+                    <table id="littleTable">
+                        <tbody id="littleTbody">
+                            <tr>
+                                <td name="4">T</td>
+                                <td name="9">I</td>
+                                <td name="2">C</td>
+                            </tr>
+                            <tr>
+                                <td name="3">T</td>
+                                <td name="5">A</td>
+                                <td name="7">C</td>
+                            </tr>
+                            <tr>
+                                <td name="8">T</td>
+                                <td name="1">O</td>
+                                <td name="6">E</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="col-8 col-sm-8 col-md-8 col-lg-8">
+                <div class="row">
+                    <div class="col-6">
+                        <div class="row">
+                            <div class="fore col-6">
+                                <table id="millTable">
+                                    <tbody id="millTbody">
+                                        <tr>
+                                            <td name="4" onclick="putCoin(this)"></td>
+                                            <td name="9" onclick="putCoin(this)"></td>
+                                            <td name="2" onclick="putCoin(this)"></td>
+                                        </tr>
+                                        <tr>
+                                            <td name="3" onclick="putCoin(this)"></td>
+                                            <td name="5" onclick="putCoin(this)"></td>
+                                            <td name="7" onclick="putCoin(this)"></td>
+                                        </tr>
+                                        <tr>
+                                            <td name="8" onclick="putCoin(this)"></td>
+                                            <td name="1" onclick="putCoin(this)"></td>
+                                            <td name="6" onclick="putCoin(this)"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <div class="behind col-6">
+                                <br>
+                                <button class="button btn-primary" onclick="newGame()">Új játék</button>
+                                <hr>
+                                <p>Mégse ezt lépem!</p>
+                                <button class="button btn-secondary" onclick="stepBack()">Visszalépek</button>
+                            </div>
+                        </div>
+
+                        <p class="littleMargin">A gép stratégiája: <span id="strategyOfEngine"> - </span></p>
+                        <p class="littleMargin">Eredmény: <span id="endOfGame"> - </span></p>
+                        <p class="littleMargin">Állás:</p>
+                        <table class="table table-bordered">
+                            <tbody id="score">
+                                <tr>
+                                    <td>piros</td>
+                                    <td>kék</td>
+                                    <td>döntetlen</td>
+                                </tr>
+                                <tr>
+                                    <td id="scoreRed"> - </td>
+                                    <td id="scoreBlue"> - </td>
+                                    <td id="scoreUndecided"> - </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <button class="button btn-secondary btn-small" onclick="deleteScore()">Állás törlése</button>
+                    </div>
+                    <div class="col-6">
+                        <input type="radio" id="twoPeople" class="littleMargin" name="typeOfGame"
+                            oninput="gameWithNotRandom(this)"><label for="twoPeople">Két
+                            személy játszik</label>
+                        <br>
+                        <input type="radio" id="withComputer" class="littleMargin" name="typeOfGame"
+                            oninput="gameWithNotRandom(this)" checked><label for="withComputer">Játék a géppel</label>
+                        <br>
+                        <input type="radio" id="withRandomEngine" class="littleMargin" name="typeOfGame"
+                            oninput="gameWithRandom(this)"><label for="withComputer">Játék véletlenszám generátorral -
+                        </label>
+                            <span id="myCleverRandom1">
+                                <label for="cleverRandom1">Okosvéletlen: </label>
+                                <input type="checkbox" id="checkBoxForCleverRandom1" checked>
+                                <span id="infoForCleverRandom1">
+                                    Amennyiben a következő lépésben ő vagy az ellenfél nyerne, akkor nem véletlenszerűen
+                                    lép.
+                                </span>
+                            </span>
+                        <!--<span style="color:#808080"><small>(Tanulójátékban csak a programmal játszhat)</small></span>-->
+                        <br>
+                        <input type="radio" id="withLearningMemory" class="littleMargin" name="typeOfGame"
+                            oninput="gameWithNotRandom(this)"><label for="withLearningMemory">Játék a
+                            tanulómemóriával</label>
+                        <br>
+                        <hr>
+                        <input class="littleMargin" id="gamer" type="radio" name="whoStarts" onclick="whoStart()"><label
+                            for="gamer">A játékos kezd</label>
+                        <br>
+                        <input class="littleMargin" id="computer" type="radio" name="whoStarts" onclick="whoStart()"
+                            checked><label for="computer">A gép kezd</label>
+                        <hr>
+                        <div class="row sometimesBlur">
+                            <div class="col-6" style="border-right: 1px solid gray;">
+                                <button class="button btn-secondary littleMargin"
+                                    onclick="learning()">Tanulójáték</button>
+                                <input class="littleMargin" type="number" style="width:100px" id="runningNumber"
+                                    value="1000"><span> játék futtatása</span>
+                            </div>
+                            <div class="col-6">
+                                <p>Az ellenfél:</p>
+                                <input checked type="radio" onclick="whoIsThePartner()" name="partnerForGame"
+                                    id="withRandom">
+                                <label for="random"> véletlenszám generátor - </label>
+                                <span id="myCleverRandom2">
+                                    <label for="cleverRandom1">Okosvéletlen: </label>
+                                    <input type="checkbox" id="checkBoxForCleverRandom2" checked>
+                                    <span id="infoForCleverRandom2">
+                                        Amennyiben a következő lépésben ő vagy az ellenfél nyerne, akkor nem véletlenszerűen
+                                        lép.
+                                    </span>
+                                </span>
+                                <br>
+                                <input type="radio" onclick="whoIsThePartner()" name="partnerForGame" id="withProgram">
+                                <label for="program"><span id="labelForProgram">a program</span></label>
+                            </div>
+                        </div>
+                        <div class="row sometimesBlur">
+                            <div class="col">
+                                <p class="mt-2">Futásidő: <span id="runTime"> - </span></p>
+                                <span style="color:#808080"><small><label for="notIndependentResult"></label>Ne önálló
+                                        mérés legyen, adódjon hozzá az eddigi eredményekhez</small>
+                                    <input id="notIndependentResult" type="checkbox"></small></span>
+                            </div>
+                        </div>
+                        <div class="row sometimesBlur">
+                            <div class="col">
+                                <button class="button btn-secondary littleMargin" onclick="cleaningTheMemory()">Memória
+                                    tisztítása</button>
+                                <span style="color:#808080"><small>(A tanulómemóriából az ismétlődő lépéskombinációk
+                                        törlése - <label for="autoClean">automatikusan kérem</label>
+                                        <input id="autoClean" type="checkbox"> )</small></span>
+                                <p class="mt-2">Futásidő: <span id="runTimeForCleaning"> - </span></p>
+                                <table class="table table-bordered">
+                                    <tbody>
+                                        <tr>
+                                            <td>Eddig lejátszott:</td>
+                                            <td><span id="limitForShowing"> - </span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ennyi különböző:</td>
+                                            <td><span id="MemoryLengthForShowing"> - </span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ebből nyert a kék:</td>
+                                            <td><span id="blueWonForShowing"> - </span></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row sometimesBlur">
+                    <div class="col">
+                        <span style="color:#808080"><small>
+                                <label for="noTable">Nem kérem a teljes táblázatot (gyorsítás) </label>
+                                <input checked id="noTable" type="checkbox" onclick="clearTable()">
+                            </small></span>
+                        <br>
+                        <br>
+                        <table class="table table-bordered">
+                            <tbody>
+                                <tr id="numberOfProgramParts"></tr>
+                                <tr id="resultsOneOfProgramParts"></tr>
+                                <tr id="resultsTwoOfProgramParts"></tr>
+                                <tr id="redWonId"></tr>
+                                <tr id="blueWonId"></tr>
+                                <tr id="undecidedId"></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+            <div class="behind col-2 col-sm-2 col-md-2 col-lg-2">
+
+            </div>
+        </div>
+    </div>
+
+
+    <script src="js\index.js"></script>
+</body>
+
+</html>

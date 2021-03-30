@@ -1,0 +1,18 @@
+#millTbody tr td{border:1px solid #000000;background-color:#dbdbdb;width:70px;height:70px;padding:20px}
+.littleMargin{margin:10px}
+#littleTbody tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+.info{width:150px}
+.fore{z-index:2}
+.behind{z-index:1}
+.blur{filter: blur(1px)}
+#infoForCleverRandom1{display:none}
+#myCleverRandom1:hover #infoForCleverRandom1{display:block;position:fixed;margin:10px 10px 10px 50px;
+    opacity:85%;
+    padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
+#infoForCleverRandom2{display:none}
+#myCleverRandom2:hover #infoForCleverRandom2{display:block;position:fixed;margin:10px 10px 10px 50px;
+    opacity:85%; padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
+    label[for='cleverRandom1']{margin-left:20px}
+    
+
+
