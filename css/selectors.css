@@ -6,13 +6,19 @@
 .behind{z-index:1}
 .blur{filter: blur(1px)}
 #infoForCleverRandom1{display:none}
-#myCleverRandom1:hover #infoForCleverRandom1{display:block;position:fixed;margin:10px 10px 10px 50px;
-    opacity:85%;
-    padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
-#infoForCleverRandom2{display:none}
-#myCleverRandom2:hover #infoForCleverRandom2{display:block;position:fixed;margin:10px 10px 10px 50px;
-    opacity:85%; padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
-    label[for='cleverRandom1']{margin-left:20px}
+#myCleverRandom1:hover #infoForCleverRandom1{display:block;position:absolute;margin:10px 10px 10px 50px;opacity:85%;padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
+#infoForCleverGame{display:none}
+#myCleverGame:hover #infoForCleverGame{display:block;position:absolute;margin:10px 10px 10px 50px; opacity:85%; padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
+    #infoForCleverRandom2{display:none}
+    #myCleverRandom2:hover #infoForCleverRandom2{display:block;position:absolute;margin:10px 10px 10px 50px; opacity:85%; padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
+    label[for='checkBoxForCleverRandom2']{margin-left:20px};
+
+    
+
+
+
+
+
     
 
 

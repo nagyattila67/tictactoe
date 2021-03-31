@@ -311,6 +311,10 @@ learning = function () {
     document.querySelector("#limitForShowing").innerHTML = " - ";
     document.querySelector("#MemoryLengthForShowing").innerHTML = " - ";
     if (document.querySelector("#autoClean").checked == true) { cleaningTheMemory(); }
+
+    appRunTime = 0.000000085 * (learningMemory.length) ** 2;
+    whereShowTime = "#apprRunTimeForCleaning"
+    showTime2(whereShowTime, appRunTime);
     nowLearning = false;
 };
 
@@ -488,6 +492,7 @@ defenceOrAttack = function (myId) {
         if (coins[coins.length - 2] == "red") { number = numberRed }
         //console.log("ACTIVE", numberBlue, numberRed)
     }
+    if(number!=0 && nowLearning==false){console.log("defenceOrAttack")}
 }
 
 check2 = function () {
@@ -570,50 +575,59 @@ info = function (a) {
 }
 
 cleaningTheMemory = function () {
-    timeStart = new Date();
-    memoryCleaner = Array();
-    for (let i = 0; i < learningMemory.length; i++) { memoryCleaner[i] = "need" }
-    for (let i = 0; i < learningMemory.length; i++) {
-        if (i % 10000 == 0) { console.log("cleaning:", i, "length", learningMemory.length) };
-        for (let j = i + 1; j < learningMemory.length; j++) {
-            if (learningMemory[i].length == learningMemory[j].length) {
-                index = 0;
-                for (let k = 0; k < learningMemory[i].length; k++) {
-                    if (learningMemory[i][k] == learningMemory[j][k]) {
-                        index = index + 1;
+    myConfirm = true;
+    if (document.querySelector("#autoClean").checked == false) {
+        if (appRunTime > 60) {
+            myConfirm = confirm(`A futásidő becsült értéke ${hour2} óra, ${min2} perc, ${sec2} mp`)
+        }
+    }
+    if (myConfirm == true) {
+        timeStart = new Date();
+        memoryCleaner = Array();
+        for (let i = 0; i < learningMemory.length; i++) { memoryCleaner[i] = "need" }
+        for (let i = 0; i < learningMemory.length; i++) {
+            if (i % 10000 == 0) { console.log("cleaning:", i, "length", learningMemory.length) };
+            for (let j = i + 1; j < learningMemory.length; j++) {
+                if (learningMemory[i].length == learningMemory[j].length) {
+                    index = 0;
+                    for (let k = 0; k < learningMemory[i].length; k++) {
+                        if (learningMemory[i][k] == learningMemory[j][k]) {
+                            index = index + 1;
+                        }
                     }
+                    if (index == learningMemory[i].length) { memoryCleaner[i] = "noNeed"; }
                 }
-                if (index == learningMemory[i].length) { memoryCleaner[i] = "noNeed"; }
             }
         }
-    }
-    shortMemory = Array();
-    for (let i = 0; i < learningMemory.length; i++) {
-        if (memoryCleaner[i] == "need") { shortMemory[shortMemory.length] = learningMemory[i].slice(0) }
-    }
-    learningMemory = shortMemory.slice(0);
-    blueWonMemory = Array();
-    for (let i = 0; i < learningMemory.length; i++) {
-        if (learningMemory[i][learningMemory[i].length - 1] == "BLUE") {
-            blueWonMemory[blueWonMemory.length] = learningMemory[i].slice(0);
+        shortMemory = Array();
+        for (let i = 0; i < learningMemory.length; i++) {
+            if (memoryCleaner[i] == "need") { shortMemory[shortMemory.length] = learningMemory[i].slice(0) }
         }
-        if (learningMemory[i][learningMemory[i].length - 1] == "RED") {
-            redWonMemory[redWonMemory.length] = learningMemory[i].slice(0);
+        learningMemory = shortMemory.slice(0);
+        blueWonMemory = Array();
+        for (let i = 0; i < learningMemory.length; i++) {
+            if (learningMemory[i][learningMemory[i].length - 1] == "BLUE") {
+                blueWonMemory[blueWonMemory.length] = learningMemory[i].slice(0);
+            }
+            if (learningMemory[i][learningMemory[i].length - 1] == "RED") {
+                redWonMemory[redWonMemory.length] = learningMemory[i].slice(0);
+            }
+            if (learningMemory[i][learningMemory[i].length - 1] == "UNDECIDED") {
+                undecidedMemory[undecidedMemory.length] = learningMemory[i].slice(0);
+            }
         }
-        if (learningMemory[i][learningMemory[i].length - 1] == "UNDECIDED") {
-            undecidedMemory[undecidedMemory.length] = learningMemory[i].slice(0);
-        }
-    }
 
-    timeFinish = new Date();
-    whereShowTime = "#runTimeForCleaning"
-    showTime(whereShowTime);
-    document.querySelector("#limitForShowing").innerHTML = allRuns;;
-    percentage = Math.floor((shortMemory.length / allRuns) * 100);
-    percentage2 = Math.floor((blueWonMemory.length / allRuns) * 100);
-    document.querySelector("#MemoryLengthForShowing").innerHTML = `${shortMemory.length} (${percentage} %)`;
-    document.querySelector("#blueWonForShowing").innerHTML = `${blueWonMemory.length}  (${percentage2} %)`;
+        timeFinish = new Date();
+        whereShowTime = "#runTimeForCleaning"
+        showTime(whereShowTime);
+        document.querySelector("#limitForShowing").innerHTML = allRuns;;
+        percentage = Math.floor((shortMemory.length / allRuns) * 100);
+        percentage2 = Math.floor((blueWonMemory.length / allRuns) * 100);
+        document.querySelector("#MemoryLengthForShowing").innerHTML = `${shortMemory.length} (${percentage} %)`;
+        document.querySelector("#blueWonForShowing").innerHTML = `${blueWonMemory.length}  (${percentage2} %)`;
+    }
 }
+
 
 showTime = function (whereShowTime) {
     time = (timeFinish - timeStart) / 1000;
@@ -622,6 +636,13 @@ showTime = function (whereShowTime) {
     hour = Math.floor(time / 3600);
     document.querySelector(`${whereShowTime}`).innerHTML = `${hour} óra, ${min} perc, ${sec} mp`;
 };
+
+showTime2 = function (whereShowTime, time) {
+    sec2 = Math.ceil(time % 60);
+    min2 = Math.floor(time / 60) % 60;
+    hour2 = Math.floor(time / 3600);
+    document.querySelector(`${whereShowTime}`).innerHTML = `${hour2} óra, ${min2} perc, ${sec2} mp`;
+}
 
 showTableIndex = 0;
 
@@ -709,13 +730,19 @@ putCoin = function (this_) {
                 isWinner();
 
                 if (thereIsWinner == "no") {
+                    number = 0;
+
                     thisWasBlue = blue.slice(0);
                     thisWasRed = red.slice(0);
                     red = thisWasBlue.slice(0);
                     blue = thisWasRed.slice(0);
-                    gameWithLearningMemory();
+                    defenceOrAttack(myId = cleverGame.id)
+                    if (number == 0) {
+                        gameWithLearningMemory();
+                    }
                     red = thisWasRed.slice(0);
                     blue = thisWasBlue.slice(0);
+
                     stepOnTheBoard(number);
                     isWinner();
                 };
@@ -777,7 +804,6 @@ gameWithLearningMemory = function () {
             }
             if (min == coins.length + 3) {
                 importantBlue = true;
-                console.log("most2")
             }
 
             if (nextStepArray.length == 0) {
@@ -832,14 +858,15 @@ gameWithLearningMemory = function () {
             }
 
 
-            if (nextStepArray2.length == 0 && nextStepArrayUndecided.length == 0 &&
-                redWonStep == 0) {
-                chance = Math.floor(Math.random() * freePlace.length);
-                number = freePlace[chance];
-                if (nowLearning == false) { console.log("RND") };
-            }
+            //if (nextStepArray2.length == 0 && nextStepArrayUndecided.length == 0 &&
+            //redWonStep == 0) {
         }
 
+    }
+    if (number == 0) {
+        chance = Math.floor(Math.random() * freePlace.length);
+        number = freePlace[chance];
+        if (nowLearning == false) { console.log("RND") };
     }
 }
 
@@ -1939,8 +1966,8 @@ stepBack = function () {
         }
     };
     if (coins.length >= 3) {
-        if (coins[coins.length-1] == "BLUE" || coins[coins.length-1] == "RED" ||
-            coins[coins.length-1] == "UNDECIDED") { coins.pop() }
+        if (coins[coins.length - 1] == "BLUE" || coins[coins.length - 1] == "RED" ||
+            coins[coins.length - 1] == "UNDECIDED") { coins.pop() }
         coins.pop(); coins.pop(); coins.pop(); coins.pop();
         red.pop(); blue.pop(); step = step - 2;
         strategyArray.pop(); strategyArray.pop();

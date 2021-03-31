@@ -124,19 +124,28 @@
                         <input type="radio" id="withRandomEngine" class="littleMargin" name="typeOfGame"
                             oninput="gameWithRandom(this)"><label for="withComputer">Játék véletlenszám generátorral -
                         </label>
-                            <span id="myCleverRandom1">
-                                <label for="cleverRandom1">Okosvéletlen: </label>
-                                <input type="checkbox" id="checkBoxForCleverRandom1" checked>
-                                <span id="infoForCleverRandom1">
-                                    Amennyiben a következő lépésben ő vagy az ellenfél nyerne, akkor nem véletlenszerűen
-                                    lép.
-                                </span>
+                        <span id="myCleverRandom1">
+                            <label for="checkBoxForCleverRandom1">Okosvéletlen: </label>
+                            <input type="checkbox" id="checkBoxForCleverRandom1" checked>
+                            <span id="infoForCleverRandom1">
+                                Amennyiben a következő lépésben ő vagy az ellenfél nyerne, akkor nem véletlenszerűen
+                                lép.
                             </span>
+                        </span>
                         <!--<span style="color:#808080"><small>(Tanulójátékban csak a programmal játszhat)</small></span>-->
                         <br>
                         <input type="radio" id="withLearningMemory" class="littleMargin" name="typeOfGame"
                             oninput="gameWithNotRandom(this)"><label for="withLearningMemory">Játék a
-                            tanulómemóriával</label>
+                            tanulómemóriával - </label>
+                        <span id="myCleverGame">
+                            <label for="cleverGame">Okosjáték</label>
+                            <input type="checkbox" id="cleverGame" checked>
+                            <span id="infoForCleverGame">
+                                Amennyiben a következő lépésben ő vagy az ellenfél nyerne, akkor nem véletlenszerűen
+                                lép.
+                            </span>
+                        </span>
+
                         <br>
                         <hr>
                         <input class="littleMargin" id="gamer" type="radio" name="whoStarts" onclick="whoStart()"><label
@@ -158,10 +167,11 @@
                                     id="withRandom">
                                 <label for="random"> véletlenszám generátor - </label>
                                 <span id="myCleverRandom2">
-                                    <label for="cleverRandom1">Okosvéletlen: </label>
+                                    <label for="checkBoxForCleverRandom2">Okosvéletlen: </label>
                                     <input type="checkbox" id="checkBoxForCleverRandom2" checked>
                                     <span id="infoForCleverRandom2">
-                                        Amennyiben a következő lépésben ő vagy az ellenfél nyerne, akkor nem véletlenszerűen
+                                        Amennyiben a következő lépésben ő vagy az ellenfél nyerne, akkor nem
+                                        véletlenszerűen
                                         lép.
                                     </span>
                                 </span>
@@ -182,9 +192,12 @@
                             <div class="col">
                                 <button class="button btn-secondary littleMargin" onclick="cleaningTheMemory()">Memória
                                     tisztítása</button>
-                                <span style="color:#808080"><small>(A tanulómemóriából az ismétlődő lépéskombinációk
+
+                                <span id="cleaningTheMemoryButton" style="color:#808080"><small>(A tanulómemóriából az
+                                        ismétlődő lépéskombinációk
                                         törlése - <label for="autoClean">automatikusan kérem</label>
                                         <input id="autoClean" type="checkbox"> )</small></span>
+                                <p class="mt-2">Becsült futásidő: <span id="apprRunTimeForCleaning"> - </span></p>
                                 <p class="mt-2">Futásidő: <span id="runTimeForCleaning"> - </span></p>
                                 <table class="table table-bordered">
                                     <tbody>
