@@ -1,6 +1,7 @@
 #millTbody tr td{border:1px solid #000000;background-color:#dbdbdb;width:70px;height:70px;padding:20px}
 .littleMargin{margin:10px}
 #littleTbody tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+#littleTbody2 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
 .info{width:150px}
 .fore{z-index:2}
 .behind{z-index:1}

@@ -171,10 +171,26 @@ bluringOrNot = function () {
         for (let i = 0; i < document.querySelectorAll(".sometimesBlur").length; i++) {
             document.querySelectorAll(".sometimesBlur")[i].classList.add("blur");
         }
+        myLength = document.querySelectorAll(".sometimesBlur button").length;
+        for (let i = 0; i < myLength; i++) {
+            document.querySelectorAll(".sometimesBlur button")[i].disabled = true
+        }
+        myLength = document.querySelectorAll(".sometimesBlur input").length;
+        for (let i = 0; i < myLength; i++) {
+            document.querySelectorAll(".sometimesBlur input")[i].disabled = true
+        }
     }
     if (hereNow_.getAttribute("id") != "twoPeople") {
         for (let i = 0; i < document.querySelectorAll(".sometimesBlur").length; i++) {
             document.querySelectorAll(".sometimesBlur")[i].classList.remove("blur");
+        }
+        myLength = document.querySelectorAll(".sometimesBlur button").length;
+        for (let i = 0; i < myLength; i++) {
+            document.querySelectorAll(".sometimesBlur button")[i].disabled = false;
+        }
+        myLength = document.querySelectorAll(".sometimesBlur input").length;
+        for (let i = 0; i < myLength; i++) {
+            document.querySelectorAll(".sometimesBlur input")[i].disabled = false;
         }
     }
 }
@@ -190,6 +206,12 @@ whoIsThePartner();
 allRunsUntilNow = 0;
 allRuns = 0;
 learning = function () {
+    document.querySelector("#nine").innerHTML = " - ";
+    document.querySelector("#lessThanNine").innerHTML = " - ";
+    document.querySelector("#itHasStrategy").innerHTML = " -"
+    document.querySelector("#itDoesNotHaveStrategy").innerHTML = " -"
+    document.querySelector("#all").innerHTML = " -"
+    document.querySelector("#learningGameButton").style.boxShadow = "none"
     nowLearning = true;
     timeStart = new Date();
     limit = document.querySelector("#runningNumber").value;
@@ -492,7 +514,7 @@ defenceOrAttack = function (myId) {
         if (coins[coins.length - 2] == "red") { number = numberRed }
         //console.log("ACTIVE", numberBlue, numberRed)
     }
-    if(number!=0 && nowLearning==false){console.log("defenceOrAttack")}
+    if (number != 0 && nowLearning == false) { console.log("defenceOrAttack") }
 }
 
 check2 = function () {
@@ -574,7 +596,14 @@ info = function (a) {
     }
 }
 
+cleaningIsDone = false;
+appRunTime = 0;
 cleaningTheMemory = function () {
+    if (learningMemory.length == 0) {
+        alert("Először futtasson tanulójátékot!");
+        document.querySelector("#learningGameButton").style.boxShadow = "5px 10px black"
+    }
+    document.querySelector("#cleaningTheMemoryButton1").style.boxShadow = "none";
     myConfirm = true;
     if (document.querySelector("#autoClean").checked == false) {
         if (appRunTime > 60) {
@@ -605,6 +634,8 @@ cleaningTheMemory = function () {
         }
         learningMemory = shortMemory.slice(0);
         blueWonMemory = Array();
+        redWonMemory = Array();
+        undecidedMemory = Array();
         for (let i = 0; i < learningMemory.length; i++) {
             if (learningMemory[i][learningMemory[i].length - 1] == "BLUE") {
                 blueWonMemory[blueWonMemory.length] = learningMemory[i].slice(0);
@@ -623,11 +654,242 @@ cleaningTheMemory = function () {
         document.querySelector("#limitForShowing").innerHTML = allRuns;;
         percentage = Math.floor((shortMemory.length / allRuns) * 100);
         percentage2 = Math.floor((blueWonMemory.length / allRuns) * 100);
+        percentage3 = Math.floor((redWonMemory.length / allRuns) * 100);
+        percentage4 = Math.floor((undecidedMemory.length / allRuns) * 100);
         document.querySelector("#MemoryLengthForShowing").innerHTML = `${shortMemory.length} (${percentage} %)`;
         document.querySelector("#blueWonForShowing").innerHTML = `${blueWonMemory.length}  (${percentage2} %)`;
+        document.querySelector("#redWonForShowing").innerHTML = `${redWonMemory.length}  (${percentage3} %)`;
+        document.querySelector("#undecidedForShowing").innerHTML = `${undecidedMemory.length}  (${percentage4} %)`;
+    }
+    cleaningIsDone = true;
+}
+
+cleaningTheMemory2 = function () {
+    ultimateMemory = Array();
+    ultimateMemory2 = Array();
+    ultimateMemory3 = Array();
+    ultimateMemory4 = Array();
+    ultimateMemory9 = Array();
+    if (cleaningIsDone == false) {
+        alert("Először futtassa a felette lévő memóriatisztítást!");
+        document.querySelector("#cleaningTheMemoryButton1").style.boxShadow = "5px 10px black"
+    }
+    needDelete = Array();
+    for (let i = 0; i < blueWonMemory.length - 1; i++) {
+        deleteFromThis = i;
+        originalArray = blueWonMemory[i].slice(0);
+        rotation90Degree(); firstCopy = copy.slice();
+        originalArray = firstCopy.slice(0);
+        verticalReflection();
+        horizontalReflection();
+        rotation90Degree(); firstCopy = copy.slice();
+        originalArray = firstCopy.slice(0);
+        verticalReflection();
+        horizontalReflection();
+        rotation90Degree(); firstCopy.slice(0)
+        originalArray = firstCopy.slice(0);
+        verticalReflection();
+        horizontalReflection();
+    }
+    for (let i = 0; i < blueWonMemory.length; i++) {
+        if (needDelete.includes(i) == false) {
+            ultimateMemory[ultimateMemory.length] = blueWonMemory[i].slice(0);
+            if (blueWonMemory[i].length < 19) {
+                ultimateMemory2[ultimateMemory2.length] = blueWonMemory[i].slice(0);
+            }
+            if (blueWonMemory[i].length == 19) {
+                ultimateMemory9[ultimateMemory9.length] = blueWonMemory[i].slice(0);
+            }
+        }
+        document.querySelector("#all").innerHTML = ultimateMemory.length;
+        document.querySelector("#nine").innerHTML = ultimateMemory9.length;
+        document.querySelector("#lessThanNine").innerHTML = ultimateMemory2.length;
+    }
+    itHasStrategyFunction();
+    gameNumber = 0;
+    stepNumber = 1;
+    showTheGamesFromTheUltimateMemories();
+}
+
+rotation90Degree = function () {
+    copy = Array();
+    for (let j = 0; j < originalArray.length; j++) {
+        if (originalArray[j] == "blue" || originalArray[j] == "red" ||
+            originalArray[j] == "BLUE" || originalArray[j] == "RED") { copy[j] = originalArray[j] }
+        if (originalArray[j] == 1) { copy[j] = 7 }
+        if (originalArray[j] == 2) { copy[j] = 4 }
+        if (originalArray[j] == 3) { copy[j] = 1 }
+        if (originalArray[j] == 4) { copy[j] = 8 }
+        if (originalArray[j] == 5) { copy[j] = 5 }
+        if (originalArray[j] == 6) { copy[j] = 2 }
+        if (originalArray[j] == 7) { copy[j] = 9 }
+        if (originalArray[j] == 8) { copy[j] = 6 }
+        if (originalArray[j] == 9) { copy[j] = 3 }
+    }
+    for (let k = deleteFromThis + 1; k < blueWonMemory.length; k++) {
+        index = 0;
+        if (blueWonMemory[k].length == copy.length) {
+            for (let m = 0; m < copy.length; m++) {
+                if (blueWonMemory[k][m] == copy[m]) {
+                    index = index + 1;
+                }
+            }
+        }
+        if (index == copy.length) { needDelete[needDelete.length] = k }
+    }
+    return copy;
+};
+
+verticalReflection = function () {
+    for (let j = 0; j < originalArray.length; j++) {
+        if (originalArray[j] == "blue" || originalArray[j] == "red" ||
+            originalArray[j] == "BLUE" || originalArray[j] == "RED") { copy[j] = originalArray[j] }
+        if (originalArray[j] == 1) { copy[j] = 1 }
+        if (originalArray[j] == 2) { copy[j] = 4 }
+        if (originalArray[j] == 3) { copy[j] = 7 }
+        if (originalArray[j] == 4) { copy[j] = 2 }
+        if (originalArray[j] == 5) { copy[j] = 5 }
+        if (originalArray[j] == 6) { copy[j] = 8 }
+        if (originalArray[j] == 7) { copy[j] = 3 }
+        if (originalArray[j] == 8) { copy[j] = 6 }
+        if (originalArray[j] == 9) { copy[j] = 9 }
+    }
+    for (let k = deleteFromThis + 1; k < blueWonMemory.length; k++) {
+        index = 0;
+        if (blueWonMemory[k].length == copy.length) {
+            for (let m = 0; m < copy.length; m++) {
+                if (blueWonMemory[k][m] == copy[m]) {
+                    index = index + 1;
+                }
+            }
+        }
+        if (index == copy.length) { needDelete[needDelete.length] = k }
+    }
+    return copy;
+}
+
+horizontalReflection = function () {
+    for (let j = 0; j < originalArray.length; j++) {
+        if (originalArray[j] == "blue" || originalArray[j] == "red" ||
+            originalArray[j] == "BLUE" || originalArray[j] == "RED") { copy[j] = originalArray[j] }
+        if (originalArray[j] == 1) { copy[j] = 9 }
+        if (originalArray[j] == 2) { copy[j] = 6 }
+        if (originalArray[j] == 3) { copy[j] = 3 }
+        if (originalArray[j] == 4) { copy[j] = 8 }
+        if (originalArray[j] == 5) { copy[j] = 5 }
+        if (originalArray[j] == 6) { copy[j] = 2 }
+        if (originalArray[j] == 7) { copy[j] = 7 }
+        if (originalArray[j] == 8) { copy[j] = 4 }
+        if (originalArray[j] == 9) { copy[j] = 1 }
+    }
+    for (let k = 0; k < blueWonMemory.length; k++) {
+        index = 0;
+        if (blueWonMemory[k].length == copy.length) {
+            for (let m = 0; m < copy.length; m++) {
+                if (blueWonMemory[k][m] == copy[m]) {
+                    index = index + 1;
+                }
+            }
+        }
+        if (index == copy.length) { needDelete[needDelete.length] = k }
+    }
+    return copy;
+}
+
+itHasStrategyFunction = function () {
+    indexForStrategy = Array();
+    for (let i = 0; i < ultimateMemory.length; i++) {
+        temporaryMemory = Array();
+        for (let j = 0; j < ultimateMemory[i].length - 5; j++) {
+            temporaryMemory[temporaryMemory.length] = ultimateMemory[i][j];
+        }
+        thereIsStrategy = true;
+        for (let k = 1; k < 10; k++) {
+            if (temporaryMemory.includes(k) == false) {
+                strategySignal = 0;
+                for (let m = 0; m < temporaryMemory.length - 1; m++) {
+                    for (let n = m + 1; n < temporaryMemory.length; n++) {
+                        if (temporaryMemory[n] + temporaryMemory[m] + k == 15) {
+                            strategySignal = strategySignal + 1;
+                        }
+                        if (strategySignal > 1) { break }
+                    }
+                    if (strategySignal > 1) { break }
+                }
+                if (strategySignal > 1) {
+                    ultimateMemory3[ultimateMemory3.length] = ultimateMemory[i];
+                    thereIsStrategy = false;
+                    break;
+                }
+            }
+        }
+        if (thereIsStrategy == true) { ultimateMemory4[ultimateMemory4.length] = ultimateMemory[i]; }
+    }
+    document.querySelector("#itHasStrategy").innerHTML = ultimateMemory3.length;
+    document.querySelector("#itDoesNotHaveStrategy").innerHTML = ultimateMemory4.length;
+}
+
+showTheGamesFromTheUltimateMemories = function () {
+    document.querySelector("#numberOfGame").innerHTML = `${gameNumber + 1}. `;
+    if (document.querySelector("#nineStep").checked == true) {
+        myUltimateMemoryArray = ultimateMemory9.slice(0);
+    }
+    if (document.querySelector("#lessThanNineStep").checked == true) {
+        myUltimateMemoryArray = ultimateMemory2.slice(0);
+    }
+    if (document.querySelector("#itHasStrategyStep").checked == true) {
+        myUltimateMemoryArray = ultimateMemory3.slice(0);
+    }
+    if (document.querySelector("#itDoesNotHaveStrategyStep").checked == true) {
+        myUltimateMemoryArray = ultimateMemory4.slice(0);
+    }
+    if (document.querySelector("#anyStep").checked == true) {
+        myUltimateMemoryArray = ultimateMemory.slice(0);
+    }
+    myGame = myUltimateMemoryArray[gameNumber];
+    for (let i = 1; i < 10; i++) {
+        document.querySelector(`#littleTbody2 td[name='${i}']`).innerHTML = "";
+    }
+    for (let i = 0; i < stepNumber; i++) {
+        if (myGame[i] == "blue") {
+            document.querySelector(`#littleTbody2 td[name='${myGame[i + 1]}']`).innerHTML = "&#128309"
+        }
+        if (myGame[i] == "red") {
+            document.querySelector(`#littleTbody2 td[name='${myGame[i + 1]}']`).innerHTML = "&#128308"
+        }
+
     }
 }
 
+stepInputIsChanged = function () {
+    stepNumber = 1;
+    gameNumber = 0;
+    showTheGamesFromTheUltimateMemories();
+}
+
+forwardInMemory = function () {
+    if (gameNumber < myUltimateMemoryArray.length - 1) { gameNumber = gameNumber + 1 };
+    if (gameNumber == myUltimateMemoryArray.length - 1) { gameNumber = 0 };
+    stepNumber = 1;
+    showTheGamesFromTheUltimateMemories();
+}
+
+backInMemory = function () {
+    if (gameNumber > 0) { gameNumber = gameNumber - 1 };
+    if (gameNumber == 0) { gameNumber = myUltimateMemoryArray.length - 1 };
+    stepNumber = 1;
+    showTheGamesFromTheUltimateMemories();
+}
+
+forwardInTable = function () {
+    if (stepNumber < myGame.length - 3) { stepNumber = stepNumber + 2 };
+    showTheGamesFromTheUltimateMemories();
+}
+
+backInTable = function () {
+    if (stepNumber > 2) { stepNumber = stepNumber - 2 };
+    showTheGamesFromTheUltimateMemories();
+}
 
 showTime = function (whereShowTime) {
     time = (timeFinish - timeStart) / 1000;
@@ -732,16 +994,22 @@ putCoin = function (this_) {
                 if (thereIsWinner == "no") {
                     number = 0;
 
-                    thisWasBlue = blue.slice(0);
-                    thisWasRed = red.slice(0);
-                    red = thisWasBlue.slice(0);
-                    blue = thisWasRed.slice(0);
+                    if (firstStep == "computer") {
+                        thisWasBlue = blue.slice(0);
+                        thisWasRed = red.slice(0);
+                        red = thisWasBlue.slice(0);
+                        blue = thisWasRed.slice(0);
+                    }
+
                     defenceOrAttack(myId = cleverGame.id)
+                    console.log("number:", number)
                     if (number == 0) {
                         gameWithLearningMemory();
                     }
-                    red = thisWasRed.slice(0);
-                    blue = thisWasBlue.slice(0);
+                    if (firstStep == "computer") {
+                        red = thisWasRed.slice(0);
+                        blue = thisWasBlue.slice(0);
+                    }
 
                     stepOnTheBoard(number);
                     isWinner();

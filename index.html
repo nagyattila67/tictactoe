@@ -112,6 +112,58 @@
                             </tbody>
                         </table>
                         <button class="button btn-secondary btn-small" onclick="deleteScore()">Állás törlése</button>
+                        <hr>
+                        <p>A <i>'tanulójáték'</i>, a <i>'memória tisztítása - 1'</i> és a <i>'memória tisztítása -
+                                2'</i> futtatása után a tanulómemóriában elmentett stratégiák felfedezése.</p>
+                        <p>A kiszűrt játékok száma: <span id="all"> - </span>
+                            <small> - <label for="anyStep">ezeket kérem</label>
+                                <input id="anyStep" type="radio" name="howManySteps" onclick="stepInputIsChanged()"></small>
+                        </p>
+                        <p>A 9 lépésből álló játékok száma: <span id="nine"> - </span>
+                            <small> - <label for="nineStep">ezeket kérem</label>
+                                <input id="nineStep" type="radio" name="howManySteps" onclick="stepInputIsChanged()"></small>
+                        </p>
+                        <p>A 9 lépésnél kevesebből álló játékok száma: <span id="lessThanNine"> - </span>
+                            <small> - <label for="lessThanNineStep">ezeket kérem</label>
+                                <input id="lessThanNineStep" type="radio" name="howManySteps" onclick="stepInputIsChanged()"></small>
+                        </p>
+                        <p>Stratégiát tartalmazó lépéssorozatnak tűnő játékok száma: <span id="itHasStrategy"> - </span>
+                        <small> - <label for="itHasStrategyStep">ezeket kérem</label>
+                            <input id="itHasStrategyStep" type="radio" name="howManySteps" onclick="stepInputIsChanged()" checked></small></p>
+                        <p>Stratégiát valószínűleg nem tartalmazó játékok száma: <span id="itDoesNotHaveStrategy"> - </span>
+                        <small> - <label for="itDoesNotHaveStrategyStep">ezeket kérem</label>
+                            <input id="itDoesNotHaveStrategyStep" type="radio" name="howManySteps" onclick="stepInputIsChanged()"></small></p>
+                        <p>Mozgás a játékok között:</p>
+                        <button class="button btn-secondary btn-small" onclick="forwardInMemory()">Előre</button>
+                        <button class="button btn-secondary btn-small" onclick="backInMemory()">Hátra</button>
+                        <p class="mt-2">Ez most a(z) <span id="numberOfGame"> - </span>számú játék</p>
+                        <div id="divForLittleTable2">
+                            <table id="littleTable2">
+                                <tbody id="littleTbody2">
+                                    <tr>
+                                        <td name="4">T</td>
+                                        <td name="9">I</td>
+                                        <td name="2">C</td>
+                                    </tr>
+                                    <tr>
+                                        <td name="3">T</td>
+                                        <td name="5">A</td>
+                                        <td name="7">C</td>
+                                    </tr>
+                                    <tr>
+                                        <td name="8">T</td>
+                                        <td name="1">O</td>
+                                        <td name="6">E</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <br>
+
+                        <button class="button btn-secondary btn-small" onclick="forwardInTable()">Következő
+                            lépés</button>
+                        <button class="button btn-secondary btn-small" onclick="backInTable()">Visszalép</button>
+
                     </div>
                     <div class="col-6">
                         <input type="radio" id="twoPeople" class="littleMargin" name="typeOfGame"
@@ -156,7 +208,7 @@
                         <hr>
                         <div class="row sometimesBlur">
                             <div class="col-6" style="border-right: 1px solid gray;">
-                                <button class="button btn-secondary littleMargin"
+                                <button class="button btn-secondary littleMargin" id="learningGameButton"
                                     onclick="learning()">Tanulójáték</button>
                                 <input class="littleMargin" type="number" style="width:100px" id="runningNumber"
                                     value="1000"><span> játék futtatása</span>
@@ -190,10 +242,10 @@
                         </div>
                         <div class="row sometimesBlur">
                             <div class="col">
-                                <button class="button btn-secondary littleMargin" onclick="cleaningTheMemory()">Memória
-                                    tisztítása</button>
+                                <button class="button btn-secondary littleMargin" id="cleaningTheMemoryButton1"
+                                    onclick="cleaningTheMemory()">Memória tisztítása</button>
 
-                                <span id="cleaningTheMemoryButton" style="color:#808080"><small>(A tanulómemóriából az
+                                <span id="infoForCleaningTheMemory" style="color:#808080"><small>(A tanulómemóriából az
                                         ismétlődő lépéskombinációk
                                         törlése - <label for="autoClean">automatikusan kérem</label>
                                         <input id="autoClean" type="checkbox"> )</small></span>
@@ -213,8 +265,24 @@
                                             <td>Ebből nyert a kék:</td>
                                             <td><span id="blueWonForShowing"> - </span></td>
                                         </tr>
+                                        <tr>
+                                            <td>Ebből nyert a piros:</td>
+                                            <td><span id="redWonForShowing"> - </span></td>
+                                        </tr>
+                                        <tr>
+                                            <td>Ebből döntetlen:</td>
+                                            <td><span id="undecidedForShowing"> - </span></td>
+                                        </tr>
                                     </tbody>
                                 </table>
+                                <button class="button btn-secondary littleMargin" onclick="cleaningTheMemory2()">Memória
+                                    tisztítása - 2</button>
+
+                                <span id="infoForCleaningTheMemory2" style="color:#808080"><small>(A tábla
+                                        elforgatásával
+                                        és tükrözésével egymásból előállítható lépéssorozatok törlése - <label
+                                            for="autoClean2">automatikusan kérem</label>
+                                        <input id="autoClean2" type="checkbox"> )</small></span>
                             </div>
                         </div>
                     </div>
