@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-    <link rel="stylesheet" href="css/selectors.css">
     <link rel="stylesheet"
-        href="lib/bootstrap/bootstrap-5.0.0-beta2-dist/bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
+    href="lib/bootstrap/bootstrap-5.0.0-beta2-dist/bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/selectors.css">
 </head>
 
 <body>
@@ -115,24 +115,67 @@
                         <hr>
                         <p>A <i>'tanulójáték'</i>, a <i>'memória tisztítása - 1'</i> és a <i>'memória tisztítása -
                                 2'</i> futtatása után a tanulómemóriában elmentett stratégiák felfedezése.</p>
-                        <p>A kiszűrt játékok száma: <span id="all"> - </span>
-                            <small> - <label for="anyStep">ezeket kérem</label>
-                                <input id="anyStep" type="radio" name="howManySteps" onclick="stepInputIsChanged()"></small>
-                        </p>
-                        <p>A 9 lépésből álló játékok száma: <span id="nine"> - </span>
-                            <small> - <label for="nineStep">ezeket kérem</label>
-                                <input id="nineStep" type="radio" name="howManySteps" onclick="stepInputIsChanged()"></small>
-                        </p>
-                        <p>A 9 lépésnél kevesebből álló játékok száma: <span id="lessThanNine"> - </span>
-                            <small> - <label for="lessThanNineStep">ezeket kérem</label>
-                                <input id="lessThanNineStep" type="radio" name="howManySteps" onclick="stepInputIsChanged()"></small>
-                        </p>
-                        <p>Stratégiát tartalmazó lépéssorozatnak tűnő játékok száma: <span id="itHasStrategy"> - </span>
-                        <small> - <label for="itHasStrategyStep">ezeket kérem</label>
-                            <input id="itHasStrategyStep" type="radio" name="howManySteps" onclick="stepInputIsChanged()" checked></small></p>
-                        <p>Stratégiát valószínűleg nem tartalmazó játékok száma: <span id="itDoesNotHaveStrategy"> - </span>
-                        <small> - <label for="itDoesNotHaveStrategyStep">ezeket kérem</label>
-                            <input id="itDoesNotHaveStrategyStep" type="radio" name="howManySteps" onclick="stepInputIsChanged()"></small></p>
+
+                        <table id="stepsAndGames" class="table table-bordered table-striped">
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <p>A kiszűrt játékok száma: <span id="all" class="forLightBlue"> - </span>
+                                            <small> - <label for="anyStep">ezeket kérem</label>
+                                                <input id="anyStep" type="radio" name="howManySteps"
+                                                    onclick="stepInputIsChanged()"></small>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>A 9 lépésből álló játékok száma: <span id="nine" class="forLightBlue"> - </span>
+                                            <small> - <label for="nineStep">ezeket kérem</label>
+                                                <input id="nineStep" type="radio" name="howManySteps"
+                                                    onclick="stepInputIsChanged()"></small>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>A 9 lépésnél kevesebből álló játékok száma: <span id="lessThanNine" class="forLightBlue"> -
+                                            </span>
+                                            <small> - <label for="lessThanNineStep">ezeket kérem</label>
+                                                <input id="lessThanNineStep" type="radio" name="howManySteps"
+                                                    onclick="stepInputIsChanged()"></small>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>Stratégiát tartalmazó játékok száma: <span
+                                                id="itHasStrategy" class="forLightBlue"> - </span>
+                                            <small> - <label for="itHasStrategyStep">ezeket kérem</label>
+                                                <input id="itHasStrategyStep" type="radio" name="howManySteps"
+                                                    onclick="stepInputIsChanged()" checked></small>
+                                                    <br>
+                                                    <span style="background-color:#ffff66">Mutatja a stratégiát!</span>
+                                        </p>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>
+                                        <p>Stratégiát nélkülöző játékok száma: <span
+                                                id="itDoesNotHaveStrategy" class="forLightBlue"> - </span>
+                                            <small> - <label for="itDoesNotHaveStrategyStep">ezeket kérem</label>
+                                                <input id="itDoesNotHaveStrategyStep" type="radio" name="howManySteps"
+                                                    onclick="stepInputIsChanged()"></small>
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+
+
+
+
                         <p>Mozgás a játékok között:</p>
                         <button class="button btn-secondary btn-small" onclick="forwardInMemory()">Előre</button>
                         <button class="button btn-secondary btn-small" onclick="backInMemory()">Hátra</button>

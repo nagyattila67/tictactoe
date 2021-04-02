@@ -1,18 +1,22 @@
 #millTbody tr td{border:1px solid #000000;background-color:#dbdbdb;width:70px;height:70px;padding:20px}
+#myCleverRandom1:hover #infoForCleverRandom1{display:block;position:absolute;margin:10px 10px 10px 50px;opacity:85%;padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
+#myCleverGame:hover #infoForCleverGame{display:block;position:absolute;margin:10px 10px 10px 50px; opacity:85%; padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
+#myCleverRandom2:hover #infoForCleverRandom2{display:initial;position:absolute;margin:10px 10px 10px 50px;opacity:85%;padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
+#infoForCleverRandom1{display:none}
+#infoForCleverGame{display:none}
+#infoForCleverRandom2{display:none}
+
+
+
 .littleMargin{margin:10px}
 #littleTbody tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
 #littleTbody2 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+#myCleverRandom2 label{margin-left:20px};
 .info{width:150px}
 .fore{z-index:2}
 .behind{z-index:1}
 .blur{filter: blur(1px)}
-#infoForCleverRandom1{display:none}
-#myCleverRandom1:hover #infoForCleverRandom1{display:block;position:absolute;margin:10px 10px 10px 50px;opacity:85%;padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
-#infoForCleverGame{display:none}
-#myCleverGame:hover #infoForCleverGame{display:block;position:absolute;margin:10px 10px 10px 50px; opacity:85%; padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
-    #infoForCleverRandom2{display:none}
-    #myCleverRandom2:hover #infoForCleverRandom2{display:block;position:absolute;margin:10px 10px 10px 50px; opacity:85%; padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
-    label[for='checkBoxForCleverRandom2']{margin-left:20px};
+.lightBlue{background-color:lightblue};
 
     
 

@@ -16,6 +16,7 @@ blueWonMemory = Array();
 redWonMemory = Array();
 undecidedMemory = Array();
 shortMemory = Array();
+numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 
 
@@ -206,6 +207,14 @@ whoIsThePartner();
 allRunsUntilNow = 0;
 allRuns = 0;
 learning = function () {
+    for (let i = 0; i < document.querySelectorAll(".forLightBlue").length; i++) {
+        document.querySelectorAll(".forLightBlue")[i].classList.remove("lightBlue")
+    }
+    for (let i = 1; i < 10; i++) {
+        document.querySelector(`#littleTbody2 td[name='${i}']`).innerHTML = "";
+        document.querySelector(`#littleTbody2 td[name='${i}']`).style["background-color"] = "#dbdbdb";
+    }
+    document.querySelector("#numberOfGame").innerHTML = " - "
     document.querySelector("#nine").innerHTML = " - ";
     document.querySelector("#lessThanNine").innerHTML = " - ";
     document.querySelector("#itHasStrategy").innerHTML = " -"
@@ -782,7 +791,7 @@ horizontalReflection = function () {
         if (originalArray[j] == 8) { copy[j] = 4 }
         if (originalArray[j] == 9) { copy[j] = 1 }
     }
-    for (let k = 0; k < blueWonMemory.length; k++) {
+    for (let k = deleteFromThis + 1; k < blueWonMemory.length; k++) {
         index = 0;
         if (blueWonMemory[k].length == copy.length) {
             for (let m = 0; m < copy.length; m++) {
@@ -796,40 +805,76 @@ horizontalReflection = function () {
     return copy;
 }
 
-itHasStrategyFunction = function () {
-    indexForStrategy = Array();
-    for (let i = 0; i < ultimateMemory.length; i++) {
-        temporaryMemory = Array();
-        for (let j = 0; j < ultimateMemory[i].length - 5; j++) {
+engagedPlaces = Array();
+lookingForStrategy = function (difference, i) {
+
+    temporaryMemory = Array();
+    engagedPlaces = Array();
+    for (let j = 0; j < ultimateMemory[i].length - difference; j++) {
+        if (ultimateMemory[i][j - 1] == "blue") {
             temporaryMemory[temporaryMemory.length] = ultimateMemory[i][j];
         }
-        thereIsStrategy = true;
-        for (let k = 1; k < 10; k++) {
-            if (temporaryMemory.includes(k) == false) {
-                strategySignal = 0;
-                for (let m = 0; m < temporaryMemory.length - 1; m++) {
-                    for (let n = m + 1; n < temporaryMemory.length; n++) {
-                        if (temporaryMemory[n] + temporaryMemory[m] + k == 15) {
-                            strategySignal = strategySignal + 1;
+        if (numbers.includes(ultimateMemory[i][j])) {
+            engagedPlaces[engagedPlaces.length] = ultimateMemory[i][j];
+        }
+    }
+
+    strategySignal = 0;
+    for (let k = 1; k < 10; k++) {
+        if (engagedPlaces.includes(k) == false) {
+            for (let m = 0; m < temporaryMemory.length; m++) {
+                for (let n = m + 1; n < temporaryMemory.length; n++) {
+                    if (temporaryMemory[n] + temporaryMemory[m] + k == 15) {
+                        strategySignal = strategySignal + 1;
+                        if (strategySignal == 1) {
+                            myYellow[0] = temporaryMemory[n];
+                            myYellow[1] = temporaryMemory[m];
+                            myYellow[2] = k;
                         }
-                        if (strategySignal > 1) { break }
+                        if (strategySignal == 2) {
+                            myYellow[3] = temporaryMemory[n];
+                            myYellow[4] = temporaryMemory[m];
+                            myYellow[5] = k;
+                            yellowLines[i] = myYellow;
+                        }
                     }
-                    if (strategySignal > 1) { break }
+                    if (strategySignal == 2) {
+                        break
+                    }
                 }
-                if (strategySignal > 1) {
-                    ultimateMemory3[ultimateMemory3.length] = ultimateMemory[i];
-                    thereIsStrategy = false;
-                    break;
-                }
+                if (strategySignal == 2) { break }
+            }
+            if (strategySignal == 2) {
+                ultimateMemory3[ultimateMemory3.length] = ultimateMemory[i];
+                thereIsStrategy = true;
+                break;
             }
         }
-        if (thereIsStrategy == true) { ultimateMemory4[ultimateMemory4.length] = ultimateMemory[i]; }
+        if (strategySignal == 2) { break }
+    }
+}
+
+itHasStrategyFunction = function () {
+    yellowLines = Array();
+    for (let i = 0; i < ultimateMemory.length; i++) {
+        thereIsStrategy = false;
+        myYellow = Array();
+        for (let difference = 0; difference < 19; difference++) {
+            if (thereIsStrategy == false) {
+                lookingForStrategy(difference, i);
+            }
+        }
+        if (thereIsStrategy == false) { ultimateMemory4[ultimateMemory4.length] = ultimateMemory[i].slice(0); }
     }
     document.querySelector("#itHasStrategy").innerHTML = ultimateMemory3.length;
     document.querySelector("#itDoesNotHaveStrategy").innerHTML = ultimateMemory4.length;
 }
 
+nostep = false;
 showTheGamesFromTheUltimateMemories = function () {
+    for (let i = 0; i < document.querySelectorAll(".forLightBlue").length; i++) {
+        document.querySelectorAll(".forLightBlue")[i].classList.add("lightBlue")
+    }
     document.querySelector("#numberOfGame").innerHTML = `${gameNumber + 1}. `;
     if (document.querySelector("#nineStep").checked == true) {
         myUltimateMemoryArray = ultimateMemory9.slice(0);
@@ -840,8 +885,14 @@ showTheGamesFromTheUltimateMemories = function () {
     if (document.querySelector("#itHasStrategyStep").checked == true) {
         myUltimateMemoryArray = ultimateMemory3.slice(0);
     }
+    noStep = false;
     if (document.querySelector("#itDoesNotHaveStrategyStep").checked == true) {
         myUltimateMemoryArray = ultimateMemory4.slice(0);
+        if (ultimateMemory4.length == 0) {
+            stepNumber = 0; gameNumber = 0;
+            document.querySelector("#numberOfGame").innerHTML = " - "
+            noStep = true;
+        }
     }
     if (document.querySelector("#anyStep").checked == true) {
         myUltimateMemoryArray = ultimateMemory.slice(0);
@@ -857,8 +908,17 @@ showTheGamesFromTheUltimateMemories = function () {
         if (myGame[i] == "red") {
             document.querySelector(`#littleTbody2 td[name='${myGame[i + 1]}']`).innerHTML = "&#128308"
         }
-
     }
+    for (let i = 1; i < 10; i++) {
+        if (document.querySelector("#itHasStrategyStep").checked == true &&
+            yellowLines[gameNumber].includes(i)) {
+            document.querySelector(`#littleTbody2 td[name='${i}']`).style["background-color"] = "#ffff66"
+        }
+        else {
+            document.querySelector(`#littleTbody2 td[name='${i}']`).style["background-color"] = "#dbdbdb"
+        }
+    }
+
 }
 
 stepInputIsChanged = function () {
@@ -868,9 +928,10 @@ stepInputIsChanged = function () {
 }
 
 forwardInMemory = function () {
-    if (gameNumber < myUltimateMemoryArray.length - 1) { gameNumber = gameNumber + 1 };
-    if (gameNumber == myUltimateMemoryArray.length - 1) { gameNumber = 0 };
+    if (gameNumber < myUltimateMemoryArray.length) { gameNumber = gameNumber + 1 };
+    if (gameNumber == myUltimateMemoryArray.length) { gameNumber = 0 };
     stepNumber = 1;
+    if (noStep == true) { stepNumber = 0 };
     showTheGamesFromTheUltimateMemories();
 }
 
@@ -878,17 +939,23 @@ backInMemory = function () {
     if (gameNumber > 0) { gameNumber = gameNumber - 1 };
     if (gameNumber == 0) { gameNumber = myUltimateMemoryArray.length - 1 };
     stepNumber = 1;
+    if (noStep == true) { stepNumber = -1 };
     showTheGamesFromTheUltimateMemories();
 }
 
 forwardInTable = function () {
-    if (stepNumber < myGame.length - 3) { stepNumber = stepNumber + 2 };
-    showTheGamesFromTheUltimateMemories();
+
+    if (noStep == false && stepNumber < myGame.length - 3) {
+        stepNumber = stepNumber + 2;
+        showTheGamesFromTheUltimateMemories();
+    };
 }
 
 backInTable = function () {
-    if (stepNumber > 2) { stepNumber = stepNumber - 2 };
-    showTheGamesFromTheUltimateMemories();
+    if (stepNumber > 2 && noStep == false) {
+        stepNumber = stepNumber - 2;
+        showTheGamesFromTheUltimateMemories();
+    };
 }
 
 showTime = function (whereShowTime) {
