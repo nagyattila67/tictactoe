@@ -214,7 +214,8 @@ learning = function () {
         document.querySelector(`#littleTbody2 td[name='${i}']`).innerHTML = "";
         document.querySelector(`#littleTbody2 td[name='${i}']`).style["background-color"] = "#dbdbdb";
     }
-    document.querySelector("#numberOfGame").innerHTML = " - "
+    document.querySelector("#numberOfPatterns").innerHTML = " - ";
+    document.querySelector("#numberOfGame").innerHTML = " - ";
     document.querySelector("#nine").innerHTML = " - ";
     document.querySelector("#lessThanNine").innerHTML = " - ";
     document.querySelector("#itHasStrategy").innerHTML = " -"
@@ -671,6 +672,7 @@ cleaningTheMemory = function () {
         document.querySelector("#undecidedForShowing").innerHTML = `${undecidedMemory.length}  (${percentage4} %)`;
     }
     cleaningIsDone = true;
+    if (document.querySelector("#autoClean2").checked == true) { cleaningTheMemory2() }
 }
 
 cleaningTheMemory2 = function () {
@@ -835,7 +837,7 @@ lookingForStrategy = function (difference, i) {
                             myYellow[3] = temporaryMemory[n];
                             myYellow[4] = temporaryMemory[m];
                             myYellow[5] = k;
-                            yellowLines[i] = myYellow;
+
                         }
                     }
                     if (strategySignal == 2) {
@@ -846,6 +848,7 @@ lookingForStrategy = function (difference, i) {
             }
             if (strategySignal == 2) {
                 ultimateMemory3[ultimateMemory3.length] = ultimateMemory[i];
+                yellowLines[ultimateMemory3.length - 1] = myYellow;
                 thereIsStrategy = true;
                 break;
             }
@@ -855,6 +858,7 @@ lookingForStrategy = function (difference, i) {
 }
 
 itHasStrategyFunction = function () {
+    timeStart = new Date();
     yellowLines = Array();
     for (let i = 0; i < ultimateMemory.length; i++) {
         thereIsStrategy = false;
@@ -868,6 +872,9 @@ itHasStrategyFunction = function () {
     }
     document.querySelector("#itHasStrategy").innerHTML = ultimateMemory3.length;
     document.querySelector("#itDoesNotHaveStrategy").innerHTML = ultimateMemory4.length;
+    timeFinish = new Date();
+    showTime("#strategyTime");
+
 }
 
 nostep = false;
@@ -918,6 +925,143 @@ showTheGamesFromTheUltimateMemories = function () {
             document.querySelector(`#littleTbody2 td[name='${i}']`).style["background-color"] = "#dbdbdb"
         }
     }
+
+}
+
+noNeedFunctionForPatterns = function (myArray) {
+    for (let i = 0; i < myArray.length - 1; i++) {
+        for (let j = i + 1; j < myArray.length; j++) {
+            index = 0;
+            for (let k = 0; k < 10; k++) {
+                if (myArray[i][k] == myArray[j][k]) {
+                    index = index + 1;
+                }
+            }
+            if (index == 10) { noNeed[noNeed.length] = j }
+        }
+    }
+};
+
+noNeedFunctionForPatternsWithElement = function (myArray, newVersion, original) {
+    for (let i = 0; i < myArray.length; i++) {
+        index = 0;
+        index2 = 0;
+        for (let k = 0; k < 10; k++) {
+            if (myArray[i][k] == newVersion[k]) {
+                index = index + 1;
+            }
+            for (let k = 0; k < 10; k++) {
+                if (myArray[i][k] == original[k]) {
+                    index2 = index2 + 1;
+                }
+                if (index == 10 && index2 != 10) { noNeed[noNeed.length] = j }
+            }
+        }
+    };
+};
+
+
+lookingForPatterns = function () {
+    patternsArray = Array();
+    patternsArray2 = Array();
+    patternsArray3 = Array();
+    myColor = "blue";
+    myArray = ultimateMemory3.slice(0);
+    for (let i = 0; i < myArray.length; i++) {
+        pattern = ["nothing", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"];
+        for (let j = 0; j < myArray[i].length; j++) {
+            if (myArray[i][j] == myColor) { pattern[myArray[i][j + 1]] = myColor }
+        }
+        patternsArray[patternsArray.length] = pattern;
+    }
+
+    noNeed = Array();
+    noNeedFunctionForPatterns(myArray = patternsArray);
+
+    for (let i = 0; i < patternsArray.length; i++) {
+        if (noNeed.includes(i) == false) {
+            patternsArray2[patternsArray2.length] = patternsArray[i].slice(0)
+        }
+    }
+
+    for (let i = 0; i < patternsArray2.length - 1; i++) {
+        originalArray = patternsArray2[i].slice(0);
+        rotation90Degree(); firstCopy = copy.slice();
+        noNeedFunctionForPatternsWithElement(myArray = patternsArray2,
+            newVersion = copy, original = patternsArray2[i])
+        originalArray = firstCopy.slice(0);
+        verticalReflection();
+        noNeedFunctionForPatternsWithElement(myArray = patternsArray2,
+            newVersion = copy, original = patternsArray2[i])
+        horizontalReflection();
+        noNeedFunctionForPatternsWithElement(myArray = patternsArray2,
+            newVersion = copy, original = patternsArray2[i])
+        rotation90Degree(); firstCopy = copy.slice();
+        originalArray = firstCopy.slice(0);
+        noNeedFunctionForPatternsWithElement(myArray = patternsArray2,
+            newVersion = copy, original = patternsArray2[i])
+        verticalReflection();
+        noNeedFunctionForPatternsWithElement(myArray = patternsArray2,
+            newVersion = copy, original = patternsArray2[i])
+        horizontalReflection();
+        noNeedFunctionForPatternsWithElement(myArray = patternsArray2,
+            newVersion = copy, original = patternsArray2[i])
+        rotation90Degree(); firstCopy.slice(0)
+        originalArray = firstCopy.slice(0);
+        noNeedFunctionForPatternsWithElement(myArray = patternsArray2,
+            newVersion = copy, original = patternsArray2[i])
+        verticalReflection();
+        noNeedFunctionForPatternsWithElement(myArray = patternsArray2,
+            newVersion = copy, original = patternsArray2[i])
+        horizontalReflection();
+        noNeedFunctionForPatternsWithElement(myArray = patternsArray2,
+            newVersion = copy, original = patternsArray2[i])
+    }
+
+    for (let i = 0; i < patternsArray2.length; i++) {
+        if (noNeed.includes(i) == false) {
+            patternsArray3[patternsArray3.length] = patternsArray2[i].slice(0)
+        }
+    }
+    document.querySelector("#numberOfPatterns").innerHTML = patternsArray3.length;
+}
+
+rotation90DegreeArray = ["nothing", 7, 4, 1, 8, 5, 2, 9, 6, 3];
+rotation90DegreePatterns = function (myColor) {
+    copy = ["nothing", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"];
+    for (let i = 1; i < 10; i++) {
+        if (originalArray[i] == myColor) { copy[rotation90DegreeArray[i]] = myColor };
+    }
+    return copy;
+}
+
+verticalReflectionArray = ["nothing", 1, 4, 7, 2, 5, 8, 3, 6, 9];
+verticalReflectionPatterns = function (myColor) {
+    copy = ["nothing", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"];
+    for (let i = 1; i < 10; i++) {
+        if (originalArray[i] == myColor) { copy[verticalReflectionArray[i]] = myColor };
+    }
+    return copy;
+}
+
+horizontalReflectionArray = ["nothing", 9, 6, 3, 8, 5, 2, 7, 4, 1];
+horizontalReflectionPatterns = function (myColor) {
+    copy = ["nothing", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"];
+    for (let i = 1; i < 10; i++) {
+        if (originalArray[i] == myColor) { copy[horizontalReflectionArray[i]] = myColor };
+    }
+    return copy;
+}
+
+showPatterns = function(){
+
+}
+
+forwardInMemory2 = function(){
+
+}
+
+backInMemory2 = function(){
 
 }
 

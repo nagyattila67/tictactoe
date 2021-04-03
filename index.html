@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet"
-    href="lib/bootstrap/bootstrap-5.0.0-beta2-dist/bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
+        href="lib/bootstrap/bootstrap-5.0.0-beta2-dist/bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/selectors.css">
 </head>
 
@@ -129,7 +129,8 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p>A 9 lépésből álló játékok száma: <span id="nine" class="forLightBlue"> - </span>
+                                        <p>A 9 lépésből álló játékok száma: <span id="nine" class="forLightBlue"> -
+                                            </span>
                                             <small> - <label for="nineStep">ezeket kérem</label>
                                                 <input id="nineStep" type="radio" name="howManySteps"
                                                     onclick="stepInputIsChanged()"></small>
@@ -138,7 +139,8 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p>A 9 lépésnél kevesebből álló játékok száma: <span id="lessThanNine" class="forLightBlue"> -
+                                        <p>A 9 lépésnél kevesebből álló játékok száma: <span id="lessThanNine"
+                                                class="forLightBlue"> -
                                             </span>
                                             <small> - <label for="lessThanNineStep">ezeket kérem</label>
                                                 <input id="lessThanNineStep" type="radio" name="howManySteps"
@@ -148,20 +150,20 @@
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p>Stratégiát tartalmazó játékok száma: <span
-                                                id="itHasStrategy" class="forLightBlue"> - </span>
+                                        <p>Stratégiát tartalmazó játékok száma: <span id="itHasStrategy"
+                                                class="forLightBlue"> - </span>
                                             <small> - <label for="itHasStrategyStep">ezeket kérem</label>
                                                 <input id="itHasStrategyStep" type="radio" name="howManySteps"
                                                     onclick="stepInputIsChanged()" checked></small>
-                                                    <br>
-                                                    <span style="background-color:#ffff66">Mutatja a stratégiát!</span>
+                                            <br>
+                                            <span style="background-color:#ffff66">Mutatja a stratégiát!</span>
                                         </p>
                                     </td>
                                 </tr>
                                 <tr>
                                     <td>
-                                        <p>Stratégiát nélkülöző játékok száma: <span
-                                                id="itDoesNotHaveStrategy" class="forLightBlue"> - </span>
+                                        <p>Stratégiát nélkülöző játékok száma: <span id="itDoesNotHaveStrategy"
+                                                class="forLightBlue"> - </span>
                                             <small> - <label for="itDoesNotHaveStrategyStep">ezeket kérem</label>
                                                 <input id="itDoesNotHaveStrategyStep" type="radio" name="howManySteps"
                                                     onclick="stepInputIsChanged()"></small>
@@ -206,7 +208,37 @@
                         <button class="button btn-secondary btn-small" onclick="forwardInTable()">Következő
                             lépés</button>
                         <button class="button btn-secondary btn-small" onclick="backInTable()">Visszalép</button>
-
+                        <p class="mt-2">A mintázatkeresés a stratégiát tartalmazó játékokat szűri meg úgy, hogy nem tesz
+                            különbséget a lépések sorrendje szerint, továbbá törli a mintázatokból forgatással,
+                            tükrözéssel előállítható ismétlődéseket is</p>
+                        <button class="button btn-primary btn-small"
+                            onclick="lookingForPatterns()">Mintázatkeresés</button>
+                        <span>Ezek száma: <span id="numberOfPatterns" class="forLightBlue"> - </span></span>
+                        <div class="mt-3" id="divForLittleTable3">
+                            <table id="littleTable3">
+                                <tbody id="littleTbody3">
+                                    <tr>
+                                        <td name="4">T</td>
+                                        <td name="9">I</td>
+                                        <td name="2">C</td>
+                                    </tr>
+                                    <tr>
+                                        <td name="3">T</td>
+                                        <td name="5">A</td>
+                                        <td name="7">C</td>
+                                    </tr>
+                                    <tr>
+                                        <td name="8">T</td>
+                                        <td name="1">O</td>
+                                        <td name="6">E</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <p class="mt-3">Mozgás a mintázatok között:</p>
+                        <button class="button btn-secondary btn-small" onclick="forwardInMemory2()">Előre</button>
+                        <button class="button btn-secondary btn-small" onclick="backInMemory2()">Hátra</button>
+                        <p class="mt-2">Ez most a(z) <span id="numberOfGame2"> - </span>számú mintázat</p>
                     </div>
                     <div class="col-6">
                         <input type="radio" id="twoPeople" class="littleMargin" name="typeOfGame"
@@ -326,11 +358,14 @@
                                         és tükrözésével egymásból előállítható lépéssorozatok törlése - <label
                                             for="autoClean2">automatikusan kérem</label>
                                         <input id="autoClean2" type="checkbox"> )</small></span>
+                                <p class="mt-2">Becsült futásidő: <span id="apprStrategyTime"> - </span></p>
+                                <p>Futásidő: <span id="strategyTime"> - </span></p>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="row sometimesBlur">
+                <hr>
+                <div class="mt-5 row sometimesBlur">
                     <div class="col">
                         <span style="color:#808080"><small>
                                 <label for="noTable">Nem kérem a teljes táblázatot (gyorsítás) </label>
