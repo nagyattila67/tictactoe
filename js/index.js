@@ -263,6 +263,14 @@ learning = function () {
         document.querySelector(`#littleTbody5 td[name='${i}']`).innerHTML = ""
         document.querySelector(`#littleTbody5 td[name='${i}']`).style["background-color"] = "#dbdbdb"
     }
+    for (let i = 1; i < 10; i++) {
+        document.querySelector(`#littleTbody6 td[name='${i}']`).innerHTML = ""
+        document.querySelector(`#littleTbody6 td[name='${i}']`).style["background-color"] = "#dbdbdb"
+    }
+    for (let i = 1; i < 10; i++) {
+        document.querySelector(`#littleTbody7 td[name='${i}']`).innerHTML = ""
+        document.querySelector(`#littleTbody7 td[name='${i}']`).style["background-color"] = "#dbdbdb"
+    }
     document.querySelector("#numberOfBasicPatterns").innerHTML = " - "
     document.querySelector("#numberOfGame").innerHTML = " - ";
     document.querySelector("#numberOfGame2").innerHTML = ` - `
@@ -273,7 +281,9 @@ learning = function () {
     document.querySelector("#itHasStrategy").innerHTML = " -";
     document.querySelector("#itDoesNotHaveStrategy").innerHTML = " -"
     document.querySelector("#all").innerHTML = " -"
+    document.querySelector("#all2").innerHTML = " -"
     document.querySelector("#learningGameButton").style.boxShadow = "none"
+    document.querySelector("#all2").classList.remove("lightBlue")
     nowLearning = true;
     timeStart = new Date();
     limit = document.querySelector("#runningNumber").value;
@@ -754,24 +764,23 @@ cleaningTheMemory2 = function () {
         deleteFromThis = i;
         dontDeleteThis = i;
         originalArray = blueWonMemory[i].slice(0);
-        verticalReflection();
-        horizontalReflection();
-        centralReflection();
-        rotation90Degree(); firstCopy = copy.slice();
-        originalArray = firstCopy.slice(0);
-        verticalReflection();
-        horizontalReflection();
-        centralReflection();
-        rotation90Degree(); firstCopy = copy.slice();
-        originalArray = firstCopy.slice(0);
-        centralReflection();
-        //verticalReflection();
-        //horizontalReflection();
-        rotation90Degree(); firstCopy.slice(0)
-        originalArray = firstCopy.slice(0);
-        centralReflection();
-        //verticalReflection();
-        //horizontalReflection();
+        for (let j = 0; j < 4; j++) {
+            if (j > 0) {
+                rotation90Degree(originalArray);
+                noNeedFunction(deleteFromThis, blueWonMemory, copy);
+                originalArray = copy.slice(0);
+            }
+            verticalReflection(originalArray);
+            noNeedFunction(deleteFromThis, blueWonMemory, copy);
+            centralReflection(copy);
+            noNeedFunction(deleteFromThis, blueWonMemory, copy);
+            horizontalReflection(originalArray);
+            noNeedFunction(deleteFromThis, blueWonMemory, copy);
+            centralReflection(copy);
+            noNeedFunction(deleteFromThis, blueWonMemory, copy);
+            centralReflection(originalArray);
+            noNeedFunction(deleteFromThis, blueWonMemory, copy);
+        }
     }
     for (let i = 0; i < blueWonMemory.length; i++) {
         if (needDelete.includes(i) == false) {
@@ -794,118 +803,54 @@ cleaningTheMemory2 = function () {
     showTheGamesFromTheUltimateMemories();
     timeFinish = new Date();
     showTime("#strategyTime");
+    lookingForPatterns();
 }
 
+rotation90DegreeArray = [7, 4, 1, 8, 5, 2, 9, 6, 3];
 rotation90Degree = function () {
     copy = Array();
     for (let j = 0; j < originalArray.length; j++) {
         if (originalArray[j] == "blue" || originalArray[j] == "red" ||
             originalArray[j] == "BLUE" || originalArray[j] == "RED") { copy[j] = originalArray[j] }
-        if (originalArray[j] == 1) { copy[j] = 7 }
-        if (originalArray[j] == 2) { copy[j] = 4 }
-        if (originalArray[j] == 3) { copy[j] = 1 }
-        if (originalArray[j] == 4) { copy[j] = 8 }
-        if (originalArray[j] == 5) { copy[j] = 5 }
-        if (originalArray[j] == 6) { copy[j] = 2 }
-        if (originalArray[j] == 7) { copy[j] = 9 }
-        if (originalArray[j] == 8) { copy[j] = 6 }
-        if (originalArray[j] == 9) { copy[j] = 3 }
-    }
-    for (let k = deleteFromThis + 1; k < blueWonMemory.length; k++) {
-        //for (let k = 0; k < blueWonMemory.length; k++) {
-        index = 0;
-        //if (blueWonMemory[k].length == copy.length) {
-        if (blueWonMemory[k].length == copy.length && k != dontDeleteThis) {
-            for (let m = 0; m < copy.length; m++) {
-                if (blueWonMemory[k][m] == copy[m]) {
-                    index = index + 1;
-                }
-            }
-        }
-        if (index == copy.length) { needDelete[needDelete.length] = k }
+        if (originalArray[j] == 1) { copy[j] = rotation90DegreeArray[originalArray[j]] }
     }
     return copy;
 };
 
 copy = Array();
+verticalReflectionArray = [1, 4, 7, 2, 5, 8, 3, 6, 9];
 verticalReflection = function () {
     for (let j = 0; j < originalArray.length; j++) {
         if (originalArray[j] == "blue" || originalArray[j] == "red" ||
             originalArray[j] == "BLUE" || originalArray[j] == "RED") { copy[j] = originalArray[j] }
-        if (originalArray[j] == 1) { copy[j] = 1 }
-        if (originalArray[j] == 2) { copy[j] = 4 }
-        if (originalArray[j] == 3) { copy[j] = 7 }
-        if (originalArray[j] == 4) { copy[j] = 2 }
-        if (originalArray[j] == 5) { copy[j] = 5 }
-        if (originalArray[j] == 6) { copy[j] = 8 }
-        if (originalArray[j] == 7) { copy[j] = 3 }
-        if (originalArray[j] == 8) { copy[j] = 6 }
-        if (originalArray[j] == 9) { copy[j] = 9 }
-    }
-    for (let k = deleteFromThis + 1; k < blueWonMemory.length; k++) {
-        //for (let k = 0; k < blueWonMemory.length; k++) {
-        index = 0;
-        //if (blueWonMemory[k].length == copy.length) {
-        if (blueWonMemory[k].length == copy.length && k != dontDeleteThis) {
-            for (let m = 0; m < copy.length; m++) {
-                if (blueWonMemory[k][m] == copy[m]) {
-                    index = index + 1;
-                }
-            }
-        }
-        if (index == copy.length) { needDelete[needDelete.length] = k }
+        if (originalArray[j] == 1) { copy[j] = verticalReflectionArray[originalArray[j]] }
     }
     return copy;
 }
 
+horizontalReflectionArray = [9, 6, 3, 8, 5, 2, 7, 4, 1];
 horizontalReflection = function () {
     for (let j = 0; j < originalArray.length; j++) {
         if (originalArray[j] == "blue" || originalArray[j] == "red" ||
             originalArray[j] == "BLUE" || originalArray[j] == "RED") { copy[j] = originalArray[j] }
-        if (originalArray[j] == 1) { copy[j] = 9 }
-        if (originalArray[j] == 2) { copy[j] = 6 }
-        if (originalArray[j] == 3) { copy[j] = 3 }
-        if (originalArray[j] == 4) { copy[j] = 8 }
-        if (originalArray[j] == 5) { copy[j] = 5 }
-        if (originalArray[j] == 6) { copy[j] = 2 }
-        if (originalArray[j] == 7) { copy[j] = 7 }
-        if (originalArray[j] == 8) { copy[j] = 4 }
-        if (originalArray[j] == 9) { copy[j] = 1 }
-    }
-    for (let k = deleteFromThis + 1; k < blueWonMemory.length; k++) {
-        //for (let k = 0; k < blueWonMemory.length; k++) {
-        index = 0;
-        //if (blueWonMemory[k].length == copy.length) {
-        if (blueWonMemory[k].length == copy.length && k != dontDeleteThis) {
-            for (let m = 0; m < copy.length; m++) {
-                if (blueWonMemory[k][m] == copy[m]) {
-                    index = index + 1;
-                }
-            }
-        }
-        if (index == copy.length) { needDelete[needDelete.length] = k }
+        if (originalArray[j] == 1) { copy[j] = horizontalReflectionArray[originalArray[j]] }
     }
     return copy;
 }
 
+centralReflectionArray = [9, 8, 7, 6, 5, 4, 3, 2, 1]
 centralReflection = function () {
     for (let j = 0; j < originalArray.length; j++) {
         if (originalArray[j] == "blue" || originalArray[j] == "red" ||
             originalArray[j] == "BLUE" || originalArray[j] == "RED") { copy[j] = originalArray[j] }
-        if (originalArray[j] == 1) { copy[j] = 9 }
-        if (originalArray[j] == 2) { copy[j] = 8 }
-        if (originalArray[j] == 3) { copy[j] = 7 }
-        if (originalArray[j] == 4) { copy[j] = 6 }
-        if (originalArray[j] == 5) { copy[j] = 5 }
-        if (originalArray[j] == 6) { copy[j] = 4 }
-        if (originalArray[j] == 7) { copy[j] = 3 }
-        if (originalArray[j] == 8) { copy[j] = 2 }
-        if (originalArray[j] == 9) { copy[j] = 1 }
+        if (originalArray[j] == 1) { copy[j] = centralReflectionArray[originalArray[j]] }
     }
+    return copy;
+}
+
+noNeedFunction = function (deleteFromThis, blueWonMemory, copy) {
     for (let k = deleteFromThis + 1; k < blueWonMemory.length; k++) {
-        //for (let k = 0; k < blueWonMemory.length; k++) {
         index = 0;
-        //if (blueWonMemory[k].length == copy.length) {
         if (blueWonMemory[k].length == copy.length && k != dontDeleteThis) {
             for (let m = 0; m < copy.length; m++) {
                 if (blueWonMemory[k][m] == copy[m]) {
@@ -915,7 +860,6 @@ centralReflection = function () {
         }
         if (index == copy.length) { needDelete[needDelete.length] = k }
     }
-    return copy;
 }
 
 blueWonBigFilterArray3 = Array();
@@ -951,32 +895,45 @@ lookingForStrategy = function (difference, i) {
                             myYellow[5] = k;
 
                         }
+                        if (strategySignal == 3) {
+                            myYellow[6] = temporaryMemory[n];
+                            myYellow[7] = temporaryMemory[m];
+                            myYellow[8] = k;
+
+                        }
                     }
-                    if (strategySignal == 2) {
-                        break
-                    }
+                    //if (strategySignal == 2) {
+                    //break
+                    //}
                 }
-                if (strategySignal == 2) { break }
+                //if (strategySignal == 2) { break }
             }
-            if (strategySignal == 2) {
+            if (strategySignal == 2 && noMore == true) {
                 ultimateMemory3[ultimateMemory3.length] = ultimateMemory[i];
                 blueWonBigFilterArray3[blueWonBigFilterArray3.length] = blueWonBigFilterArray2[i];
                 yellowLines[ultimateMemory3.length - 1] = myYellow;
                 thereIsStrategy = true;
-                break;
+                noMore = false;
+                //break;
+            }
+            if (strategySignal == 3) {
+                yellowLines[ultimateMemory3.length - 1] = myYellow;
+                console.error("MOST")
             }
         }
-        if (strategySignal == 2) { break }
+        //if (strategySignal == 2) { break }
     }
 }
 
 itHasStrategyFunction = function () {
     yellowLines = Array();
+    ultimateMemory3 = Array();
     for (let i = 0; i < ultimateMemory.length; i++) {
         thereIsStrategy = false;
         myYellow = Array();
         for (let difference = 0; difference < 19; difference++) {
             if (thereIsStrategy == false) {
+                noMore = true;
                 lookingForStrategy(difference, i);
             }
         }
@@ -1034,7 +991,6 @@ showTheGamesFromTheUltimateMemories = function () {
             document.querySelector(`#littleTbody2 td[name='${i}']`).style["background-color"] = "#dbdbdb"
         }
     }
-
 }
 
 noNeedFunctionForPatterns = function (myArray) {
@@ -1118,9 +1074,9 @@ lookingForPatterns = function () {
         copy = patternsArray2[i].slice(0);
         for (let j = 0; j < 4; j++) {
             if (j > 0) {
-                rotation90DegreePatterns(originalArray); firstCopy = copy.slice();
+                rotation90DegreePatterns(originalArray);
                 noNeedFunctionForPatterns(myArray = patternsArray2);
-                originalArray = firstCopy.slice(0);
+                originalArray = copy.slice(0);
             }
             noNeedFunctionForPatterns(myArray = patternsArray2);
             verticalReflectionPatterns(originalArray);
@@ -1146,6 +1102,7 @@ lookingForPatterns = function () {
     document.querySelector("#numberOfPatterns").innerHTML = patternsArray3.length;
     gameNumberP = 0;
     showPatterns();
+    lookingForBasicPatterns();
 }
 
 rotation90DegreeArray = ["nothing", 7, 4, 1, 8, 5, 2, 9, 6, 3];
@@ -1269,7 +1226,6 @@ lookingForBasicPatterns = function () {
         for (let j = 1; j < 10; j++) {
             if (patternsArray3[i][j] == "blue") {
                 index = index + 1
-                if (index == myBorder) { break }
             }
         }
         if (index == myBorder) {
@@ -1322,12 +1278,12 @@ lookingForBasicPatterns = function () {
     }
     learntStrategies = Array();
     learntStrategiesKeyPlaces = Array();
-    for (let i = 0; i < blueWonBigFilterArray8.length; i++) {
+    for (let m = 0; m < blueWonBigFilterArray8.length; m++) {
         myArray = Array();
         myArrayForKeys = Array();
         for (let j = 0; j < 15; j++) {
-            if (blueWonBigFilterArray8[i][j] == "blue") {
-                myArray[myArray.length] = blueWonBigFilterArray8[i][j + 1];
+            if (blueWonBigFilterArray8[m][j] == "blue") {
+                myArray[myArray.length] = blueWonBigFilterArray8[m][j + 1];
             }
         }
         for (let i = 0; i < myArray.length - 1; i++) {
@@ -1420,6 +1376,25 @@ lookingForBasicPatterns = function () {
         }
     }
 
+    learntStrategiesKeyPlaces3 = Array();
+    for (let m = 0; m < learntStrategies3.length; m++) {
+        myArray = learntStrategies3[m].slice(0);
+        myArrayForKeys = Array();
+        for (let i = 0; i < myArray.length - 1; i++) {
+            for (let j = i + 1; j < myArray.length; j++) {
+                key = 15 - myArray[i] - myArray[j];
+                if (key < 10 && key > 0 && key != myArray[i] && key != myArray[j]) {
+                    myArrayForKeys[myArrayForKeys.length] = key;
+                }
+            }
+        }
+        learntStrategiesKeyPlaces3[learntStrategiesKeyPlaces3.length] = myArrayForKeys;
+    }
+
+
+
+
+
     patternsArray6 = Array();
     for (let i = 0; i < learntStrategies3.length; i++) {
         pattern = ["nothing", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"];
@@ -1430,8 +1405,8 @@ lookingForBasicPatterns = function () {
     }
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    patternsArray5 = patternsArray6.slice(0);
-    learntStrategies = learntStrategies3.slice(0);
+    //patternsArray5 = patternsArray6.slice(0);
+    //learntStrategies = learntStrategies3.slice(0);
 
 
 
@@ -1439,6 +1414,7 @@ lookingForBasicPatterns = function () {
 
     document.querySelector("#numberOfBasicPatterns").innerHTML = patternsArray5.length;
     gameNumberB = 0;
+    gameNumberC = 0;
     showBasicPatterns();
 };
 
@@ -1451,8 +1427,19 @@ showBasicPatterns = function () {
         document.querySelector(`#littleTbody5 td[name='${i}']`).innerHTML = ""
         document.querySelector(`#littleTbody5 td[name='${i}']`).style["background-color"] = "#dbdbdb"
     }
+    for (let i = 1; i < 10; i++) {
+        document.querySelector(`#littleTbody6 td[name='${i}']`).innerHTML = ""
+        document.querySelector(`#littleTbody6 td[name='${i}']`).style["background-color"] = "#dbdbdb"
+    }
+    for (let i = 1; i < 10; i++) {
+        document.querySelector(`#littleTbody7 td[name='${i}']`).innerHTML = ""
+        document.querySelector(`#littleTbody7 td[name='${i}']`).style["background-color"] = "#dbdbdb"
+    }
     for (let i = 1; i < patternsArray5[gameNumberB].length; i++) {
         if (patternsArray5[gameNumberB][i] == "blue") { document.querySelector(`#littleTbody4 td[name='${i}']`).innerHTML = "&#128309" }
+    }
+    for (let i = 1; i < patternsArray6[gameNumberC].length; i++) {
+        if (patternsArray6[gameNumberC][i] == "blue") { document.querySelector(`#littleTbody6 td[name='${i}']`).innerHTML = "&#128309" }
     }
     //for (let i = 0; i < yellowLines5[gameNumberB].length; i++) {
     //document.querySelector(`#littleTbody4 td[name='${yellowLines5[gameNumberB][i]}']`).style["background-color"] = "#ffff66"
@@ -1460,7 +1447,13 @@ showBasicPatterns = function () {
     for (let i = 0; i < 3; i++) {
         document.querySelector(`#littleTbody5 td[name='${learntStrategies[gameNumberB][i]}']`).innerHTML = [i + 1]
     }
+    for (let i = 0; i < 3; i++) {
+        document.querySelector(`#littleTbody7 td[name='${learntStrategies3[gameNumberC][i]}']`).innerHTML = [i + 1]
+    }
     document.querySelector("#numberOfGame4").innerHTML = `${gameNumberB + 1}. `;
+    document.querySelector("#numberOfGame5").innerHTML = `${gameNumberC + 1}. `
+    document.querySelector("#all2").innerHTML = patternsArray6.length;
+    document.querySelector("#all2").classList.add("lightBlue")
 };
 
 forwardInMemory3 = function () {
@@ -1474,6 +1467,20 @@ backInMemory3 = function () {
     dontChance = false;
     if (gameNumberB > 0) { gameNumberB = gameNumberB - 1; dontChance = true; };
     if (gameNumberB == 0 && dontChance == false) { gameNumberB = patternsArray5.length - 1 };
+    showBasicPatterns();
+}
+
+forwardInMemory4 = function () {
+    dontChance = false;
+    if (gameNumberC < patternsArray6.length - 1) { gameNumberC = gameNumberC + 1; dontChance = true; };
+    if (gameNumberC == patternsArray6.length - 1 && dontChance == false) { gameNumberC = 0 };
+    showBasicPatterns();
+}
+
+backInMemory4 = function () {
+    dontChance = false;
+    if (gameNumberC > 0) { gameNumberC = gameNumberC - 1; dontChance = true; };
+    if (gameNumberC == 0 && dontChance == false) { gameNumberC = patternsArray6.length - 1 };
     showBasicPatterns();
 }
 
@@ -1501,24 +1508,21 @@ gameByLearntMemoryStepByStep = function (myArray, keys) {
         strategicalSteps[strategicalSteps.length] = number;
     }
     for (let j = 0; j < blue.length; j++) {
-        if (myArray.includes(blue[j]) == true) {
+        //if (myArray.includes(blue[j]) == true) {
+        if (myArray[j] == blue[j]) {
             signal = signal + 1;
         }
         if (signal == blue.length) {
-            //console.error("most")
             for (let k = 0; k < myArray.length; k++) {
                 if (blue.includes(myArray[k]) == false &&
                     red.includes(myArray[k]) == false) {
                     signalTwo = 0;
                     for (let g = 0; g < keys.length; g++) {
-                        //console.log(freePlace)
-                        //console.log(keys)
                         if (freePlace.includes(keys[g]) == true) {
                             signalTwo = signalTwo + 1
                         }
                     }
-                    //console.log(signalTwo)
-                    if (signalTwo >= 2) {
+                    if (signalTwo == 2) {
                         strategicalSteps[strategicalSteps.length] = myArray[k]
                     }
                 }
@@ -1526,8 +1530,9 @@ gameByLearntMemoryStepByStep = function (myArray, keys) {
         }
     }
     signal = 0;
-    for (let j = 0; j < red.length; j++) {
-        if (myArray.includes(red[j]) == true) {
+    if(red.length>0){
+       for (let j = 0; j < red.length; j++) {
+        if (myArray[j]==red[j]) {
             signal = signal + 1;
         }
         if (signal == 1 || signal == 2) {
@@ -1537,8 +1542,6 @@ gameByLearntMemoryStepByStep = function (myArray, keys) {
                     signalTwo = 0;
                     signalTwoArray = Array();
                     for (let g = 0; g < keys.length; g++) {
-                        //console.log(freePlace)
-                        //console.log(keys)
                         if (freePlace.includes(keys[g]) == true) {
                             signalTwo = signalTwo + 1;
                             signalTwoArray[signalTwoArray.length] = keys[g];
@@ -1563,7 +1566,9 @@ gameByLearntMemoryStepByStep = function (myArray, keys) {
                 }
             }
         }
+    } 
     }
+    
 }
 
 rotationArrayForLearnt = ["nothing", 7, 4, 1, 8, 5, 2, 9, 6, 3];
@@ -1610,27 +1615,36 @@ gameByLearntMemory = function () {
     strategicalStepsForDefence = Array();
     strategicalStepsForDefenceImportant = Array();
     //if (blue.length <= 2) {
-    for (let i = 0; i < learntStrategies.length; i++) {
-        myArray = learntStrategies[i].slice(0);
-        keys = learntStrategiesKeyPlaces[i].slice(0);
+    for (let i = 0; i < learntStrategies3.length; i++) {
+        myArray = learntStrategies3[i].slice(0);
+        keys = learntStrategiesKeyPlaces3[i].slice(0);
         copy = Array(); myCopy = Array();
+        myCopy2 = Array(); myKeys2 = Array();
         gameByLearntMemoryStepByStep(myArray, keys);
         for (let j = 0; j < 4; j++) {
             if (j > 0) {
                 rotation90DegreeForLearnt(myArray);
-                myCopy = copy.slice(0);
                 myArray = copy.slice(0);
                 rotation90DegreeForLearnt(keys);
-                myKeys = keys.slice(0);
-                keys = myKeys.slice(0);
+                keys = copy.slice(0);
                 gameByLearntMemoryStepByStep(myCopy, myKeys);
             }
             verticalReflectionForLearnt(myArray); myCopy = copy.slice(0);
             verticalReflectionForLearnt(keys); myKeys = copy.slice(0);
             gameByLearntMemoryStepByStep(myCopy, myKeys);
+
+            centralReflectionForLearnt(myCopy); myCopy2 = copy.slice(0);
+            centralReflectionForLearnt(myKeys); myKeys2 = copy.slice(0);
+            gameByLearntMemoryStepByStep(myCopy2, myKeys2);
+
             horizontalReflectionForLearnt(myArray); myCopy = copy.slice(0);
             horizontalReflectionForLearnt(keys); myKeys = copy.slice(0);
             gameByLearntMemoryStepByStep(myCopy, myKeys);
+
+            centralReflectionForLearnt(myCopy); myCopy2 = copy.slice(0);
+            centralReflectionForLearnt(myKeys); myKeys2 = copy.slice(0);
+            gameByLearntMemoryStepByStep(myCopy2, myKeys2);
+
             centralReflectionForLearnt(myArray); myCopy = copy.slice(0);
             centralReflectionForLearnt(keys); myKeys = copy.slice(0);
             gameByLearntMemoryStepByStep(myCopy, myKeys);
@@ -1641,10 +1655,10 @@ gameByLearntMemory = function () {
         chance = Math.floor(Math.random() * strategicalSteps.length);
         number = strategicalSteps[chance];
     }
-    if (strategicalStepsForDefence.length > 0) {
+    /*if (strategicalStepsForDefence.length > 0) {
         chance = Math.floor(Math.random() * strategicalStepsForDefence.length);
         number = strategicalStepsForDefence[chance];
-    }
+    }*/
     /*if (strategicalStepsForDefenceImportant.length > 0) {
         chance = Math.floor(Math.random() * strategicalStepsForDefenceImportant.length);
         number = strategicalStepsForDefenceImportant[chance];
