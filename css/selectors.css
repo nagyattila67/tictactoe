@@ -1,3 +1,6 @@
+.hrMargin{margin:0px}
+#stepOfEngine{background-color: rgb(238, 220, 130);}
+
 .lavenderBgr{background-color:#FFF0F5}
 .smallBorder{border:1px solid #dbdbdb;padding:5px;}
 .smallBorderUp{border-width:1px;border-style: solid solid none solid; border-color: #dbdbdb;padding:5px;}

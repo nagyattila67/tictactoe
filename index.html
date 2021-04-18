@@ -14,6 +14,9 @@
 <body>
     <div class="container-fluid">
         <div class="row">
+            <div class="col"> <br> </div>
+        </div>
+        <div class="row">
             <div class="behind col-2 col-sm-2 col-md-2 col-lg-2">
                 <div id="infoAboutNoStrategy" class="info" style="display:none;position:absolute;">
                     <p>Ennél a lépéskombinációnál a gépnek nincs stratégiája.</p>
@@ -86,11 +89,13 @@
                                 </table>
                             </div>
                             <div class="behind col-6">
-                                <br>
-                                <button class="button btn-primary" onclick="newGame()">Új játék</button>
-                                <hr>
-                                <p>Mégse ezt lépem!</p>
-                                <button class="button btn-secondary" onclick="stepBack()">Visszalépek</button>
+                                <button class="m-2 button btn-primary" onclick="newGame()">Új játék</button>
+                                <hr class="hrMargin">
+                                <p class="mb-0">Mégse ezt lépem!</p>
+                                <button class="m-2 button btn-secondary" onclick="stepBack()">Visszalépek</button>
+                                <hr class="hrMargin">
+                                <p class="mb-0">A gép lépése:</p>
+                                <p id="stepOfEngine"></p>
                             </div>
                         </div>
 
@@ -231,7 +236,8 @@
                                         különbséget a lépések sorrendje szerint, továbbá törli a mintázatokból
                                         forgatással,
                                         tükrözéssel előállítható ismétlődéseket is</p>
-                                    <span>Mintázatok száma: <span id="numberOfPatterns" class="forLightBlue"> - </span></span>
+                                    <span>Mintázatok száma: <span id="numberOfPatterns" class="forLightBlue"> -
+                                        </span></span>
                                     <div class="mt-3" id="divForLittleTable3">
                                         <table id="littleTable3">
                                             <tbody id="littleTbody3">
@@ -329,7 +335,7 @@
                                     <p class="mt-2">Ez most a(z) <span id="numberOfGame4"> - </span>számú mintázat</p>
                                 </div>
                                 <div class="mt-3 smallBorder">
-                                <p>A továbbiakban azokat a tanulójátékok során felfedezett stratégiákból felépített
+                                    <p>A továbbiakban azokat a tanulójátékok során felfedezett stratégiákból felépített
                                         három lépéses stratégiákat láthatja, amelyek egy játékon belül az összes
                                         lépéssorrendet tartalmazzák. Ezek száma: <span id="all2"> - </span></p>
                                     <div class="mt-5" id="divForLittleTable6" style="display:inline-block">
@@ -423,6 +429,7 @@
                         <input type="radio" id="withLearntStrategy" class="littleMargin" name="typeOfGame"
                             oninput="gameWithNotRandom(this)"><label for="withLearntStrategy">Játék a
                             tanult stratégia használatával</label>
+                        <br>
                         <input type="radio" id="withSimulatedLearntStrategy" class="littleMargin" name="typeOfGame"
                             oninput="gameWithNotRandom(this)"><label for="withSimulatedLearntStrategy">Játék a
                             tanult stratégia szimulálásával</label>
