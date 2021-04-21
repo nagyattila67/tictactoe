@@ -94,9 +94,44 @@
                                 <p class="mb-0">Mégse ezt lépem!</p>
                                 <button class="m-2 button btn-secondary" onclick="stepBack()">Visszalépek</button>
                                 <hr class="hrMargin">
-                                <p class="mb-0">A gép lépése:</p>
-                                <p id="stepOfEngine"></p>
+                                <span class="mb-0">A gép lépése:</span>
+                                <span id="stepOfEngine"></span>
+                                <span id="showButton" style="display:none">
+                                    <span>Mutasd ezt a játékot!</span>
+                                    <button onclick="showStoredGame()" class="smallerButton">Mutat</button>
+                                </span>
                             </div>
+                        </div>
+
+                        <div id="storedGame"
+                            style="opacity:0.9;display:none;position:absolute;left:500px;top:22px;width:200px;padding:10px;background-color:#77dd77">
+                            <p style="text-align: right"><span onclick="closeStoredGame()">X</span></p>
+                            <p id="textBeforeStoredGame"></p>
+                            <div id="divForLittleTable10">
+                                <table id="littleTable10">
+                                    <tbody id="littleTbody10">
+                                        <tr>
+                                            <td name="4">T</td>
+                                            <td name="9">I</td>
+                                            <td name="2">C</td>
+                                        </tr>
+                                        <tr>
+                                            <td name="3">T</td>
+                                            <td name="5">A</td>
+                                            <td name="7">C</td>
+                                        </tr>
+                                        <tr>
+                                            <td name="8">T</td>
+                                            <td name="1">O</td>
+                                            <td name="6">E</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                            <button class="mt-3 button btn-secondary btn-small" onclick="forwardInTable10()">Köv.
+                                lépés</button>
+                            <button class="mt-3 button btn-secondary btn-small"
+                                onclick="backInTable10()">Visszalép</button>
                         </div>
 
                         <p class="littleMargin">A gép stratégiája: <span id="strategyOfEngine"> - </span></p>
@@ -382,9 +417,9 @@
                                     </div>
                                     <p class="mt-3">Mozgás a mintázatok között:</p>
                                     <button class="button btn-secondary btn-small"
-                                        onclick="forwardInMemory5()">Előre</button>
+                                        onclick="forwardInMemory4()">Előre</button>
                                     <button class="button btn-secondary btn-small"
-                                        onclick="backInMemory5()">Hátra</button>
+                                        onclick="backInMemory4()">Hátra</button>
                                     <p class="mt-2">Ez most a(z) <span id="numberOfGame5"> - </span>számú mintázat</p>
 
 
@@ -444,7 +479,7 @@
                             <hr>
                             <div class="row sometimesBlur">
                                 <div class="col-6" style="border-right: 1px solid gray;">
-                                    <button class="button btn-secondary littleMargin" id="learningGameButton"
+                                    <button class="button btn-primary littleMargin" id="learningGameButton"
                                         onclick="learning()">Tanulójáték</button>
                                     <input class="littleMargin" type="number" style="width:100px" id="runningNumber"
                                         value="1000"><span> játék futtatása</span>
@@ -480,8 +515,8 @@
                             </div>
                             <div class="row sometimesBlur">
                                 <div class="col">
-                                    <button class="button btn-secondary littleMargin" id="cleaningTheMemoryButton1"
-                                        onclick="cleaningTheMemory()">Memória tisztítása</button>
+                                    <button class="button btn-primary littleMargin" id="cleaningTheMemoryButton1"
+                                        onclick="cleaningTheMemory()">Memória tisztítása - 1</button>
 
                                     <span id="infoForCleaningTheMemory" style="color:#808080"><small>(A tanulómemóriából
                                             az
@@ -514,7 +549,7 @@
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <button class="button btn-secondary littleMargin"
+                                    <button class="button btn-primary littleMargin"
                                         onclick="cleaningTheMemory2()">Memória
                                         tisztítása - 2</button>
 
@@ -557,88 +592,101 @@
 
 
 
-            <div class="behind dark-levander col-2 col-sm-2 col-md-2 col-lg-2">
-                <p>korongok: <span id="coinsInfo"></span></p>
+            <div class="behind col-2 col-sm-2 col-md-2 col-lg-2">
+                <div class="dark-levander smallBorder littlePadding">
+                    <p>korongok: <span id="coinsInfo"></span></p>
 
-                <p>kék: <span id="blueInfo"></span></p>
+                    <p>kék: <span id="blueInfo"></span></p>
 
-                <p>piros: <span id="redInfo"></span></p>
+                    <p>piros: <span id="redInfo"></span></p>
 
-                <p>szabad helyek: <span id="freePlaceInfo"></span></p>
+                    <p>szabad helyek: <span id="freePlaceInfo"></span></p>
 
-                <p>Támadó stratégiai lépések eredetileg:</p>
-                <p id="attackStrategiesOriginalInfo"></p>
-                <p>kiszűrve: </p>
-                <p id="attackStrategiesFilteredInfo"></p>
-                <p>Védekező stratégiai lépések:</p>
-                <p id="defenceStrategiesOriginalInfo"></p>
-                <p>A gép ezt lépi: <span id="engineStepInfo"></span></p>
+                    <p>Támadó stratégiai lépések eredetileg:</p>
+                    <p id="attackStrategiesOriginalInfo"></p>
+                    <p>kiszűrve: </p>
+                    <p id="attackStrategiesFilteredInfo"></p>
+                    <p>Védekező stratégiai lépések:</p>
+                    <p id="defenceStrategiesOriginalInfo"></p>
+                    <p>A gép ezt lépi: <span id="engineStepInfo"></span></p>
 
-                <p>A táblán lévő helyek számai (bűvös négyzet):</p>
-                <div class="mt-3" id="divForLittleTable8" style="display:inline-block">
-                    <table id="littleTable8">
-                        <tbody id="littleTbody8">
-                            <tr>
-                                <td name="4">4</td>
-                                <td name="9">9</td>
-                                <td name="2">2</td>
-                            </tr>
-                            <tr>
-                                <td name="3">3</td>
-                                <td name="5">5</td>
-                                <td name="7">7</td>
-                            </tr>
-                            <tr>
-                                <td name="8">8</td>
-                                <td name="1">1</td>
-                                <td name="6">6</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <p>A táblán lévő helyek számai (bűvös négyzet):</p>
+                    <div class="mt-3" id="divForLittleTable8" style="display:inline-block">
+                        <table id="littleTable8">
+                            <tbody id="littleTbody8">
+                                <tr>
+                                    <td name="4">4</td>
+                                    <td name="9">9</td>
+                                    <td name="2">2</td>
+                                </tr>
+                                <tr>
+                                    <td name="3">3</td>
+                                    <td name="5">5</td>
+                                    <td name="7">7</td>
+                                </tr>
+                                <tr>
+                                    <td name="8">8</td>
+                                    <td name="1">1</td>
+                                    <td name="6">6</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
                 <br>
-                <p><input type="radio" name="wonNumber" checked id="radioBlue">
-                    A <i>'kék nyert'</i> játékok száma: <span><span id="blueWonNumber"> - </span>
-                        - Ezeket kérem lejátszani</span></p>
-                <p><input type="radio" name="wonNumber" id="radioRed">
-                    A <i>'piros nyert'</i> játékok száma: <span><span id="redWonNumber"> - </span>
-                        - Ezeket kérem lejátszani</span></p>
-                <p><input type="radio" name="wonNumber" id="radioUndecided">
-                    A <i>'döntetlen lett'</i> játékok száma: <span><span id="undecidedNumber"> - </span>
-                        - Ezeket kérem lejátszani</span></p>
+                <div class="dark-levander smallBorder littlePadding">
+                    <p>A tanulómemóriában eltárolt játékok száma:
+                        <span id="gamesInLearningMemory"></span> -
+                    </p>
+                    <p>Ezeket a játékokat itt újrajátszhatja. <small style="color:grey">(Először futassa:
+                            <i>Tanulójáték</i>, majd
+                            <i>Memória tisztítása-1)</i></small></p>
+                    <p><input onclick="whatWeShow()" type="radio" name="wonNumber" checked id="radioBlue">
+                        A <i>'kék nyert'</i> játékok száma: <span><span id="blueWonNumber"> - </span>
+                            - Ezeket kérem lejátszani.</span></p>
+                    <p><input onclick="whatWeShow()" type="radio" name="wonNumber" id="radioRed">
+                        A <i>'piros nyert'</i> játékok száma: <span><span id="redWonNumber"> - </span>
+                            - Ezeket kérem lejátszani.</span></p>
+                    <p><input onclick="whatWeShow()" type="radio" name="wonNumber" id="radioUndecided">
+                        A <i>'döntetlen lett'</i> játékok száma: <span><span id="undecidedNumber"> - </span>
+                            - Ezeket kérem lejátszani.</span></p>
 
-                <p class="mt-3">Mozgás a mintázatok között:</p>
-                <button class="button btn-secondary btn-small" onclick="forwardInMemory5()">Előre</button>
-                <button class="button btn-secondary btn-small" onclick="backInMemory5()">Hátra</button>
-                <p class="mt-2">Ez most a(z) <span id="numberOfGame6"> - </span> számú mintázat</p>
+                    <p class="mt-3">Mozgás a mintázatok között:</p>
+                    <button class="button btn-secondary btn-small" onclick="forwardInMemory6()">Előre</button>
+                    <button class="button btn-secondary btn-small" onclick="backInMemory6()">Hátra</button>
+                    <p class="mt-2">Ez most a(z) <span id="numberOfGame6"> - </span> számú mintázat</p>
 
-                <p>Játékok száma: <span id="gameNumberInfo"></span></p>
-                <div class="mt-3" id="divForLittleTable9" style="display:inline-block">
-                    <table id="littleTable9">
-                        <tbody id="littleTbody9">
-                            <tr>
-                                <td name="4">T</td>
-                                <td name="9">I</td>
-                                <td name="2">C</td>
-                            </tr>
-                            <tr>
-                                <td name="3">T</td>
-                                <td name="5">A</td>
-                                <td name="7">C</td>
-                            </tr>
-                            <tr>
-                                <td name="8">T</td>
-                                <td name="1">O</td>
-                                <td name="6">E</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <p>Játékok száma: <span id="gameNumberInfo"></span></p>
+                    <div class="mt-3" id="divForLittleTable9" style="display:inline-block">
+                        <table id="littleTable9">
+                            <tbody id="littleTbody9">
+                                <tr>
+                                    <td name="4">T</td>
+                                    <td name="9">I</td>
+                                    <td name="2">C</td>
+                                </tr>
+                                <tr>
+                                    <td name="3">T</td>
+                                    <td name="5">A</td>
+                                    <td name="7">C</td>
+                                </tr>
+                                <tr>
+                                    <td name="8">T</td>
+                                    <td name="1">O</td>
+                                    <td name="6">E</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <br>
+                    <button class="button btn-secondary btn-small" onclick="forwardInTable6()">Köv.
+                        lépés</button>
+                    <button class="button btn-secondary btn-small" onclick="backInTable6()">Vissza</button>
                 </div>
 
-                <button class="button btn-secondary btn-small" onclick="forwardInTable5()">Következő
-                    lépés</button>
-                <button class="button btn-secondary btn-small"
-                    onclick="backInTable5()">Visszalép</button>
+
+
+
 
 
 

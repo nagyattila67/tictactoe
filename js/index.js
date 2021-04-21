@@ -22,7 +22,16 @@ defenceArray = Array();
 strategicalSteps = Array();
 thisWasStrategicalSteps = Array();
 strategicalStepsForDefence = Array();
-
+myStoredGame = Array();
+myStoredGameIndex = Number();
+learntStep = false;
+textForStepOfEngine = "";
+stepOfEngineArray = Array();
+myStoredGameHistory = Array();
+store = "";
+myStrategy = Array();
+myStrategyArray = Array();
+strategyOfEngineHistory=Array();
 
 
 programParts = 41;
@@ -81,8 +90,7 @@ whoStart = function () {
     };
     if (document.querySelector("#computer").checked == true
         && document.querySelector("#withLearntStrategy").checked == true
-        && nowLearning == false
-    ) {
+        && nowLearning == false) {
         firstStep = "computer"; step = 1; stepShowsColor = 1;
         gameByLearntMemory(); stepOnTheBoard(number); isWinner();
     }
@@ -121,6 +129,7 @@ starting = function () {
     //nowLearning = false;
     gameNow = Array();
     strategy = "nothing";
+    document.querySelector("#strategyOfEngine").innerHTML = "";
     whenBlinkingStarts = 0;
     for (let i = 1; i < 10; i++) {
         document.querySelector(`#millTbody tr td[name='${i}']`).innerHTML = "";
@@ -141,6 +150,10 @@ starting = function () {
     whereToPut = Array();
     computerWon = false;
     whatWeStepArray = Array();
+    stepOfEngineArray = Array();
+    myStrategy = Array();
+    textForStepOfEngine = "";
+    learntStep = false;
 
     whoStart();
 
@@ -201,6 +214,9 @@ gameWithRandom = function (hereNow) {
     hereNow_ = hereNow;
     bluringOrNot(hereNow_);
     gameWithSimulatedOrNOt()
+    //document.querySelector("#stepOfEngine").innerHTML = ""
+    //document.querySelector("#showButton").style["display"] = "none"
+    //closeStoredGame();
 }
 
 gameWithNotRandom = function (hereNow) {
@@ -209,6 +225,13 @@ gameWithNotRandom = function (hereNow) {
     hereNow_ = hereNow;
     bluringOrNot(hereNow_);
     gameWithSimulatedOrNOt();
+    if (document.querySelector("#withLearningMemory").checked == true &&
+        learningMemory.length == 0) {
+        alert("A tanulómemória jelenleg üres. Először futtassa le a 'Tanulójáték' és a 'Memória tisztítása - 1' programrészeket. Ellenkező esetben a gép csak random lépéseket tesz ennél az opciónál.")
+    }
+    //document.querySelector("#stepOfEngine").innerHTML = ""
+    //document.querySelector("#showButton").style["display"] = "none"
+    //closeStoredGame();
 }
 
 sometimesBlurSwitchOn = function () {
@@ -275,7 +298,7 @@ bluringOrNot = function () {
         }
         document.querySelector("#computer").disabled = false;
         document.querySelector("#computer").checked = true;
-        starting();
+        //starting();
     }
     if (sometimesBlurSwithOffBoolean == false) { sometimesBlurSwitchOn(); }
 }
@@ -414,6 +437,7 @@ learning = function () {
             learningMemoryUndecided[learningMemoryUndecided.length] = coins.slice(0);
         };
         learningMemory[learningMemory.length] = coins.slice(0);
+        strategiesArray[strategiesArray.length] = strategyArray;
         learningMemory2[learningMemory2.length] = coins.slice(0);
 
 
@@ -594,7 +618,7 @@ learningStepByStep = function () {
         }
 
         if (document.querySelector("#withRandomEngine").checked == true) {
-            stepShowsColor = 1;
+            /*stepShowsColor = 1;
             defenceOrAttack(myId = checkBoxForCleverRandom1.id);
             if (number == 0) {
                 chance = Math.floor(Math.random() * freePlace.length);
@@ -610,7 +634,60 @@ learningStepByStep = function () {
                 }
                 stepOnTheBoard(number);
                 isWinner();
+            }*/
+
+            //if (partner == "program") {
+            if (firstStep == "computer") {
+                number = 0;
+                IPlayWith = "red";
+
+                stepShowsColor = 2;
+                defenceOrAttack(myId = checkBoxForCleverRandom1.id);
+                if (number == 0) {
+                    chance = Math.floor(Math.random() * freePlace.length);
+                    number = freePlace[chance];
+                }
+                //computerStep = true;
+                stepOnTheBoard(number);
+                //computerStep = false;
+                isWinner();
+                number = 0;
+                if (thereIsWinner == "no") {
+                    defenceOrAttack(myId = checkBoxForCleverRandom2.id);
+                    if (number == 0) {
+                        chance = Math.floor(Math.random() * freePlace.length);
+                        number = freePlace[chance];
+                    }
+                    stepOnTheBoard(number);
+                    isWinner();
+                };
+                IPlayWith = "noData"
             }
+            if (firstStep == "gamer") {
+                stepShowsColors = 1;
+                number = 0;
+                defenceOrAttack(myId = checkBoxForCleverRandom2.id);
+                if (number == 0) {
+                    chance = Math.floor(Math.random() * freePlace.length);
+                    number = freePlace[chance];
+                }
+                stepOnTheBoard(number);
+                isWinner();
+                number = 0;
+                if (thereIsWinner == "no") {
+                    defenceOrAttack(myId = checkBoxForCleverRandom1.id);
+                    if (number == 0) {
+                        chance = Math.floor(Math.random() * freePlace.length);
+                        number = freePlace[chance];
+                    }
+                    //computerStep = true;
+                    stepOnTheBoard(number);
+                    //computerStep = false;
+                    isWinner();
+                    //console.log("s", s, "red", red, "blue", blue, "av", av, "coins", coins, "avArray", avArray);
+                };
+            }
+            //}
         };
         if (document.querySelector("#withLearntStrategy").checked == true) {
             if (partner == "program") {
@@ -764,9 +841,9 @@ defenceOrAttack = function (myId) {
     if (document.querySelector(`#${myId}`).checked == true) {
         defenceOrAttack2();
     }
-    if (number != 0 && nowLearning == false) { console.log("defenceOrAttack") }
-    if (number != 0 && nowLearning == false) { console.log("numberBlue", numberBlue) }
-    if (number != 0 && nowLearning == false) { console.log("numberRed", numberRed) }
+    //if (number != 0 && nowLearning == false) { console.log("defenceOrAttack") }
+    //if (number != 0 && nowLearning == false) { console.log("numberBlue", numberBlue) }
+    //if (number != 0 && nowLearning == false) { console.log("numberRed", numberRed) }
 }
 
 defenceOrAttack2 = function () {
@@ -791,6 +868,7 @@ defenceOrAttack2 = function () {
     }
     if (coins[coins.length - 2] == "blue") { number = numberBlue }
     if (coins[coins.length - 2] == "red") { number = numberRed }
+    return number
 }
 
 check2 = function () {
@@ -905,17 +983,22 @@ cleaningTheMemory = function () {
             }
         }
         shortMemory = Array();
+        myStrategyArray2=Array();
         for (let i = 0; i < learningMemory.length; i++) {
-            if (memoryCleaner[i] == "need") { shortMemory[shortMemory.length] = learningMemory[i].slice(0) }
+            if (memoryCleaner[i] == "need") { shortMemory[shortMemory.length] = learningMemory[i].slice(0)
+            myStrategyArray2[myStrategyArray2.length]=myStrategyArray[i].slice(0); }
         }
         learningMemory = shortMemory.slice(0);
         blueWonMemory = Array();
         redWonMemory = Array();
         undecidedMemory = Array();
+        blueWonMemoryStrategies = Array();
+        undecidedMemoryStrategies = Array();
         blueWonBigFilterArray1 = Array();
         for (let i = 0; i < learningMemory.length; i++) {
             if (learningMemory[i][learningMemory[i].length - 1] == "BLUE") {
                 blueWonMemory[blueWonMemory.length] = learningMemory[i].slice(0);
+                blueWonMemoryStrategies[blueWonMemoryStrategies.length] = myStrategyArray2[i].slice(0);
                 blueWonBigFilterArray1[blueWonBigFilterArray1.length] = i;
             }
             if (learningMemory[i][learningMemory[i].length - 1] == "RED") {
@@ -923,6 +1006,7 @@ cleaningTheMemory = function () {
             }
             if (learningMemory[i][learningMemory[i].length - 1] == "UNDECIDED") {
                 undecidedMemory[undecidedMemory.length] = learningMemory[i].slice(0);
+                undecidedMemoryStrategies[undecidedMemoryStrategies.length] = myStrategyArray2[i].slice(0);
             }
         }
 
@@ -939,9 +1023,10 @@ cleaningTheMemory = function () {
         document.querySelector("#redWonForShowing").innerHTML = `${redWonMemory.length}  (${percentage3} %)`;
         document.querySelector("#undecidedForShowing").innerHTML = `${undecidedMemory.length}  (${percentage4} %)`;
     }
+    showGames();
+    document.querySelector("#gamesInLearningMemory").innerHTML = learningMemory.length;
     cleaningIsDone = true;
     if (document.querySelector("#autoClean2").checked == true) { cleaningTheMemory2() }
-    showGames();
 }
 
 sometimesBlurSwithOffBoolean = false;
@@ -1006,6 +1091,7 @@ cleaningTheMemory2 = function () {
     timeFinish = new Date();
     showTime("#strategyTime");
     lookingForPatterns();
+
 }
 
 rotation90DegreeArray = [7, 4, 1, 8, 5, 2, 9, 6, 3];
@@ -1646,6 +1732,7 @@ lookingForBasicPatterns = function () {
     thisWasPatternsArray6 = patternsArray6.slice(0);
     thisWasLearntStrategies3 = learntStrategies3.slice(0);
     thisWasLearntStrategiesKeyPlaces3 = learntStrategiesKeyPlaces3.slice(0);
+    document.querySelector("#all2").innerHTML = patternsArray6.length;
 
 
     //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -2027,6 +2114,10 @@ gameByLearntMemory = function () {
         whatWeStep = "tanult stratégiai lépés (támadás felépítése)";
     }
 
+    if (strategicalStepsForDefence.length > 0 && red.length == 2 && blue.length == 1) {
+        number = strategicalStepsForDefence[strategicalStepsForDefence.length - 1][0]
+    }
+
 
     previousNumber = number;
     if (withLearntStrategy.checked == true) {
@@ -2182,6 +2273,7 @@ clearingLittleTable = function () {
 newGame = function () {
     allPP = Array();
     avArray = Array();
+    strategyOfEngineHistory=Array();
     clearingLittleTable();
     starting();
     document.querySelector("#infoAboutNoStrategy").style.display = "none";
@@ -2192,6 +2284,9 @@ newGame = function () {
 
 IPlayWithWas = "";
 putCoin = function (this_) {
+    document.querySelector("#stepOfEngine").innerHTML = "";
+    document.querySelector("#showButton").style["display"] = "none"
+    closeStoredGame();
     if (blinkText_ == 1) { clearInterval(showBlinkTextFunction) };
     number = this_.getAttribute("name");
     number = parseInt(number);
@@ -2227,6 +2322,14 @@ putCoin = function (this_) {
                         chance = Math.floor(Math.random() * freePlace.length);
                         number = freePlace[chance];
                     }
+                    else {
+                        if (document.querySelector("#withLearningMemory").checked == true) {
+                            document.querySelector("#stepOfEngine").innerHTML = `nem tanult, nyertes / védekező lépés`
+                            stepOfEngineArray[stepOfEngineArray.length] = "nem tanult, nyertes / védekező lépés";
+                            document.querySelector("#showButton").style["display"] = "none"
+                            closeStoredGame();
+                        }
+                    }
                     stepOnTheBoard(number);
                     isWinner();
                 };
@@ -2251,6 +2354,14 @@ putCoin = function (this_) {
                     defenceOrAttack(myId = cleverGame.id)
                     if (number == 0) {
                         gameWithLearningMemory();
+                    }
+                    else {
+                        if (document.querySelector("#withLearningMemory").checked == true) {
+                            document.querySelector("#stepOfEngine").innerHTML = `nem tanult, nyertes / védekező lépés`
+                            stepOfEngineArray[stepOfEngineArray.length] = "nem tanult, nyertes / védekező lépés";
+                            document.querySelector("#showButton").style["display"] = "none"
+                            closeStoredGame();
+                        }
                     }
                     if (firstStep == "computer") {
                         red = thisWasRed.slice(0);
@@ -2306,11 +2417,15 @@ gameWithLearningMemory = function () {
         undecidedMemory = learningMemoryUndecided;
         redWonMemory = learningMemoryRedWon;
     };
-    if (coins.length == 0) {
+    if (coins.length == 0 || coins.length == 2) {
         number = Math.floor(Math.random() * 9)
+        textForStepOfEngine = `Az első lépés: random.`
+        learntStep = false;
     }
     nextStepArray = Array();
     nextStepArray2 = Array();
+    nextStepArray2GameNumber = Array();
+    nextStepArrayUndecidedGameNumber = Array();
     nextStepArrayUndecided = Array();
     nextStepRedWon = Number();
     nextStepBlueWon = Number();
@@ -2330,6 +2445,7 @@ gameWithLearningMemory = function () {
                     myArray = Array();
                     myArray[0] = blueWonMemory[i][coins.length + 1];
                     myArray[1] = blueWonMemory[i].length;
+                    myArray[2] = i;
                     nextStepArray[nextStepArray.length] = myArray;
                 }
             }
@@ -2344,6 +2460,7 @@ gameWithLearningMemory = function () {
                 for (let i = 0; i < nextStepArray.length; i++) {
                     if (nextStepArray[i][1] == min) {
                         nextStepArray2[nextStepArray2.length] = nextStepArray[i][0]
+                        nextStepArray2GameNumber[nextStepArray2GameNumber.length] = nextStepArray[i][2]
                     }
                 }
             }
@@ -2364,6 +2481,7 @@ gameWithLearningMemory = function () {
                         //myArray[0] = undecidedMemory[i][coins.length + 1];
                         //myArray[1] = undecidedMemory[i].length;
                         nextStepArrayUndecided[nextStepArrayUndecided.length] = undecidedMemory[i][coins.length + 1];
+                        nextStepArrayUndecidedGameNumber[nextStepArrayUndecidedGameNumber.length] = i;
                     }
                 }
             }
@@ -2371,13 +2489,34 @@ gameWithLearningMemory = function () {
             if (nextStepArray2.length > 0) {
                 chance = Math.floor(Math.random() * nextStepArray2.length);
                 number = nextStepArray2[chance];
-                if (nowLearning == false) { console.log(nextStepArray2) };
+                if (nowLearning == false) {
+                    console.log(nextStepArray2, "tanult lépés!")
+                    console.log("tan. memória játék száma:", nextStepArray2GameNumber[chance])
+                    textForStepOfEngine = `tanult lépés (cél: nyerni).`
+                    learntStep = true;
+                    document.querySelector("#textBeforeStoredGame").innerHTML = `A játék sorszáma: ${nextStepArray2GameNumber[chance]}. a ${blueWonMemory.length} db. eltárolt nyertes játékból`
+                    document.querySelector("#showButton").style["display"] = "initial"
+                    myStoredGame = blueWonMemory[nextStepArray2GameNumber[chance]].slice();
+                    myStoredGameIndex = nextStepArray2GameNumber[chance];
+                    store = "blueWonMemory"
+                    myStoredGameHistory[myStoredGameHistory.length] = myStoredGame;
+                    showTheStoredGameSteps();
+                };
             }
 
             if (nextStepArrayUndecided.length > 0) {
                 chance = Math.floor(Math.random() * nextStepArrayUndecided.length);
                 number = nextStepArrayUndecided[chance];
                 if (nowLearning == false) { console.log("undecided") };
+                textForStepOfEngine = `tanult lépés (cél: döntetlen).`
+                learntStep = true;
+                document.querySelector("#textBeforeStoredGame").innerHTML = `A játék sorszáma: ${nextStepArrayUndecidedGameNumber[chance]}. a ${undecidedMemory.length} db. eltárolt döntetlen játékból`
+                document.querySelector("#showButton").style["display"] = "initial"
+                myStoredGame = undecidedMemory[nextStepArrayUndecidedGameNumber[chance]].slice(0);
+                myStoredGameIndex = nextStepArrayUndecidedGameNumber[chance];
+                store = "undecidedMemory";
+                myStoredGameHistory[myStoredGameHistory.length] = mystoredGame;
+                showTheStoredGameSteps();
             }
             if (importantBlue == false) {
                 for (let i = 0; i < redWonMemory.length; i++) {
@@ -2412,7 +2551,55 @@ gameWithLearningMemory = function () {
         chance = Math.floor(Math.random() * freePlace.length);
         number = freePlace[chance];
         if (nowLearning == false) { console.log("RND") };
+        textForStepOfEngine = `nem tanult, random lépés`
+        learntStep = false;
+        document.querySelector("#showButton").style["display"] = "none"
+        closeStoredGame();
     }
+    document.querySelector("#stepOfEngine").innerHTML = textForStepOfEngine;
+    stepOfEngineArray[stepOfEngineArray.length] = textForStepOfEngine;
+    myStore = Array();
+    if (store == "blueWonMemory") { myStore = blueWonMemoryStrategies };
+    if (store == "undecidedMemory") { myStore = undecidedMemoryStrategies };
+    if (learntStep == true) { document.querySelector("#strategyOfEngine").innerHTML = myStore[myStoredGameIndex][coins.length / 2 - 1] };
+    strategyOfEngineHistory[strategyOfEngineHistory.length]=myStore[myStoredGameIndex][coins.length / 2 - 1]
+}
+
+forwardInTable10 = function () {
+
+    if (noStep == false && stepNumber < myStoredGame.length - 3) {
+        stepNumber = stepNumber + 2;
+        showTheStoredGameSteps();
+    };
+}
+
+backInTable10 = function () {
+    if (stepNumber > 2 && noStep == false) {
+        stepNumber = stepNumber - 2;
+        showTheStoredGameSteps();
+    };
+}
+
+showTheStoredGameSteps = function () {
+    for (let i = 1; i < 10; i++) {
+        document.querySelector(`#littleTbody10 td[name='${i}']`).innerHTML = "";
+    }
+    for (let i = 0; i < stepNumber; i++) {
+        if (myWonMemory[gameNumber5][i] == "blue") {
+            document.querySelector(`#littleTbody10 td[name='${myStoredGame[i + 1]}']`).innerHTML = "&#128309"
+        }
+        if (myWonMemory[gameNumber5][i] == "red") {
+            document.querySelector(`#littleTbody10 td[name='${myStoredGame[i + 1]}']`).innerHTML = "&#128308"
+        }
+    }
+}
+
+showStoredGame = function () {
+    document.querySelector("#storedGame").style.display = "initial"
+}
+
+closeStoredGame = function () {
+    document.querySelector("#storedGame").style.display = "none"
 }
 
 exNumber = 1;
@@ -3330,8 +3517,12 @@ stepOnTheBoard = function (number) {
     freePlace = Array();
     freePlace = temporaryArray.slice(0);
     temporaryArray = Array();
-    if (strategy == "nothing") { document.querySelector("#strategyOfEngine").innerHTML = " - " }
-    else { document.querySelector("#strategyOfEngine").innerHTML = strategy; }
+    if (document.querySelector("#withComputer").checked == true) {
+        if (strategy == "nothing") { document.querySelector("#strategyOfEngine").innerHTML = " - " }
+        else { document.querySelector("#strategyOfEngine").innerHTML = strategy; }
+        myStrategy[myStrategy.length] = strategy;
+    }
+
 
     //if (step > 4) { isWinner() };
     showRightSideInfo();
@@ -3386,6 +3577,7 @@ isWinner = function () {
     if (thereIsWinner == "undecided") {
         coins[coins.length] = "UNDECIDED"
     }
+    if (thereIsWinner != "no") { myStrategyArray[myStrategyArray.length] = myStrategy };
 
 
 }
@@ -3564,7 +3756,17 @@ stepBack = function () {
     }
     else { document.querySelector("#stepOfEngine").innerHTML = "" }
     showRightSideInfo();
-
+    stepOfEngineArray.pop();
+    document.querySelector("#stepOfEngine").innerHTML = stepOfEngineArray[stepOfEngineArray.length - 1];
+    if (stepOfEngineArray.length > 0) {
+        document.querySelector("#showButton").style["display"] = "initial";
+        myStoredGame = myStoredGameHistory[myStoredGameHistory.length - 1];
+    }
+    strategyOfEngineHistory.pop();
+    if(strategyOfEngineHistory.length>0){
+        document.querySelector("#strategyOfEngine").innerHTML=strategyOfEngineHistory[strategyOfEngineHistory.length-1]
+    }
+    else{document.querySelector("#strategyOfEngine").innerHTML=" - "}
 };
 
 noNeedFunctionForArray = function (myArray) {
@@ -3850,6 +4052,14 @@ gameWithSimulatedOrNOt = function () {
 
 makeSimulatedStrategies();
 
+whatWeShow = function () {
+    myWonMemory = Array();
+    if (document.querySelector("#radioBlue").checked == true) { myWonMemory = blueWonMemory.slice(0) }
+    if (document.querySelector("#radioRed").checked == true) { myWonMemory = redWonMemory.slice(0) }
+    if (document.querySelector("#radioUndecided").checked == true) { myWonMemory = undecidedMemory.slice(0) }
+    showGames();
+}
+
 showGames = function () {
     document.querySelector("#blueWonNumber").innerHTML = blueWonMemory.length;
     document.querySelector("#redWonNumber").innerHTML = redWonMemory.length;
@@ -3859,10 +4069,12 @@ showGames = function () {
     if (document.querySelector("#radioUndecided").checked == true) { myWonMemory = undecidedMemory.slice(0) }
     document.querySelector("#gameNumberInfo").innerHTML = myWonMemory.length;
     gameNumber5 = 1;
-    stepNumber=0;
+    stepNumber = 0;
 }
 
-forwardInMemory5 = function () {
+
+
+forwardInMemory6 = function () {
     dontChance = false;
     if (gameNumber5 < myWonMemory.length - 1) { gameNumber5 = gameNumber5 + 1; dontChance = true; };
     if (gameNumber5 == myWonMemory.length - 1 && dontChance == false) { gameNumber5 = 0 };
@@ -3870,12 +4082,12 @@ forwardInMemory5 = function () {
     for (let i = 1; i < 10; i++) {
         document.querySelector(`#littleTbody9 td[name='${i}']`).innerHTML = "";
     }
-    stepNumber=0;
+    stepNumber = 0;
     /*if (only3 == true) { showBasicPatterns3() }
     else { showBasicPatterns(); }*/
 }
 
-backInMemory5 = function () {
+backInMemory6 = function () {
     dontChance = false;
     if (gameNumber5 > 0) { gameNumber5 = gameNumber5 - 1; dontChance = true; };
     if (gameNumber5 == 0 && dontChance == false) { gameNumber5 = myWonMemory.length - 1 };
@@ -3883,20 +4095,19 @@ backInMemory5 = function () {
     for (let i = 1; i < 10; i++) {
         document.querySelector(`#littleTbody9 td[name='${i}']`).innerHTML = "";
     }
-    stepNumber=0;
+    stepNumber = 0;
     /*if (only3 == true) { showBasicPatterns3() }
     else { showBasicPatterns(); }*/
 }
 
-
-forwardInTable5 = function () {
+forwardInTable6 = function () {
     if (stepNumber < myWonMemory.length - 3) {
         stepNumber = stepNumber + 2;
         showTheGames();
     };
 }
 
-backInTable5 = function () {
+backInTable6 = function () {
     if (stepNumber > 2) {
         stepNumber = stepNumber - 2;
         showTheGames();

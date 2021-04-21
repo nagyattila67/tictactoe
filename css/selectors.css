@@ -5,6 +5,10 @@
 .smallBorder{border:1px solid #dbdbdb;padding:5px;}
 .smallBorderUp{border-width:1px;border-style: solid solid none solid; border-color: #dbdbdb;padding:5px;}
 .smallBorderDown{border-width:1px;border-style: none solid solid solid; border-color: #dbdbdb;padding:5px;}
+.littlePadding{padding:10px}
+
+.smallerButton{height:25px;padding:2px;font-size:12px;font-weight:400;color:white;background-color:#6c757d}
+
 
 #millTbody tr td{width:70px;height:70px;border: 1px solid #000000;background-color:#dbdbdb;padding:20px}
 #myCleverRandom1:hover #infoForCleverRandom1{display:block;position:absolute;margin:10px 10px 10px 50px;opacity:85%;padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
@@ -29,6 +33,7 @@
 #littleTbody7 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
 #littleTbody8 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
 #littleTbody9 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+#littleTbody10 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
 #myCleverRandom2 label{margin-left:20px};
 .info{width:150px}
 .fore{z-index:2}
