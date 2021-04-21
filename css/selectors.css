@@ -2,13 +2,14 @@
 #stepOfEngine{background-color: rgb(238, 220, 130);}
 
 .lavenderBgr{background-color:#FFF0F5}
+.lightGreen{background-color:rgb(176,255,173)}
 .smallBorder{border:1px solid #dbdbdb;padding:5px;}
 .smallBorderUp{border-width:1px;border-style: solid solid none solid; border-color: #dbdbdb;padding:5px;}
 .smallBorderDown{border-width:1px;border-style: none solid solid solid; border-color: #dbdbdb;padding:5px;}
 .littlePadding{padding:10px}
 
 .smallerButton{height:25px;padding:2px;font-size:12px;font-weight:400;color:white;background-color:#6c757d}
-
+#infoButton{margin-left:40px;width:150px;height:30px; border:1px solid black;background-color:red;color:white;box-shadow:10px 10px 10px black}
 
 #millTbody tr td{width:70px;height:70px;border: 1px solid #000000;background-color:#dbdbdb;padding:20px}
 #myCleverRandom1:hover #infoForCleverRandom1{display:block;position:absolute;margin:10px 10px 10px 50px;opacity:85%;padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
@@ -17,7 +18,7 @@
 #infoForCleverRandom1{display:none}
 #infoForCleverGame{display:none}
 #infoForCleverRandom2{display:none}
-.dark-levander{background-color:#e7d4f9}
+.dark-levander{background-color:#e7d4f9;margin:0px 10px 10px 10px;border: 1px solid #9979b8 }
 
 #stepsAndGames p{margin-bottom:5px}
 

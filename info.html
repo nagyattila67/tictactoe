@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Infó a játékról</title>
+    <link rel="stylesheet"
+        href="lib/bootstrap/bootstrap-5.0.0-beta2-dist/bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-2 col-sm-2 col-md-2 col-lg-2"></div>
+            <div class="col-8 col-sm-8 col-md-8 col-lg-8" style="background-color:#dbdbdb">
+                <div class="row">
+                    <div class="col">
+                        <p><img src="img\infopic1.jpg" alt="infoPic1" width="400" style="float:right;margin:20px">
+                        <ul></ul>
+                        <li><i>'Két személy játszik'</i> beállításnál két játékos tud egymással játszani a táblán.</li>
+                        <br>
+                        <li><i>'Játék a géppel'</i> opció választásánál a játékos egy előre beprogramozott géppel
+                            játszik,
+                            amely ismeri a játék nyertes stratégiáit és használja is azokat. </li>
+                        <br>
+                        <li><i>'Játék véletlenszám generátorral'</i>: a gép véletlenszerűen lép. Az
+                            <i>'okosvéletlen'</i>
+                            opció
+                            választása esetén a gép felismeri a nyertes, ill. vesztes helyzeteket és kihasználja, ill.
+                            elkerüli
+                            azokat.
+                        </li>
+                        <br>
+                        <li><i>'Játék a tanulómemóriával'</i> bejelölése esetén ahhoz, hogy a gép játszani tudjon a
+                            játékossal,
+                            a
+                            gépnek először le kell futtatnia legalább 1000 játékot. (Nyomja meg a <i>'Tanulójáték'</i>,
+                            majd
+                            a
+                            <i>'Memória tisztítása - 1'</i>, majd a <i>'Memória tisztítása - 2'</i> kék gombokat ) A gép
+                            ezeket
+                            a játékokat önmagával játsza
+                            le, s az összes játékot elraktározza a memóriájában. A játék során ebből a memóriából
+                            választja
+                            ki
+                            az általa legoptimálisabbnak tekintett lépést.
+                        </li>
+                        <br>
+                        <li>Az előző esetben a gép az összes játék összes lépését elraktározza, s csak akkor tud nyerni,
+                            ha
+                            már
+                            a tanuéójátékok során lejátszott egy olyan játékot, amelyben azonos lépések voltak, s
+                            megnyerte
+                            azt
+                            a játékot. Ezzel szemben <span style="background-color:rgb(176,255,173)">a '<i>Játék a
+                                    mesterséges
+                                    intelligenciával</i>' beállítás esetén a
+                                program képes az összes lejátszott tanulójátékot összehasonlítani, s ezzek képes nyerő
+                                stratégiákat
+                                kidolgozni, majd a játék során ezeket a nyerő stratégiákat használja fel a támadáshoz,
+                                ill.
+                                a
+                                védekezéshez.</span> Értelemszerűen itt is szükséges tanulójátékok futtatása. Lentebb
+                            mutatjuk,
+                            hogy hol
+                            nézheti meg a mesterséges intelligencia által így felfedezett - és használt - stratégiákat.
+                        </li>
+                        <br>
+                        <li>A mesterséges intelligencia által felfedezett stratégiák száma függ attól, hogy előzőleg
+                            hány
+                            tanulójátékot futtattunk le. (100 000 tanulójátéknál nem javaslunk többet, mivel már az is
+                            fél
+                            óráig
+                            fog tartani, míg 1000 tanulójáték már pár másodperc alatt lefut.) De a tanulójátékok során
+                            felfedezhető stratégiákat előre is megadhatjuk, s ekkor nincs szükség a tanulójátékok
+                            lefuttatására.
+                            Ez történik a '<i>Játék a szimulált mesterséges intelligenciával</i> opció választása
+                            esetén.
+                        </li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <p><img src="img\infopic2.jpg" alt="infoPic2" width="500" style="float:left; margin:20px">
+                        <ul style="margin-left:530px;margin-top:30px">
+                            <li>A '<i>Tanulójáték</i>' futtatásánál beállíthatja, hogy ki játszon kivel. Pl.:a szimulált
+                                mesterséges
+                                intelligencia játszhat a programmal vagy a véletlenszám generátor játszhat a
+                                véletlenszám
+                                generátorral, s így tovább.</li>
+                            <br>
+                            <li>A '<i>Memória tisztítása - 1</i>' futtatásakor a program törli a tanulómemóriából az
+                                ismétlődő
+                                játékokat, azaz a memóriában egy játék csak egyszer fog szerepelni.</li>
+                            <br>
+                            <li>A '<i>Memória tisztítása - 2</i>' futtatásakor a program törli a tanulómemóriából azokat
+                                a
+                                játékokat, amelyek előállíthatóak egy másik játékból úgy, hogy elforgatjuk, ill.
+                                tükrözzük a
+                                táblát (ill. ezen transzformációk kombinációját hajtjuk végre).</li>
+                        </ul>
+                        </p>
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col">
+                        <p><img src="img\infopic3.jpg" alt="infoPic3" width="500" style="float:right;margin:20px">
+                        <ul>
+                            <li>
+                                Az oldal bal alsó részén található világoszöld mezőben arról kapunk információt, hogy az
+                                aktuális
+                                beállításnál (ill. tanulójátékok) után a program hányféle stratégiát ismer.
+                            </li>
+                            <br>
+                            <li>
+                                Stratégiának azokat a minimum három lépésből álló lépéskombinációt tekintjük, ahol a
+                                negyedik lépés során legalább két nyertes lépésre van lehetőségünk, így egy ilyen
+                                kombináció létrehozása esetén biztos a győzelem
+                            </li>
+                        </ul>
+                        </p>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="col-2 col-sm-2 col-md-2 col-lg-2"></div>
+        </div>
+    </div>
+
+    <script src="js\info.js"></script>
+</body>
+
+</html>

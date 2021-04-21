@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Tic Tac Toe</title>
     <link rel="stylesheet"
         href="lib/bootstrap/bootstrap-5.0.0-beta2-dist/bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/selectors.css">
@@ -17,9 +17,12 @@
             <div class="col"> <br> </div>
         </div>
         <div class="row">
-            <div class="behind col-2 col-sm-2 col-md-2 col-lg-2">
+            <div style="width:200px;height:500px" class="dark-levander  behind col-2 col-sm-2 col-md-2 col-lg-2">
                 <div id="infoAboutNoStrategy" class="info" style="display:none;position:absolute;">
-                    <p>Ennél a lépéskombinációnál a gépnek nincs stratégiája.</p>
+                    <p>Ennél a <br>
+                        lépéskombinációnál a <br>
+                        gépnek nincs <br>
+                        stratégiája.</p>
                 </div>
                 <div id="infoAboutAvoidStrategy" class="info" style="display:none;position:absolute;">
                     <p>Ezzel a lépéssel meghiúsította a gép <i><span id="avoidStrategy"> stratégiáját.</span></i></p>
@@ -369,7 +372,7 @@
                                         onclick="backInMemory3()">Hátra</button>
                                     <p class="mt-2">Ez most a(z) <span id="numberOfGame4"> - </span>számú mintázat</p>
                                 </div>
-                                <div class="mt-3 smallBorder">
+                                <div class="mt-3 smallBorder lightGreen">
                                     <p>A továbbiakban azokat a tanulójátékok során felfedezett stratégiákból felépített
                                         három lépéses stratégiákat láthatja, amelyek egy játékon belül az összes
                                         lépéssorrendet tartalmazzák. Ezek száma: <span id="all2"> - </span></p>
@@ -432,6 +435,7 @@
                         <input type="radio" id="twoPeople" class="littleMargin" name="typeOfGame"
                             oninput="gameWithNotRandom(this)"><label for="twoPeople">Két
                             személy játszik</label>
+                            <button id="infoButton" onclick="infoLink()">Info a játékról</button>
                         <br>
                         <input type="radio" id="withComputer" class="littleMargin" name="typeOfGame"
                             oninput="gameWithNotRandom(this)" checked><label for="withComputer">Játék a géppel</label>
@@ -453,7 +457,7 @@
                             oninput="gameWithNotRandom(this)"><label for="withLearningMemory">Játék a
                             tanulómemóriával - </label>
                         <span id="myCleverGame">
-                            <label for="cleverGame">Okosjáték</label>
+                            <label for="cleverGame">Okosjáték:</label>
                             <input type="checkbox" id="cleverGame" checked>
                             <span id="infoForCleverGame">
                                 Amennyiben a következő lépésben ő vagy az ellenfél nyerne, akkor nem véletlenszerűen
@@ -463,19 +467,21 @@
                         <br>
                         <input type="radio" id="withLearntStrategy" class="littleMargin" name="typeOfGame"
                             oninput="gameWithNotRandom(this)"><label for="withLearntStrategy">Játék a
-                            tanult stratégia használatával</label>
+                            mesterséges intelligenciával</label>
                         <br>
                         <input type="radio" id="withSimulatedLearntStrategy" class="littleMargin" name="typeOfGame"
                             oninput="gameWithNotRandom(this)"><label for="withSimulatedLearntStrategy">Játék a
-                            tanult stratégia szimulálásával</label>
+                            szimulált mesterséges intelligenciával</label>
                         <span id="myCleverGame">
                             <br>
                             <hr>
                             <input class="littleMargin" id="gamer" type="radio" name="whoStarts"
                                 onclick="whoStart()"><label for="gamer">A játékos kezd</label>
+                                <span> - a játékos mindig piros</span>
                             <br>
                             <input class="littleMargin" id="computer" type="radio" name="whoStarts" onclick="whoStart()"
                                 checked><label for="computer">A gép kezd</label>
+                                <span> - a gép mindig kék</span>
                             <hr>
                             <div class="row sometimesBlur">
                                 <div class="col-6" style="border-right: 1px solid gray;">
@@ -485,7 +491,7 @@
                                         value="1000"><span> játék futtatása</span>
                                 </div>
                                 <div class="col-6">
-                                    <p>Az ellenfél:</p>
+                                    <p>Az ellenfél (a kék):</p>
                                     <input checked type="radio" onclick="whoIsThePartner()" name="partnerForGame"
                                         id="withRandom">
                                     <label for="random"> véletlenszám generátor - </label>
