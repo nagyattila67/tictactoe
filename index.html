@@ -435,7 +435,7 @@
                         <input type="radio" id="twoPeople" class="littleMargin" name="typeOfGame"
                             oninput="gameWithNotRandom(this)"><label for="twoPeople">Két
                             személy játszik</label>
-                            <button id="infoButton" onclick="infoLink()">Info a játékról</button>
+                        <button id="infoButton" onclick="infoLink()">Info a játékról</button>
                         <br>
                         <input type="radio" id="withComputer" class="littleMargin" name="typeOfGame"
                             oninput="gameWithNotRandom(this)" checked><label for="withComputer">Játék a géppel</label>
@@ -467,21 +467,21 @@
                         <br>
                         <input type="radio" id="withLearntStrategy" class="littleMargin" name="typeOfGame"
                             oninput="gameWithNotRandom(this)"><label for="withLearntStrategy">Játék a
-                            mesterséges intelligenciával</label>
+                            mesterséges intelligenciával (MI)</label>
                         <br>
                         <input type="radio" id="withSimulatedLearntStrategy" class="littleMargin" name="typeOfGame"
-                            oninput="gameWithNotRandom(this)"><label for="withSimulatedLearntStrategy">Játék a
-                            szimulált mesterséges intelligenciával</label>
+                            oninput="gameWithAI(this)"><label for="withSimulatedLearntStrategy">Játék a
+                            szimulált mesterséges intelligenciával (MI)</label>
                         <span id="myCleverGame">
                             <br>
                             <hr>
                             <input class="littleMargin" id="gamer" type="radio" name="whoStarts"
                                 onclick="whoStart()"><label for="gamer">A játékos kezd</label>
-                                <span> - a játékos mindig piros</span>
+                            <span> - a játékos mindig piros</span>
                             <br>
                             <input class="littleMargin" id="computer" type="radio" name="whoStarts" onclick="whoStart()"
                                 checked><label for="computer">A gép kezd</label>
-                                <span> - a gép mindig kék</span>
+                            <span> - a gép mindig kék</span>
                             <hr>
                             <div class="row sometimesBlur">
                                 <div class="col-6" style="border-right: 1px solid gray;">
@@ -508,6 +508,10 @@
                                     <input type="radio" onclick="whoIsThePartner()" name="partnerForGame"
                                         id="withProgram">
                                     <label for="program"><span id="labelForProgram">a program</span></label>
+                                    <br>
+                                    <input type="radio" onclick="whoIsThePartner()" name="partnerForGame"
+                                        id="withSimulatedAI">
+                                    <label for="simulatedAI"><span id="labelForSimulatedAI">a szimulált MI</span></label>
                                 </div>
                             </div>
                             <div class="row sometimesBlur">
