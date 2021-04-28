@@ -1918,12 +1918,6 @@ buildingStrategyForDefence = function (myArray, keys) {
                 }
             }
             if (signal == 2) {
-                for (let m = 0; m < allVariationOfGames2.length; m++) {
-                    if (myArray[0] == allVariationOfGames2[m][0] &&
-                        myArray[1] == allVariationOfGames2[m][1] &&
-                        myArray[2] == allVariationOfGames2[m][2]) {
-                        continue
-                    }
                     signal2 = 0; sensitivePlace2 = 0;
                     for (let m = 0; m < myArray.length; m++) {
                         if (allVariationOfGames2[m][0] == sameElement[0] &&
@@ -1934,7 +1928,6 @@ buildingStrategyForDefence = function (myArray, keys) {
                             sensitivePlace2 = allVariationOfGames2[m][2]
                         }
                     }
-                }
             }
             for (let i = 0; i < colorArrayMe.length; i++) {
                 for (let j = 0; j < freePlace.length; j++) {
