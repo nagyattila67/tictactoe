@@ -20,7 +20,7 @@ numbers = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 IPlayWith = "noData";
 defenceArray = Array();
 strategicalSteps = Array();
-strategicalStepsBeforeWin = Array();
+strategicalStepsForStart = Array();
 thisWasStrategicalSteps = Array();
 strategicalStepsForDefence = Array();
 myStoredGame = Array();
@@ -245,7 +245,7 @@ gameWithRandom = function (hereNow) {
         document.querySelector("#labelForSimulatedAI").innerHTML = "a szimuláltMI";
         document.querySelector("#labelForSimulatedAI").style.color = "black";
     }
-   
+
     hereNow_ = hereNow;
     bluringOrNot(hereNow_);
     gameWithSimulatedOrNOt();
@@ -255,7 +255,7 @@ gameWithRandom = function (hereNow) {
 
 gameWithAI = function (hereNow) {
     hereNow_ = hereNow;
-        document.querySelector("#normal2").checked = true;
+    document.querySelector("#normal2").checked = true;
     gameWithNotRandom(hereNow_)
 }
 
@@ -277,7 +277,7 @@ gameWithNotRandom = function (hereNow) {
         myConfirm2 = confirm("A tanulómemória jelenleg üres. Először futtassa le a 'Tanulójáték', a 'Memória tisztítása - 1' és a 'Memória tisztítása - 2' programrészeket. Különben a gép csak random lépéseket tesz. Ha az 'OK' gombra kattint, akkor ez a három programrészlet automatikusan lefut (kb. 15 mp.).")
         myMemory = 2;
     }
-    if (document.querySelector("#withLearntStrategy").checked == true){
+    if (document.querySelector("#withLearntStrategy").checked == true) {
         document.querySelector("#normal").checked = true;
     }
     if (myConfirm1 == true || myConfirm2 == true) {
@@ -2175,6 +2175,51 @@ showTime2 = function (whereShowTime, time) {
 
 buildingStrategyForAttact = function (myArray, keys) {
 
+    //strategicalStepsForStart
+
+    signal = 0
+    for (let j = 0; j < colorArrayMe.length; j++) {
+        //colorArrayMe: eredetileg a blue
+        /*if (myArray[j] == colorArrayMe[j]) {
+            signal = signal + 1;
+        }*/
+        signal = 0;
+        signalNon = 0
+        goAhead = true
+        for (let j = 0; j < myArray.length; j++) {
+            if (myArray[j] == colorArrayMe[j] && goAhead == true) {
+                signal = signal + 1;
+            }
+            if (myArray[j] != colorArrayMe[j]) {
+                goAhead = false;
+                if(freePlace.includes(myArray[j])==true){
+                   signalNon = signalNon + 1  
+                }
+            }
+        }
+
+        if (signal == 1 && signalNon ==2) {
+            for (let k = signal; k < myArray.length; k++) {
+                /*if (blue.includes(myArray[k]) == false &&
+                    red.includes(myArray[k]) == false) {*/
+                if (freePlace.includes(myArray[k]) == true) {
+                    signalTwo = 0;
+                    for (let g = 0; g < keys.length; g++) {
+                        if (freePlace.includes(keys[g]) == true) {
+                            signalTwo = signalTwo + 1
+                        }
+                    }
+                    if (signalTwo == 2 && freePlace.includes(myArray[signal]) == true) {
+                        strategicalStepsForStart[strategicalStepsForStart.length] = myArray[1];
+                        strategicalStepsForStart[strategicalStepsForStart.length] = myArray[2];
+                    }
+                }
+            }
+        }
+
+    }
+
+
     signal = 0
     for (let j = 0; j < colorArrayMe.length; j++) {
         //colorArrayMe: eredetileg a blue
@@ -2213,7 +2258,6 @@ buildingStrategyForAttact = function (myArray, keys) {
 }
 buildingStrategyForDefence = function (myArray, keys) {
     number_myImportantDefenceStep = -10
-    //egy hosszúságú akármire még ne kelljen már stratégia elleni védekezést keresni!
     if (colorArrayRival.length > 0 && colorArrayRival.length <= 2) {
         goAhead = true
         for (let j = 0; j < colorArrayRival.length; j++) {
@@ -2549,23 +2593,59 @@ gameByLearntMemory = function () {
 
 
     //if (document.querySelector("#attack").checked == true || document.querySelector("#attack2").checked == true) {
-    if (strategicalStepsForDefence.length > 0) {
+
+
+
+
+    strategicalStepsAll = Array();
+    for (let i = 0; i < strategicalSteps.length; i++) {
+        strategicalStepsAll = strategicalStepsAll.concat(strategicalSteps[i])
+    }
+    console.log(strategicalStepsAll)
+    noNeedFunctionForArray(strategicalStepsAll);
+    strategicalStepsShort = myArray2.slice(0);
+    strategicalStepsShort.sort();
+    console.log(strategicalStepsShort)
+
+    strategicalStepsOccurrance = [-10, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    for (let i = 0; i < strategicalStepsAll.length; i++) {
+        strategicalStepsOccurrance[strategicalStepsAll[i]] += 1
+    }
+    maxSSO = 0;
+    for (let i = 0; i < strategicalStepsOccurrance.length; i++) {
+        if (maxSSO < strategicalStepsOccurrance[i]) { maxSSO = strategicalStepsOccurrance[i] }
+    }
+    strategicalStepsWithMaxOccurrance = Array();
+    for (let i = 0; i < strategicalStepsOccurrance.length; i++) {
+        if (strategicalStepsOccurrance[i] == maxSSO) {
+            strategicalStepsWithMaxOccurrance[strategicalStepsWithMaxOccurrance.length] = strategicalStepsOccurrance.indexOf(maxSSO)
+        }
+    }
+
+    number_strategicalStepsWithMaxOccurrance = -10;
+    chance = Math.floor(Math.random() * strategicalStepsWithMaxOccurrance.length);
+    number_strategicalStepsWithMaxOccurrance = strategicalStepsWithMaxOccurrance[chance];
+
+
+
+    console.error(strategicalSteps)
+    if (strategicalSteps.length > 0) {
         everyArrayHasIt4Attack = Array();
         almostEveryArrayHasIt4Attack = Array();
         max = 0;
         for (let i = 1; i < 10; i++) {
             index = 0;
-            for (let j = 0; j < strategicalStepsForDefence.length; j++) {
-                if (strategicalStepsForDefence[j].includes(i) == true) {
-                    index = index + 1;
-                    if (index > max) { max = index }
-                }
+
+            if (strategicalSteps.includes(i) == true) {
+                index = index + 1;
+                if (index > max) { max = index }
+
             }
-            if (index == strategicalStepsForDefence.lengt) {
+            if (index == strategicalSteps.lengt) {
                 everyArrayHasIt4Attack[everyArrayHasIt4Attack.length] = i;
             }
-            for (let j = 0; j < strategicalStepsForDefence.length; j++) {
-                if (strategicalStepsForDefence[j].includes(i) == true) {
+            for (let j = 0; j < strategicalSteps.length; j++) {
+                if (strategicalSteps.includes(i) == true) {
                     index = index + 1;
                     if (index == max) {
                         almostEveryArrayHasIt4Attack[everyArrayHasIt4Attack.length] = i;
@@ -2647,6 +2727,14 @@ gameByLearntMemory = function () {
         whatWeStep = "tanult stratégiai lépés (támadás felépítése)";
     }
 
+    if (strategicalStepsWithMaxOccurrance.length > 0) {
+        number_strategicalStepsWithMaxOccurrance = -10;
+        chance = Math.floor(Math.random() * strategicalStepsWithMaxOccurrance.length);
+        number_strategicalStepsWithMaxOccurrance = strategicalStepsWithMaxOccurrance[chance];
+    }
+
+
+
 
     /*if (strategicalStepsForDefence.length > 0 && red.length == 2 && blue.length == 1) {
         number = strategicalStepsForDefence[strategicalStepsForDefence.length - 1][0]
@@ -2691,6 +2779,12 @@ gameByLearntMemory = function () {
             }
 
         }
+        number_almostEveryArrayHasIt4Defence = -10;
+        if (almostEveryArrayHasIt4Defence.length > 0) {
+            chance = Math.floor(Math.random() * almostEveryArrayHasIt4Defence.length);
+            number_almostEveryArrayHasIt4Defence = almostEveryArrayHasIt4Defence[chance]
+        }
+        number_everyArrayHasIt4Defence = -10;
         if (everyArrayHasIt4Defence.length > 0) {
             chance = Math.floor(Math.random() * everyArrayHasIt4Defence.length);
             number_everyArrayHasIt4Defence = everyArrayHasIt4Defence[chance]
@@ -2722,36 +2816,40 @@ gameByLearntMemory = function () {
     if (number == 0) { number = -10 }
 
     if (number_myImportantDefenceStep != -10 && number == -10) { number = number_myImportantDefenceStep }
+    if (number_everyArrayHasIt4Defence != -10 && number == -10) { number = number_everyArrayHasIt4Defence }
+    if (number_almostEveryArrayHasIt4Defence != -10 && number == -10) { number = number_almostEveryArrayHasIt4Defence }
     if (number_firstDefenceStep != -10 && number == -10) { number = number_firstDefenceStep }
     if (number_strategicalStepsForDefence != -10 && number == -10) { number = number_strategicalStepsForDefence }
+    if (number_strategicalStepsWithMaxOccurrance != -10 && number == -10) { number = number_strategicalStepsWithMaxOccurrance }
     if (number_strategicalSteps != -10 && number == -10) { number = number_strategicalSteps }
 
-    if (document.querySelector("#attack").checked == true || document.querySelector("#attack2").checked == true || number == -10) {
-        if (almostEveryArrayHasIt4Attack.length > 0) {
-            chance = Math.floor(Math.random() * almostEveryArrayHasIt4Attack.length);
-            number = almostEveryArrayHasIt4Attack[chance]
-        }
-        if (everyArrayHasIt4Attack.length > 0) {
-            chance = Math.floor(Math.random() * everyArrayHasIt4Attack.length);
-            number = everyArrayHasIt4Attack[chance]
-        }
-    }
-    if (document.querySelector("#defence").checked == true || document.querySelector("#defence2").checked == true || number == -10) {
-        if (almostEveryArrayHasIt4Defence.length > 0) {
-            chance = Math.floor(Math.random() * almostEveryArrayHasIt4Defence.length);
-            number = almostEveryArrayHasIt4Defence[chance]
-        }
-        if (everyArrayHasIt4Defence.length > 0) {
-            chance = Math.floor(Math.random() * everyArrayHasIt4Defence.length);
-            number = everyArrayHasIt4Defence[chance]
-        }
-    }
 
+    if (document.querySelector("#attack").checked == true || document.querySelector("#attack2").checked == true) {
+        if (number_myImportantDefenceStep != -10 && number == -10) { number = number_myImportantDefenceStep }
+        if (number_firstDefenceStep != -10 && number == -10) { number = number_firstDefenceStep }
+        if (number_strategicalStepsForDefence != -10 && number == -10) { number = number_strategicalStepsForDefence }
+        if (number_strategicalSteps != -10 && number == -10) { number = number_strategicalSteps }
+        if (number_strategicalStepsWithMaxOccurrance != -10 && number == -10) { number = number_strategicalStepsWithMaxOccurrance }
+        if (number_almostEveryArrayHasIt4Defence != -10 && number == -10) { number = number_almostEveryArrayHasIt4Defence }
+        if (number_everyArrayHasIt4Defence != -10 && number == -10) { number = number_everyArrayHasIt4Defence }
+    }
+    if (document.querySelector("#defence").checked == true || document.querySelector("#defence2").checked == true) {
+        if (number_myImportantDefenceStep != -10 && number == -10) { number = number_myImportantDefenceStep }
+        if (number_firstDefenceStep != -10 && number == -10) { number = number_firstDefenceStep }
+        if (number_strategicalStepsForDefence != -10 && number == -10) { number = number_strategicalStepsForDefence }
+        if (number_strategicalSteps != -10 && number == -10) { number = number_strategicalSteps }
+        if (number_strategicalStepsWithMaxOccurrance != -10 && number == -10) { number = number_strategicalStepsWithMaxOccurrance }
+        if (number_almostEveryArrayHasIt4Defence != -10 && number == -10) { number = number_almostEveryArrayHasIt4Defence }
+        if (number_everyArrayHasIt4Defence != -10 && number == -10) { number = number_everyArrayHasIt4Defence }
+    }
 
     console.error("strategicalStepsForDefence", number_strategicalStepsForDefence)
     console.error("firstDefenceStep", number_firstDefenceStep)
     console.error("strategicalSteps", number_strategicalSteps)
-    console.error("everyArrayHasIt",number_everyArrayHasIt)
+    console.error("strategicalStepsWithMaxOccurrance", number_strategicalStepsWithMaxOccurrance)
+    console.error("everyArrayHasIt", number_everyArrayHasIt)
+    console.error("everyArrayHasIt4Defence", number_everyArrayHasIt4Defence)
+    console.error("almostEveryArrayHasIt4Defence", number_almostEveryArrayHasIt4Defence)
     console.log(everyArrayHasIt4Attack, almostEveryArrayHasIt4Attack, everyArrayHasIt4Defence, almostEveryArrayHasIt4Defence)
 
 
