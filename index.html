@@ -546,7 +546,8 @@
                             programmal</label>
                         <br>
                         <input type="radio" id="withRandomEngine" class="littleMargin" name="typeOfGame"
-                            oninput="gameWithRandom(this)"><label class="larger" for="withRanfomEngine">Játék véletlenszám
+                            oninput="gameWithRandom(this)"><label class="larger" for="withRanfomEngine">Játék
+                            véletlenszám
                             generátorral
                             -
                         </label>
@@ -667,14 +668,14 @@
                             mesterséges intelligenciával (MI)</label>
                         <button style="margin-left:20px" id="miez3button" onclick="miez3()" class="whatIsThis">Mi
                             ez?</button> <br>
+                        <label for="normal2"
+                            style="margin-right:10px; margin-left:35px"><small>normál</small></label><input type="radio"
+                            id="normal2" name="typeOfStrategy2" checked>
                         <label style="margin: 0px 20px 0px 33px" for="defence2" style="margin-right:10px"> -
                             <small>védekezik</small></label><input type="radio" id="defence2" name="typeOfStrategy2">
                         <label for="attack2"
                             style="margin-right:10px; margin-left:35px"><small>támad</small></label><input type="radio"
                             id="attack2" name="typeOfStrategy2">
-                            <label for="normal2"
-                            style="margin-right:10px; margin-left:35px"><small>normál</small></label><input type="radio"
-                            id="normal2" name="typeOfStrategy2" checked>
                         <br>
                         <span style="margin-right:10px; margin-left:35px"><small>Tárolt stratégiák száma: <span
                                     id="storedStrategies20">0</span></small></span>
@@ -727,14 +728,14 @@
                             szimulált mesterséges intelligenciával (MI)</label>
                         <button style="margin-left:20px" id="miEzButton4" onclick="miez4()" class="whatIsThis">Mi
                             ez?</button>
+                        <label for="normal"
+                            style="margin-right:10px; margin-left:35px"><small>normál</small></label><input type="radio"
+                            id="normal" name="typeOfStrategy" checked>
                         <label style="margin: 0px 20px 0px 33px" for="defence" style="margin-right:10px"> -
                             <small>védekezik</small></label><input type="radio" id="defence" name="typeOfStrategy">
                         <label for="attack"
                             style="margin-right:10px; margin-left:35px"><small>támad</small></label><input type="radio"
                             id="attack" name="typeOfStrategy">
-                        <label for="normal"
-                            style="margin-right:10px; margin-left:35px"><small>normál</small></label><input type="radio"
-                            id="normal" name="typeOfStrategy" checked>
                         <span id="myCleverGame">
 
 
@@ -776,12 +777,18 @@
                                     <input class="littleMargin" type="number" style="width:100px" id="runningNumber"
                                         value="1000"><span> játék futtatása</span>
                                     <br><br>
-                                    <label style="display:inline" for="stepAlternately"><small>Felváltva kezd a két szín.</small></label>
-                                    <input style="display:inline; margin-left:5px" type="radio" name="inTurns" id="stepAlternately" checked>
-                                    <label style="display:inline" for="stepAlternately"><small>Mindig a kék kezd.</small></label>
-                                    <input style="display:inline; margin-left:5px" type="radio" name="inTurns" id="stepAlternatelyBlue">
-                                    <label style="display:inline" for="stepAlternately"><small>Mindig a piros kezd.</small></label>
-                                    <input style="display:inline; margin-left:5px" type="radio" name="inTurns" id="stepAlternatelyRed">
+                                    <label style="display:inline" for="stepAlternately"><small>Felváltva kezd a két
+                                            szín.</small></label>
+                                    <input style="display:inline; margin-left:5px" type="radio" name="inTurns"
+                                        id="stepAlternately" checked>
+                                    <label style="display:inline" for="stepAlternately"><small>Mindig a kék
+                                            kezd.</small></label>
+                                    <input style="display:inline; margin-left:5px" type="radio" name="inTurns"
+                                        id="stepAlternatelyBlue">
+                                    <label style="display:inline" for="stepAlternately"><small>Mindig a piros
+                                            kezd.</small></label>
+                                    <input style="display:inline; margin-left:5px" type="radio" name="inTurns"
+                                        id="stepAlternatelyRed">
 
                                 </div>
                                 <div class="col-6">
