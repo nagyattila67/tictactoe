@@ -23,6 +23,7 @@ strategicalSteps = Array();
 strategicalStepsForStart = Array();
 thisWasStrategicalSteps = Array();
 strategicalStepsForDefence = Array();
+strategicalStepsForDefence2 = Array();
 myStoredGame = Array();
 myStoredGameIndex = Number();
 learntStep = false;
@@ -62,6 +63,7 @@ nowLearning = false;
 strategiesArray = Array();
 
 whoStart = function () {
+    IPlayWith = "blue"
     red = Array();
     blue = Array();
     coins = Array();
@@ -2178,124 +2180,133 @@ buildingStrategyForAttact = function (myArray, keys) {
     //strategicalStepsForStart
 
     signal = 0
-    for (let j = 0; j < colorArrayMe.length; j++) {
-        //colorArrayMe: eredetileg a blue
-        /*if (myArray[j] == colorArrayMe[j]) {
-            signal = signal + 1;
-        }*/
-        signal = 0;
-        signalNon = 0
-        goAhead = true
-        for (let j = 0; j < myArray.length; j++) {
-            if (myArray[j] == colorArrayMe[j] && goAhead == true) {
+    if (colorArrayMe.length == 1 && colorArrayRival == 0) {
+        for (let j = 0; j < colorArrayMe.length; j++) {
+            //colorArrayMe: eredetileg a blue
+            /*if (myArray[j] == colorArrayMe[j]) {
                 signal = signal + 1;
-            }
-            if (myArray[j] != colorArrayMe[j]) {
-                goAhead = false;
-                if(freePlace.includes(myArray[j])==true){
-                   signalNon = signalNon + 1  
+            }*/
+            signal = 0;
+            signalNon = 0
+            goAhead = true
+            for (let j = 0; j < myArray.length; j++) {
+                if (myArray[j] == colorArrayMe[j] && goAhead == true) {
+                    signal = signal + 1;
+                }
+                if (myArray[j] != colorArrayMe[j]) {
+                    goAhead = false;
+                    if (freePlace.includes(myArray[j]) == true) {
+                        signalNon = signalNon + 1
+                    }
                 }
             }
-        }
 
-        if (signal == 1 && signalNon ==2) {
-            for (let k = signal; k < myArray.length; k++) {
-                /*if (blue.includes(myArray[k]) == false &&
-                    red.includes(myArray[k]) == false) {*/
-                if (freePlace.includes(myArray[k]) == true) {
-                    signalTwo = 0;
-                    for (let g = 0; g < keys.length; g++) {
-                        if (freePlace.includes(keys[g]) == true) {
-                            signalTwo = signalTwo + 1
+            if (signal == 1 && signalNon == 2) {
+                for (let k = signal; k < myArray.length; k++) {
+                    /*if (blue.includes(myArray[k]) == false &&
+                        red.includes(myArray[k]) == false) {*/
+                    if (freePlace.includes(myArray[k]) == true) {
+                        signalTwo = 0;
+                        for (let g = 0; g < keys.length; g++) {
+                            if (freePlace.includes(keys[g]) == true) {
+                                signalTwo = signalTwo + 1
+                            }
+                        }
+                        if (signalTwo == 2 && freePlace.includes(myArray[1]) == true) {
+                            strategicalStepsForStart[strategicalStepsForStart.length] = myArray[1];
+                        }
+                        if (signalTwo == 2 && freePlace.includes(myArray[2]) == true) {
+                            strategicalStepsForStart[strategicalStepsForStart.length] = myArray[2];
                         }
                     }
-                    if (signalTwo == 2 && freePlace.includes(myArray[signal]) == true) {
-                        strategicalStepsForStart[strategicalStepsForStart.length] = myArray[1];
-                        strategicalStepsForStart[strategicalStepsForStart.length] = myArray[2];
-                    }
                 }
             }
+
         }
 
     }
 
 
     signal = 0
-    for (let j = 0; j < colorArrayMe.length; j++) {
-        //colorArrayMe: eredetileg a blue
-        /*if (myArray[j] == colorArrayMe[j]) {
-            signal = signal + 1;
-        }*/
-        signal = 0;
-        goAhead = true
+    if (colorArrayMe.length > 1) {
         for (let j = 0; j < colorArrayMe.length; j++) {
-            if (myArray[j] == colorArrayMe[j] && goAhead == true) {
+            //colorArrayMe: eredetileg a blue
+            /*if (myArray[j] == colorArrayMe[j]) {
                 signal = signal + 1;
+            }*/
+            signal = 0;
+            goAhead = true
+            for (let j = 0; j < colorArrayMe.length; j++) {
+                if (myArray[j] == colorArrayMe[j] && goAhead == true) {
+                    signal = signal + 1;
+                }
+                if (myArray[j] != colorArrayMe[j]) { goAhead = false }
             }
-            if (myArray[j] != colorArrayMe[j]) { goAhead = false }
-        }
 
 
-        if (signal == colorArrayMe.length) {
-            for (let k = signal; k < myArray.length; k++) {
-                /*if (blue.includes(myArray[k]) == false &&
-                    red.includes(myArray[k]) == false) {*/
-                if (freePlace.includes(myArray[k]) == true) {
-                    signalTwo = 0;
-                    for (let g = 0; g < keys.length; g++) {
-                        if (freePlace.includes(keys[g]) == true) {
-                            signalTwo = signalTwo + 1
+            if (signal == colorArrayMe.length) {
+                for (let k = signal; k < myArray.length; k++) {
+                    /*if (blue.includes(myArray[k]) == false &&
+                        red.includes(myArray[k]) == false) {*/
+                    if (freePlace.includes(myArray[k]) == true) {
+                        signalTwo = 0;
+                        for (let g = 0; g < keys.length; g++) {
+                            if (freePlace.includes(keys[g]) == true) {
+                                signalTwo = signalTwo + 1
+                            }
                         }
-                    }
-                    if (signalTwo == 2 && freePlace.includes(myArray[signal]) == true) {
-                        strategicalSteps[strategicalSteps.length] = myArray[signal]
+                        if (signalTwo == 2 && freePlace.includes(myArray[signal]) == true) {
+                            strategicalSteps[strategicalSteps.length] = myArray[signal]
+                        }
                     }
                 }
             }
-        }
 
+        }
     }
+
 }
 buildingStrategyForDefence = function (myArray, keys) {
     number_myImportantDefenceStep = -10
-    if (colorArrayRival.length > 0 && colorArrayRival.length <= 2) {
-        goAhead = true
-        for (let j = 0; j < colorArrayRival.length; j++) {
-            if (myArray[j] == colorArrayRival[j] && goAhead == true) {
-                signal = signal + 1;
-            }
-            if (myArray[j] != colorArrayRival[j]) { goAhead = false }
+    //if (colorArrayRival.length > 0) {
+    goAhead = true
+    for (let j = 0; j < colorArrayRival.length; j++) {
+        if (myArray[j] == colorArrayRival[j] && goAhead == true) {
+            signal = signal + 1;
         }
-        if (signal == colorArrayRival.length) {
-            for (let k = signal; k < myArray.length; k++) {
-                //if (blue.includes(myArray[k]) == false &&
-                //red.includes(myArray[k]) == false) {
-                if (freePlace.includes(myArray[k]) == true) {
-                    signalTwo = 0;
-                    signalTwoArray = Array();
-                    for (let g = 0; g < keys.length; g++) {
-                        if (freePlace.includes(keys[g]) == true) {
-                            signalTwo = signalTwo + 1;
-                            signalTwoArray[signalTwoArray.length] = keys[g];
-                        }
+        if (myArray[j] != colorArrayRival[j]) { goAhead = false }
+    }
+    if (signal == colorArrayRival.length) {
+        for (let k = signal; k < myArray.length; k++) {
+            //if (blue.includes(myArray[k]) == false &&
+            //red.includes(myArray[k]) == false) {
+            if (freePlace.includes(myArray[k]) == true) {
+                signalTwo = 0;
+                signalTwoArray = Array();
+                for (let g = 0; g < keys.length; g++) {
+                    if (freePlace.includes(keys[g]) == true) {
+                        signalTwo = signalTwo + 1;
+                        signalTwoArray[signalTwoArray.length] = keys[g];
                     }
+                }
+                defenceArray = Array();
+                if (signalTwo >= 2) {
                     defenceArray = Array();
-                    if (signalTwo >= 2) {
-                        defenceArray = Array();
-                        for (let m = 0; m < myArray.length; m++) {
-                            if (freePlace.includes(myArray[m]) == true)
-                                defenceArray[defenceArray.length] = myArray[m]
-                        }
-                        if (signalTwo > 2) {
-                            defenceArray = defenceArray.concat(signalTwoArray)
-                        }
-
-                        strategicalStepsForDefence[strategicalStepsForDefence.length] = defenceArray;
+                    for (let m = 0; m < myArray.length; m++) {
+                        if (freePlace.includes(myArray[m]) == true) { defenceArray[defenceArray.length] = myArray[m] }
                     }
+                    //defenceArray[defenceArray.length] = myArray[m]
+                    if (signalTwo > 0) {
+                        defenceArray = defenceArray.concat(signalTwoArray)
+                    }
+
+                    strategicalStepsForDefence[strategicalStepsForDefence.length] = defenceArray;
+                    console.log(strategicalStepsForDefence)
                 }
             }
         }
     }
+    //}
     //myImportantDefenceStep = 0;
     sensitivePlaces = Array();
     previousNumber = number;
@@ -2525,7 +2536,23 @@ makeAllVariationOfLearntMemory = function () {
     //allVariationOfKeys2 = myArray2.slice(0)
 }
 
+commonElementsInArrayOfArrays = function (myArray) {
+    myArray2 = Array();
+    for (let i = 1; i < 10; i++) {
+        index = 0;
+        for (let j = 0; j < myArray.length; j++) {
+            for (let k = 0; k < myArray[j].length; k++) {
+                if (myArray[j][k] == i) {
+                    //itt fontos, hogy egy Array-ban egy érték csak egyszer szerepelhet
+                    index = index + 1
+                }
+            }
+        }
+        if (index == myArray.length) { myArray2[myArray2.length] = i }
+    }
+    return myArray2;
 
+}
 
 myImportantDefenceStepArray = Array();
 gameByLearntMemory = function () {
@@ -2533,7 +2560,10 @@ gameByLearntMemory = function () {
     number_firstDefenceStep = -10
     number_strategicalSteps = -10;
     number_myImportantDefenceStep = -10;
-    number_everyArrayHasIt = -10;
+    number_everyArrayHasIt4Defence = -10;
+    number_everyArrayHasIt4Attack = -10;
+    number_almostEveryArrayHasIt4Defence = -10;
+    number_almostEveryArrayHasIt4Attack = -10;
     myImportantDefenceStepArray2 = Array();
     myImportantDefenceStepArray3 = Array();
     //myImportantDefenceStepArray = Array();
@@ -2586,7 +2616,7 @@ gameByLearntMemory = function () {
     //a strategicalStepsForDefence arrayokból áll, az ismétlődő (azonos) array-okat stűri ki
     if (strategicalStepsForDefence.length > 0) {
         noNeedFunctionForArrayOfArrays(strategicalStepsForDefence);
-        strategicalStepsForDefence = myArray2.slice(0);
+        strategicalStepsForDefence2 = myArray2.slice(0);
     }
 
 
@@ -2594,15 +2624,18 @@ gameByLearntMemory = function () {
 
     //if (document.querySelector("#attack").checked == true || document.querySelector("#attack2").checked == true) {
 
-
-
+    number_strategicalStepsForStart = -10;
+    if (strategicalStepsForStart.length > 0) {
+        chance = Math.floor(Math.random() * strategicalStepsForStart.length);
+        number_strategicalStepsForStart = strategicalStepsForStart[chance];
+    }
 
     strategicalStepsAll = Array();
     for (let i = 0; i < strategicalSteps.length; i++) {
         strategicalStepsAll = strategicalStepsAll.concat(strategicalSteps[i])
     }
     console.log(strategicalStepsAll)
-    noNeedFunctionForArray(strategicalStepsAll);
+    //noNeedFunctionForArray(strategicalStepsAll);
     strategicalStepsShort = myArray2.slice(0);
     strategicalStepsShort.sort();
     console.log(strategicalStepsShort)
@@ -2617,14 +2650,16 @@ gameByLearntMemory = function () {
     }
     strategicalStepsWithMaxOccurrance = Array();
     for (let i = 0; i < strategicalStepsOccurrance.length; i++) {
-        if (strategicalStepsOccurrance[i] == maxSSO) {
+        if (strategicalStepsOccurrance[i] == maxSSO && maxSSO > 0) {
             strategicalStepsWithMaxOccurrance[strategicalStepsWithMaxOccurrance.length] = strategicalStepsOccurrance.indexOf(maxSSO)
         }
     }
 
     number_strategicalStepsWithMaxOccurrance = -10;
-    chance = Math.floor(Math.random() * strategicalStepsWithMaxOccurrance.length);
-    number_strategicalStepsWithMaxOccurrance = strategicalStepsWithMaxOccurrance[chance];
+    if (strategicalStepsWithMaxOccurrance.length > 0) {
+        chance = Math.floor(Math.random() * strategicalStepsWithMaxOccurrance.length);
+        number_strategicalStepsWithMaxOccurrance = strategicalStepsWithMaxOccurrance[chance];
+    }
 
 
 
@@ -2740,15 +2775,19 @@ gameByLearntMemory = function () {
         number = strategicalStepsForDefence[strategicalStepsForDefence.length - 1][0]
     }*/
 
-    myArray = Array();
-    for (let i = 0; i < strategicalStepsForDefence.length; i++) {
-        myArray = myArray.concat(strategicalStepsForDefence[i])
-    }
-    console.error(myArray)
-    if (myArray.length > 0) {
-        chance = Math.floor(Math.random() * myArray.length);
+    commonElementsInArrayOfArrays(strategicalStepsForDefence2);
+    strategicalStepsForDefence3 = myArray2.slice(0);
+
+
+    /*strategicalStepsForDefence3 = Array();
+    for (let i = 0; i < strategicalStepsForDefence2.length; i++) {
+        strategicalStepsForDefence3 = myArray.concat(strategicalStepsForDefence2[i])
+    }*/
+    console.error(strategicalStepsForDefence3)
+    if (strategicalStepsForDefence3.length > 0) {
+        chance = Math.floor(Math.random() * strategicalStepsForDefence3.length);
         number_strategicalStepsForDefence = -10;
-        number_strategicalStepsForDefence = myArray[chance]
+        number_strategicalStepsForDefence = strategicalStepsForDefence3[chance]
     }
 
 
@@ -2815,44 +2854,71 @@ gameByLearntMemory = function () {
 
     if (number == 0) { number = -10 }
 
-    if (number_myImportantDefenceStep != -10 && number == -10) { number = number_myImportantDefenceStep }
-    if (number_everyArrayHasIt4Defence != -10 && number == -10) { number = number_everyArrayHasIt4Defence }
-    if (number_almostEveryArrayHasIt4Defence != -10 && number == -10) { number = number_almostEveryArrayHasIt4Defence }
-    if (number_firstDefenceStep != -10 && number == -10) { number = number_firstDefenceStep }
-    if (number_strategicalStepsForDefence != -10 && number == -10) { number = number_strategicalStepsForDefence }
-    if (number_strategicalStepsWithMaxOccurrance != -10 && number == -10) { number = number_strategicalStepsWithMaxOccurrance }
-    if (number_strategicalSteps != -10 && number == -10) { number = number_strategicalSteps }
+
 
 
     if (document.querySelector("#attack").checked == true || document.querySelector("#attack2").checked == true) {
+        if (number_strategicalStepsWithMaxOccurrance != -10 &&
+            freePlace.includes(number_strategicalStepsWithMaxOccurrance) == true && number == -10) { number = number_strategicalStepsWithMaxOccurrance }
+        if (number_everyArrayHasIt4Attack != -10 &&
+            freePlace.includes(number_everyArrayHasIt4Attack) == true && number == -10) { number = number_everyArrayHasIt4Attack }
+        if (number_strategicalStepsForStart != -10 && number == -10) { number = number_strategicalStepsForStart }
         if (number_myImportantDefenceStep != -10 && number == -10) { number = number_myImportantDefenceStep }
         if (number_firstDefenceStep != -10 && number == -10) { number = number_firstDefenceStep }
         if (number_strategicalStepsForDefence != -10 && number == -10) { number = number_strategicalStepsForDefence }
         if (number_strategicalSteps != -10 && number == -10) { number = number_strategicalSteps }
-        if (number_strategicalStepsWithMaxOccurrance != -10 && number == -10) { number = number_strategicalStepsWithMaxOccurrance }
-        if (number_almostEveryArrayHasIt4Defence != -10 && number == -10) { number = number_almostEveryArrayHasIt4Defence }
-        if (number_everyArrayHasIt4Defence != -10 && number == -10) { number = number_everyArrayHasIt4Defence }
+        if (number_everyArrayHasIt4Defence != -10 &&
+            freePlace.includes(number_everyArrayHasIt4Defence) == true && number == -10) { number = number_everyArrayHasIt4Defence }
+        if (number_almostEveryArrayHasIt4Defence != -10 &&
+            freePlace.includes(number_almostEveryArrayHasIt4Defence) == true && number == -10) { number = number_almostEveryArrayHasIt4Defence }
+        if (number_almostEveryArrayHasIt4Attack != -10 &&
+            freePlace.includes(number_almostEveryArrayHasIt4Attack) == true && number == -10) { number = number_almostEveryArrayHasIt4Attack }
     }
     if (document.querySelector("#defence").checked == true || document.querySelector("#defence2").checked == true) {
         if (number_myImportantDefenceStep != -10 && number == -10) { number = number_myImportantDefenceStep }
         if (number_firstDefenceStep != -10 && number == -10) { number = number_firstDefenceStep }
         if (number_strategicalStepsForDefence != -10 && number == -10) { number = number_strategicalStepsForDefence }
         if (number_strategicalSteps != -10 && number == -10) { number = number_strategicalSteps }
-        if (number_strategicalStepsWithMaxOccurrance != -10 && number == -10) { number = number_strategicalStepsWithMaxOccurrance }
-        if (number_almostEveryArrayHasIt4Defence != -10 && number == -10) { number = number_almostEveryArrayHasIt4Defence }
-        if (number_everyArrayHasIt4Defence != -10 && number == -10) { number = number_everyArrayHasIt4Defence }
+        if (number_strategicalStepsWithMaxOccurrance != -10 &&
+            freePlace.includes(number_strategicalStepsWithMaxOccurrance) == true && number == -10) { number = number_strategicalStepsWithMaxOccurrance }
+        if (number_everyArrayHasIt4Defence != -10 &&
+            freePlace.includes(number_everyArrayHasIt4Defence) == true && number == -10) { number = number_everyArrayHasIt4Defence }
+        if (number_almostEveryArrayHasIt4Defence != -10 &&
+            freePlace.includes(number_almostEveryArrayHasIt4Defence) == true && number == -10) { number = number_almostEveryArrayHasIt4Defence }
+        if (number_everyArrayHasIt4Attack != -10 &&
+            freePlace.includes(number_everyArrayHasIt4Attack) == true && number == -10) { number = number_everyArrayHasIt4Attack }
+        if (number_almostEveryArrayHasIt4Attack != -10 &&
+            freePlace.includes(number_almostEveryArrayHasIt4Attack) == true && number == -10) { number = number_almostEveryArrayHasIt4Attack }
     }
 
+    if (number_myImportantDefenceStep != -10 && number == -10) { number = number_myImportantDefenceStep }
+    if (number_strategicalStepsForStart != -10 && number == -10) { number = number_strategicalStepsForStart }
+    if (number_firstDefenceStep != -10 && number == -10) { number = number_firstDefenceStep }
+    if (number_strategicalStepsForDefence != -10 && number == -10) { number = number_strategicalStepsForDefence }
+    if (number_strategicalSteps != -10 && number == -10) { number = number_strategicalSteps }
+    if (number_strategicalStepsWithMaxOccurrance != -10 &&
+        freePlace.includes(number_strategicalStepsWithMaxOccurrance) == true && number == -10) { number = number_strategicalStepsWithMaxOccurrance }
+    if (number_everyArrayHasIt4Defence != -10 &&
+        freePlace.includes(number_everyArrayHasIt4Defence) == true && number == -10) { number = number_everyArrayHasIt4Defence }
+    if (number_almostEveryArrayHasIt4Defence != -10 &&
+        freePlace.includes(number_almostEveryArrayHasIt4Defence) == true && number == -10) { number = number_almostEveryArrayHasIt4Defence }
+    if (number_everyArrayHasIt4Attack != -10 &&
+        freePlace.includes(number_everyArrayHasIt4Attack) == true && number == -10) { number = number_everyArrayHasIt4Attack }
+    if (number_almostEveryArrayHasIt4Attack != -10 &&
+        freePlace.includes(number_almostEveryArrayHasIt4Attack) == true && number == -10) { number = number_almostEveryArrayHasIt4Attack }
+
     console.error("strategicalStepsForDefence", number_strategicalStepsForDefence)
-    console.error("firstDefenceStep", number_firstDefenceStep)
     console.error("strategicalSteps", number_strategicalSteps)
+    console.error("strategicalStepsForStart", number_strategicalStepsForStart)
+    console.error("firstDefenceStep", number_firstDefenceStep)
     console.error("strategicalStepsWithMaxOccurrance", number_strategicalStepsWithMaxOccurrance)
-    console.error("everyArrayHasIt", number_everyArrayHasIt)
+    console.error("everyArrayHasIt4Attack", number_everyArrayHasIt4Attack)
+    console.error("almostEveryArrayHasIt4Attack", number_almostEveryArrayHasIt4Attack)
     console.error("everyArrayHasIt4Defence", number_everyArrayHasIt4Defence)
     console.error("almostEveryArrayHasIt4Defence", number_almostEveryArrayHasIt4Defence)
     console.log(everyArrayHasIt4Attack, almostEveryArrayHasIt4Attack, everyArrayHasIt4Defence, almostEveryArrayHasIt4Defence)
 
-
+    strategicalStepsForStart = Array();
 
 
 
@@ -4601,8 +4667,8 @@ gameNowEmpty();
 
 simulatedStrategiesArray = Array();
 simulatedKeys = Array();
-simulatedStrategiesArray = [[6, 2, 4], [2, 7, 5], [8, 5, 7], [4, 5, 2], [6, 3, 8], [4, 3, 6], [1, 9, 2]];
-simulatedKeys = [[5, 7, 9], [6, 8, 3], [2, 3], [6, 8, 9], [1, 4], [5, 8], [4, 5]];
+simulatedStrategiesArray = [[6, 2, 4], [2, 7, 5], [8, 5, 7], [4, 5, 2], [6, 3, 8], [4, 3, 6], [1, 9, 2], [9, 2, 7]];
+simulatedKeys = [[5, 7, 9], [6, 8, 3], [2, 3], [6, 8, 9], [1, 4], [5, 8], [4, 5], [4, 6]];
 simulatedStrategiesArray2 = Array();
 simulatedStrategiesArray3 = Array();
 
