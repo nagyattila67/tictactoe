@@ -1,0 +1,65 @@
+.hrMargin{margin:0px}
+#stepOfEngine{background-color: rgb(238, 220, 130);}
+
+.lavenderBgr{background-color:#FFF0F5}
+.lightGreen{background-color:rgb(176,255,173)}
+.lightBlue{background-color: #bed1d8}
+.smallBorder{border:1px solid #dbdbdb;padding:5px;}
+.smallBorderUp{border-width:1px;border-style: solid solid none solid; border-color: #dbdbdb;padding:5px;}
+.smallBorderDown{border-width:1px;border-style: none solid solid solid; border-color: #dbdbdb;padding:5px;}
+.littlePadding{padding:10px}
+.whatIsThis{font-size:x-small;background-color:#63B73B}
+.larger{font-size: large;}
+
+.smallerButton{height:25px;padding:2px;font-size:12px;font-weight:400;color:white;background-color:#6c757d}
+#infoButton{margin-left:40px;width:150px;height:30px; border:1px solid black;background-color:red;color:white;box-shadow:10px 10px 10px black}
+
+#infoMiEz1{display:none}
+#infoMiEz2{display:none}
+#infoMiEz3{display:none}
+#infoMiEz4{display:none}
+
+
+
+#millTbody tr td{width:70px;height:70px;border: 1px solid #000000;background-color:#dbdbdb;padding:20px}
+#myCleverRandom1:hover #infoForCleverRandom1{display:block;position:absolute;margin:10px 10px 10px 50px;opacity:85%;padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
+#myCleverGame:hover #infoForCleverGame{display:block;position:absolute;margin:10px 10px 10px 50px; opacity:85%; padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
+#myCleverRandom2:hover #infoForCleverRandom2{display:initial;position:absolute;margin:10px 10px 10px 50px;opacity:85%;padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
+#infoForCleverRandom1{display:none}
+#infoForCleverGame{display:none}
+#infoForCleverGame2{display:none}
+#infoForCleverRandom2{display:none}
+.dark-levander{background-color:#e7d4f9;margin:0px 10px 10px 10px;border: 1px solid #9979b8 }
+
+#stepsAndGames p{margin-bottom:5px}
+
+.littleMargin{margin:10px}
+#divForLittleTable4{margin-right:50px}
+#divForLittleTable6{margin-right:50px}
+#littleTbody tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+#littleTbody2 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+#littleTbody3 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+#littleTbody4 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+#littleTbody5 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+#littleTbody6 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+#littleTbody7 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+#littleTbody8 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+#littleTbody9 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+#littleTbody10 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+#littleTbody11 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+#myCleverRandom2 label{margin-left:20px};
+.info{width:150px}
+.fore{z-index:2}
+.behind{z-index:1}
+.blur{filter: blur(1px)}
+.lightBlue{background-color:lightblue};
+
+    
+
+
+
+
+
+    
+
+
