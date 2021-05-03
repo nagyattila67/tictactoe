@@ -53,6 +53,10 @@ everyArrayHasIt4Defence = Array();
 almostEveryArrayHasIt4Defence = Array();
 whatWeStepArray = Array();
 forbiddenPlace = -10;
+forbiddenPlacesArray = Array();
+sensitivePlaces_ = Array();
+sensitivePlacesAll = Array();
+forbiddenPlacesForcesToStepHere = Array();
 
 programParts = 41;
 for (let i = 0; i < programParts; i++) {
@@ -259,7 +263,7 @@ gameWithRandom = function (hereNow) {
 
 gameWithAI = function (hereNow) {
     hereNow_ = hereNow;
-    document.querySelector("#normal2").checked = true;
+    //document.querySelector("#normal2").checked = true;
     gameWithNotRandom(hereNow_)
 }
 
@@ -2272,10 +2276,15 @@ buildingStrategyForAttact = function (myArray, keys) {
 }
 
 sensitivePlaces_ = Array();
+sensitivePlacesAll = Array();
 lookingForForbiddenPlace = function (friendArray, enemyArray) {
+    forbiddenPlacesArray = Array();
     forbiddenPlace = -10;
     sensitivePlace1 = 0;
     sensitivePlace2 = 0;
+    sensitivePlaces_ = Array();
+    sensitivePlacesAll = Array();
+
     for (let k = 0; k < friendArray.length; k++) {
         for (let i = 0; i < freePlace.length - 1; i++) {
             for (let j = i + 1; j < freePlace.length; j++) {
@@ -2284,6 +2293,7 @@ lookingForForbiddenPlace = function (friendArray, enemyArray) {
                     sensitivePlace1 = freePlace[i];
                     sensitivePlace2 = freePlace[j];
                     sensitivePlaces_ = [sensitivePlace1, sensitivePlace2]
+                    sensitivePlacesAll[sensitivePlacesAll.length] = sensitivePlaces_
                     //console.log(sensitivePlace1, sensitivePlace2)
                     for (let m = 0; m < sensitivePlaces_.length; m++) {
                         other = (m + 1) % 2;
@@ -2297,26 +2307,43 @@ lookingForForbiddenPlace = function (friendArray, enemyArray) {
                             }
                             if (fSignal == 2) {
                                 forbiddenPlace = sensitivePlaces_[other];
-                                fSignal = 0; break;
+                                forbiddenPlacesArray[forbiddenPlacesArray.length] = forbiddenPlace;
+                                fSignal = 0;
                             }
                         }
-                        if (fSignal == 2) { break }
+
                     }
-                    if (fSignal == 2) { break }
+
                 }
             };
         };
     }
 
+
+    forbiddenPlacesForcesToStepHere = Array();
+    myArray = Array();
+    if (forbiddenPlacesArray.length > 0) {
+        myArray = Array()
+        for (let i = 0; i < sensitivePlacesAll.length; i++) {
+            myArray = myArray.concat(sensitivePlacesAll[i]);
+        }
+    }
+    if (myArray.length > 0) {
+        for (let i = 0; i < myArray.length; i++) {
+            if (forbiddenPlacesArray.includes(myArray[i]) == false &&
+                freePlace.includes(myArray[i]) == true) {
+                forbiddenPlacesForcesToStepHere[forbiddenPlacesForcesToStepHere.length] = myArray[i];
+            }
+        }
+    }
 }
 
 
 
 
 buildingStrategyForDefence = function (myArray, keys) {
-    if (forbiddenPlace == -10) {
+    if (forbiddenPlacesArray.length == 0) {
         lookingForForbiddenPlace(colorArrayMe, colorArrayRival);
-        if (forbiddenPlace != -10) { console.error(forbiddenPlace) }
     }
 
     number_myImportantDefenceStep = -10
@@ -2906,6 +2933,7 @@ gameByLearntMemory = function () {
 
 
 
+
     if (document.querySelector("#attack").checked == true || document.querySelector("#attack2").checked == true) {
         if (number_myImportantDefenceStep != -10 && number == -10) { number = number_myImportantDefenceStep }
         if (number_strategicalStepsWithMaxOccurrance != -10 &&
@@ -2924,6 +2952,18 @@ gameByLearntMemory = function () {
             freePlace.includes(number_almostEveryArrayHasIt4Attack) == true && number == -10) { number = number_almostEveryArrayHasIt4Attack }
     }
     if (document.querySelector("#defence").checked == true || document.querySelector("#defence2").checked == true) {
+
+        if (forbiddenPlacesForcesToStepHere.length > 0 && number == -10) {
+            chance = Math.floor(Math.random() * forbiddenPlacesForcesToStepHere.length);
+            number = forbiddenPlacesForcesToStepHere[chance];
+            if (nowLearning == false) {
+                console.log("lépés a forbiddenPlacesForcesToStepHere miatt");
+                console.log("forbiddenPlacesForcesToStepHere", forbiddenPlacesForcesToStepHere)
+                console.log("forbiddenPlacesArray", forbiddenPlacesArray)
+            }
+        }
+        forbiddenPlacesForcesToStepHere = Array();
+
         if (number_myImportantDefenceStep != -10 && number == -10) { number = number_myImportantDefenceStep }
         if (number_firstDefenceStep != -10 && number == -10) { number = number_firstDefenceStep }
         if (number_everyArrayHasIt4Defence != -10 &&
@@ -2940,7 +2980,7 @@ gameByLearntMemory = function () {
             freePlace.includes(number_almostEveryArrayHasIt4Attack) == true && number == -10) { number = number_almostEveryArrayHasIt4Attack }
     }
 
-    if (number_myImportantDefenceStep != -10 && number == -10) {
+    /*if (number_myImportantDefenceStep != -10 && number == -10) {
         number = number_myImportantDefenceStep;
         strategyOfEngineHistory[strategyOfEngineHistory.length] = "myImportantDefenceStep"
     }
@@ -2957,7 +2997,7 @@ gameByLearntMemory = function () {
     if (number_everyArrayHasIt4Attack != -10 &&
         freePlace.includes(number_everyArrayHasIt4Attack) == true && number == -10) { number = number_everyArrayHasIt4Attack }
     if (number_almostEveryArrayHasIt4Attack != -10 &&
-        freePlace.includes(number_almostEveryArrayHasIt4Attack) == true && number == -10) { number = number_almostEveryArrayHasIt4Attack }
+        freePlace.includes(number_almostEveryArrayHasIt4Attack) == true && number == -10) { number = number_almostEveryArrayHasIt4Attack }*/
 
     if (nowLearning == false) {
         console.error("strategicalStepsForDefence", number_strategicalStepsForDefence)
@@ -5052,3 +5092,20 @@ miez4 = function () {
 closeInfoMiEz4 = function () {
     document.querySelector("#infoMiEz4").style.display = "none";
 }
+
+
+discoverStrategies = function(){
+    discoveredStrategiesArray=Array();
+}
+
+
+
+
+
+
+
+
+
+
+
+
