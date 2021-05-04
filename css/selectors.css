@@ -2,6 +2,7 @@
 #stepOfEngine{background-color: rgb(238, 220, 130);}
 
 .lavenderBgr{background-color:#FFF0F5}
+.lightYellow{background-color:#fdfd96}
 .lightGreen{background-color:rgb(176,255,173)}
 .lightBlue{background-color: #bed1d8}
 .smallBorder{border:1px solid #dbdbdb;padding:5px;}
@@ -47,6 +48,8 @@
 #littleTbody9 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
 #littleTbody10 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
 #littleTbody11 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+#littleTbody12 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
+#littleTbody13 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
 #myCleverRandom2 label{margin-left:20px};
 .info{width:150px}
 .fore{z-index:2}

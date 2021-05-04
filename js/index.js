@@ -1973,6 +1973,7 @@ lookingForBasicPatterns = function () {
         }
     }
 
+    learntStrategies2a.sort();
     myArray = learntStrategies2a.slice(0);
     noNeed = Array();
     for (let i = 0; i < learntStrategies2a.length; i++) {
@@ -2002,10 +2003,29 @@ lookingForBasicPatterns = function () {
         }
     }
 
-    learntStrategies3 = Array();
+    learntStrategies2b = Array();
+    variations = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]]
     for (let i = 0; i < learntStrategies2a.length; i++) {
+        for (let j = 0; j < variations.length; j++) {
+            learntStrategies2b[learntStrategies2b.length] =
+                [learntStrategies2a[i][variations[j][0]],
+                learntStrategies2a[i][variations[j][1]],
+                learntStrategies2a[i][variations[j][2]]];
+        }
+
+    }
+    noNeedFunctionForArrayOfArrays(learntStrategies2b)
+    learntStrategies2c=myArray2.slice(0)
+
+
+
+
+
+
+    learntStrategies3 = Array();
+    for (let i = 0; i < learntStrategies2c.length; i++) {
         if (noNeed.includes(i) == false) {
-            learntStrategies3[learntStrategies3.length] = learntStrategies2a[i];
+            learntStrategies3[learntStrategies3.length] = learntStrategies2c[i];
         }
     }
 
@@ -4784,7 +4804,7 @@ gameNowEmpty();
 
 simulatedStrategiesArray = Array();
 simulatedKeys = Array();
-simulatedStrategiesArray = [[6, 2, 4], [2, 7, 5], [8, 5, 7], [4, 5, 2], [6, 3, 8], [4, 3, 6], [1, 9, 2], [9, 2, 7], [9, 5, 7]];
+simulatedStrategiesArray = [[2, 4, 6], [2, 7, 5], [8, 5, 7], [4, 5, 2], [6, 3, 8], [4, 3, 6], [1, 9, 2], [9, 2, 7], [9, 5, 7]];
 simulatedKeys = [[5, 7, 9], [6, 8, 3], [2, 3], [6, 8, 9], [1, 4], [5, 8], [4, 5], [4, 6], [1, 3]];
 simulatedStrategiesArray2 = Array();
 simulatedStrategiesArray3 = Array();
@@ -4804,14 +4824,19 @@ makeSimulatedStrategies = function () {
                         myArray[n] = simulatedStrategiesArray[i][0];
                         myArray[m] = simulatedStrategiesArray[i][1];
                         myArray[s] = simulatedStrategiesArray[i][2];
-                        simulatedStrategiesArray2[simulatedStrategiesArray2.length] = myArray;
-                        simulatedKeys2[simulatedKeys2.length] = simulatedKeys[i];
+                        simulatedStrategiesArray2[simulatedStrategiesArray2.length] = myArray.slice(0);
+                        simulatedKeys2[simulatedKeys2.length] = simulatedKeys[i].slice(0);
                     }
                 }
             }
         }
     }
-    myArray = simulatedStrategiesArray2.slice(0);
+
+
+
+    noNeed = Array();
+
+    /*myArray = simulatedStrategiesArray2.slice(0);
     noNeed = Array();
     for (let i = 0; i < simulatedStrategiesArray2.length; i++) {
         myOriginalIndex = i;
@@ -4839,7 +4864,7 @@ makeSimulatedStrategies = function () {
             centralReflectionForLearnt(originalArray); myCopy = copy.slice(0);
             noNeedFunctionForPatterns3(myArray, myCopy, myOriginalIndex)
         }
-    };
+    };*/
     cleaningThesimulatedStrategiesArray();
     makeNewPatternsArray6();
     //patternsArray6 = newPatternsArray6.slice(0);
@@ -5093,19 +5118,233 @@ closeInfoMiEz4 = function () {
     document.querySelector("#infoMiEz4").style.display = "none";
 }
 
-
-discoverStrategies = function(){
-    discoveredStrategiesArray=Array();
+firstMakeTripletsToDiscovereStrategiesByLOGIC = function () {
+    //az összeset legyártja
+    allTripletsByLogic = Array();
+    for (let i = 1; i < 8; i++) {
+        for (let j = i + 1; j < 9; j++) {
+            for (let k = j + 1; k < 10; k++) {
+                myArray = [i, j, k];
+                allTripletsByLogic[allTripletsByLogic.length] = myArray;
+            }
+        }
+    }
+    return allTripletsByLogic
 }
 
+firstMakeTripletsToDiscovereStrategiesByRND = function () {
+    //csak egyet csinál
+    basis = [1, 2, 3, 4, 5, 6, 7, 8, 9]
+    number1 = Math.floor(Math.random() * 9);
+    myNumber1 = basis.splice(number1, 1);
+    number2 = Math.floor(Math.random() * 8);
+    myNumber2 = basis.splice(number2, 1);
+    number3 = Math.floor(Math.random() * 7);
+    myNumber3 = basis.splice(number3, 1)
+    myArray = [myNumber1[0], myNumber2[0], myNumber3[0]];
+    console.log(myArray)
+    return myArray;
+}
+
+chosen = [[0, 1], [0, 2], [1, 2]];
+littleArray = Array();
+cKeys = Array();
+keys4DiscoveredStrategies = Array();
+choseStrategiesFromTriplets = function (myArray) {
+    littleArray = Array();
+    cSignal = 0;
+    cKeys_ = Array();
+    for (let i = 0; i < chosen.length; i++) {
+        for (let j = 1; j < 10; j++) {
+            if (myArray.includes(j) == false &&
+                myArray[chosen[i][0]] + myArray[chosen[i][1]] + j == 15) {
+                cKeys_[cKeys_.length] = j;
+                cSignal = cSignal + 1;
+                if (cSignal == 2) {
+                }
+            }
+        }
+    }
+    if (cSignal >= 2) {
+        littleArray = [myArray[0], myArray[1], myArray[2]];
+        littleArray.sort();
+        cKeys = cKeys_.slice(0);
+    }
+    console.log(littleArray)
+    return littleArray, cKeys
+}
+
+discoveredStrategiesArray = Array();
+discoverStrategiesByRND = function () {
+    discoveredStrategiesArray = Array();
+    while (discoveredStrategiesArray.length < 100) {
+
+        firstMakeTripletsToDiscovereStrategiesByRND()
+        choseStrategiesFromTriplets(myArray)
+        if (littleArray.length > 0) {
+            discoveredStrategiesArray[discoveredStrategiesArray.length] = littleArray
+            keys4DiscoveredStrategies[keys4DiscoveredStrategies.length] = cKeys
+        }
+    }
+    return discoveredStrategiesArray
+}
+
+discoverStrategiesByLOGIC = function () {
+    discoveredStrategiesArray = Array();
+    keys4DiscoveredStrategies = Array()
+    firstMakeTripletsToDiscovereStrategiesByLOGIC();
+    for (let m = 0; m < allTripletsByLogic.length; m++) {
+        myArray = allTripletsByLogic[m]
+        choseStrategiesFromTriplets(myArray)
+        if (littleArray.length > 0) {
+            discoveredStrategiesArray[discoveredStrategiesArray.length] = littleArray;
+            keys4DiscoveredStrategies[keys4DiscoveredStrategies.length] = cKeys;
+        }
+    }
+    needDelete = Array();
+    for (let i = 0; i < discoveredStrategiesArray.length - 1; i++) {
+        deleteFromThis = i;
+        dontDeleteThis = i;
+        originalArray = discoveredStrategiesArray[i].slice(0);
+        for (let j = 0; j < 4; j++) {
+            if (j > 0) {
+                rotation90DegreeNumbers(originalArray);
+                noNeedFunction(deleteFromThis, discoveredStrategiesArray, copy);
+                originalArray = copy.slice(0);
+            }
+            verticalReflectionNumbers(originalArray);
+            noNeedFunction(deleteFromThis, discoveredStrategiesArray, copy);
+            centralReflectionNumbers(copy);
+            noNeedFunction(deleteFromThis, discoveredStrategiesArray, copy);
+            horizontalReflectionNumbers(originalArray);
+            noNeedFunction(deleteFromThis, discoveredStrategiesArray, copy);
+            centralReflectionNumbers(copy);
+            noNeedFunction(deleteFromThis, discoveredStrategiesArray, copy);
+            centralReflectionNumbers(originalArray);
+            noNeedFunction(deleteFromThis, discoveredStrategiesArray, copy);
+        }
+    }
+    discoveredStrategiesArray2 = Array();
+    keys4DiscoveredStrategies2 = Array();
+    for (let i = 0; i < discoveredStrategiesArray.length; i++) {
+        if (needDelete.includes(i) == false) {
+            discoveredStrategiesArray2[discoveredStrategiesArray2.length] = discoveredStrategiesArray[i].slice(0);
+            keys4DiscoveredStrategies2[keys4DiscoveredStrategies2.length] = keys4DiscoveredStrategies[i].slice(0);
+        }
+    }
+    discoveredStrategiesArray3 = Array();
+    keys4DiscoveredStrategies3 = Array();
+    variations = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]]
+    for (let i = 0; i < discoveredStrategiesArray2.length; i++) {
+        for (let j = 0; j < variations.length; j++) {
+            discoveredStrategiesArray3[discoveredStrategiesArray3.length] =
+                [discoveredStrategiesArray2[i][variations[j][0]],
+                discoveredStrategiesArray2[i][variations[j][1]],
+                discoveredStrategiesArray2[i][variations[j][2]]];
+
+            keys4DiscoveredStrategies3[keys4DiscoveredStrategies3.length] =
+                [keys4DiscoveredStrategies2[i][variations[j][0]],
+                keys4DiscoveredStrategies2[i][variations[j][1]],
+                keys4DiscoveredStrategies2[i][variations[j][2]]];
+        }
+
+    }
 
 
+    patternsArray6 = Array();
+    for (let i = 0; i < discoveredStrategiesArray3.length; i++) {
+        pattern = ["nothing", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"];
+        for (let j = 0; j < discoveredStrategiesArray3[i].length; j++) {
+            pattern[discoveredStrategiesArray3[i][j]] = "blue";
+        }
+        patternsArray6[patternsArray6.length] = pattern;
+    }
+    document.querySelector("#all4").innerHTML = discoveredStrategiesArray3.length;
+    document.querySelector("#all4").classList.add("lightBlue")
+    document.querySelector("#storedStrategies20").innerHTML = discoveredStrategiesArray3.length;
+    learntStrategies3 = discoveredStrategiesArray3.slice(0);
+    learntStrategiesKeyPlaces3 = keys4DiscoveredStrategies3.slice(0);
+}
 
+rotation90DegreeArray = ["nothing", 7, 4, 1, 8, 5, 2, 9, 6, 3];
+rotation90DegreeNumbers = function (originalArray) {
+    copy = Array();
+    for (let t = 0; t < originalArray.length; t++) {
+        copy[t] = rotation90DegreeArray[originalArray[t]]
+    };
+    copy.sort();
+    return copy;
+}
 
+verticalReflectionArray = ["nothing", 1, 4, 7, 2, 5, 8, 3, 6, 9];
+verticalReflectionNumbers = function (originalArray) {
+    copy = Array();
+    for (let t = 0; t < originalArray.length; t++) {
+        copy[t] = verticalReflectionArray[originalArray[t]]
+    }
+    copy.sort();
+    return copy;
+}
 
+horizontalReflectionArray = ["nothing", 9, 6, 3, 8, 5, 2, 7, 4, 1];
+horizontalReflectionNumbers = function (originalArray) {
+    copy = Array();
+    for (let t = 0; t < originalArray.length; t++) {
+        copy[t] = horizontalReflectionArray[originalArray[t]]
+    }
+    copy.sort();
+    return copy;
+}
 
+centralReflectionArray = ["nothing", 9, 8, 7, 6, 5, 4, 3, 2, 1];
+centralReflectionNumbers = function (originalArray) {
+    copy = Array();
+    for (let t = 0; t < originalArray.length; t++) {
+        copy[t] = centralReflectionNumbers[originalArray[t]]
+    }
+    copy.sort();
+    return copy;
+}
 
+gameNumberE = 1;
+forwardInMemory7 = function () {
+    dontChance = false;
+    if (gameNumberE < discoveredStrategiesArray3.length - 1) { gameNumberE = gameNumberE + 1; dontChance = true; };
+    if (gameNumberE == discoveredStrategiesArray3.length - 1 && dontChance == false) { gameNumberE = 0 };
+    showBasicPatterns7();
+}
 
+backInMemory7 = function () {
+    dontChance = false;
+    if (gameNumberE > 0) { gameNumberE = gameNumberE - 1; dontChance = true; };
+    if (gameNumberE == 0 && dontChance == false) { gameNumberE = discoveredStrategiesArray3.length - 1 };
+    showBasicPatterns7();
+}
 
+showBasicPatterns7 = function () {
+    for (let i = 1; i < 10; i++) {
+        document.querySelector(`#littleTbody12 td[name='${i}']`).innerHTML = ""
+        document.querySelector(`#littleTbody12 td[name='${i}']`).style["background-color"] = "#dbdbdb"
+    }
+    for (let i = 1; i < 10; i++) {
+        document.querySelector(`#littleTbody13 td[name='${i}']`).innerHTML = ""
+        document.querySelector(`#littleTbody13 td[name='${i}']`).style["background-color"] = "#dbdbdb"
+    }
 
+    for (let i = 0; i < 3; i++) {
+        document.querySelector(`#littleTbody12 td[name='${discoveredStrategiesArray3[gameNumberE][i]}']`).innerHTML = "&#128309"
+    }
+
+    for (let i = 0; i < 3; i++) {
+        document.querySelector(`#littleTbody13 td[name='${discoveredStrategiesArray3[gameNumberE][i]}']`).innerHTML = i + 1
+    }
+
+    document.querySelector("#numberOfGame7").innerHTML = `${gameNumberE + 1}. `;
+    //document.querySelector("#numberOfGame9").innerHTML = `${gameNumberE + 1}. `
+    document.querySelector("#all4").innerHTML = discoveredStrategiesArray3.length;
+    document.querySelector("#all4").classList.add("lightBlue")
+
+    //gameNumberC = 0;
+
+}
 
