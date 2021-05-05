@@ -1396,7 +1396,7 @@ cleaningTheMemory2 = function () {
     document.querySelector("#numberOfStoredGames1").innerHTML = `${shortMemory.length}`;
     document.querySelector("#numberOfStoredGames3").innerHTML = `${shortMemory.length}`;
     showBasicPatterns();
-    showBasicPatterns3();
+    //showBasicPatterns3();
 
 }
 
@@ -1592,6 +1592,19 @@ showTheGamesFromTheUltimateMemories = function () {
 
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 noNeedFunctionForPatterns = function (myArray) {
     for (let i = 0; i < myArray.length - 1; i++) {
         for (let j = i + 1; j < myArray.length; j++) {
@@ -1640,6 +1653,9 @@ noNeedFunctionForPatterns2 = function (myArray, myCopy, myOriginalIndex) {
 
 blueWonBigFilterArray4 = Array();
 blueWonBigFilterArray5 = Array();
+
+
+
 lookingForPatterns = function () {
     patternsArray = Array();
     patternsArray2 = Array();
@@ -2002,7 +2018,8 @@ lookingForBasicPatterns = function () {
             noNeedFunctionForPatterns2(myArray, myCopy, myOriginalIndex)
         }
     }
-
+    //innen
+    /*
     learntStrategies2b = Array();
     variations = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]]
     for (let i = 0; i < learntStrategies2a.length; i++) {
@@ -2015,7 +2032,7 @@ lookingForBasicPatterns = function () {
 
     }
     noNeedFunctionForArrayOfArrays(learntStrategies2b)
-    learntStrategies2c=myArray2.slice(0)
+    learntStrategies2c = myArray2.slice(0)
 
 
 
@@ -2028,8 +2045,9 @@ lookingForBasicPatterns = function () {
             learntStrategies3[learntStrategies3.length] = learntStrategies2c[i];
         }
     }
+   
 
-    learntStrategiesKeyPlaces3 = Array();
+ learntStrategiesKeyPlaces3 = Array();
     for (let m = 0; m < learntStrategies3.length; m++) {
         myArray = learntStrategies3[m].slice(0);
         myArrayForKeys = Array();
@@ -2043,6 +2061,42 @@ lookingForBasicPatterns = function () {
         }
         learntStrategiesKeyPlaces3[learntStrategiesKeyPlaces3.length] = myArrayForKeys;
     }
+    */
+
+
+    //idáig
+
+    for (let i = 0; i < learntStrategies2a.length; i++) {
+        learntStrategies2a[i].sort()
+    }
+    noNeedFunctionForArrayOfArrays(learntStrategies2a)
+    learntStrategies2a = myArray2.slice(0)
+
+    learntStrategiesKeyPlaces2a = Array();
+    for (let m = 0; m < learntStrategies2a.length; m++) {
+        myArray = learntStrategies2a[m].slice(0);
+        myArrayForKeys = Array();
+        for (let i = 0; i < myArray.length - 1; i++) {
+            for (let j = i + 1; j < myArray.length; j++) {
+                key = 15 - myArray[i] - myArray[j];
+                if (key < 10 && key > 0 && key != myArray[i] && key != myArray[j]) {
+                    myArrayForKeys[myArrayForKeys.length] = key;
+                }
+            }
+        }
+        myArrayForKeys.sort();
+        learntStrategiesKeyPlaces2a[learntStrategiesKeyPlaces2a.length] = myArrayForKeys;
+    }
+
+    makeAllVariationFunction(learntStrategies2a,learntStrategiesKeyPlaces2a)
+    learntStrategies3=simulatedStrategiesArray2.slice(0)
+    learntStrategiesKeyPlaces3=simulatedKeys2.slice(0)
+
+
+
+
+    console.error("learntStrategiesKeyPlaces3", learntStrategiesKeyPlaces3)
+
     patternsArray6 = Array();
     for (let i = 0; i < learntStrategies3.length; i++) {
         pattern = ["nothing", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"];
@@ -2063,6 +2117,7 @@ lookingForBasicPatterns = function () {
     gameNumberB = 0;
     gameNumberC = 0;
 };
+
 
 showBasicPatterns = function () {
     if (blueWonMemory.length == 0) { patternsArray6 = Array() }
@@ -4809,9 +4864,73 @@ simulatedKeys = [[5, 7, 9], [6, 8, 3], [2, 3], [6, 8, 9], [1, 4], [5, 8], [4, 5]
 simulatedStrategiesArray2 = Array();
 simulatedStrategiesArray3 = Array();
 
+makeAllVariationFunction = function (simulatedStrategiesArray, simulatedKeys) {
+    simulatedStrategiesArray2 = Array();
+    simulatedStrategiesArray3 = Array();
+    simulatedKeys2 = Array();
+    simulatedKeys3 = Array();
+    for (let i = 0; i < simulatedStrategiesArray.length; i++) {
+        if (simulatedKeys[i].length == 3) {
+            for (let m = 0; m < 3; m++) {
+                for (let n = 0; n < 3; n++) {
+                    for (let s = 0; s < 3; s++) {
+                        if (n != m && n != s && m != s) {
+                            myArray = Array();
+                            myArray[n] = simulatedStrategiesArray[i][0];
+                            myArray[m] = simulatedStrategiesArray[i][1];
+                            myArray[s] = simulatedStrategiesArray[i][2];
+                            simulatedStrategiesArray2[simulatedStrategiesArray2.length] = myArray.slice(0);
+                            simulatedKeys2[simulatedKeys2.length] = simulatedKeys[i].slice(0);
+                        }
+                    }
+                }
+            }
+        }
+        if (simulatedKeys[i].length == 2) {
+            for (let j = 0; j < 2; j++) {
+                for (let m = j + 1; m < 3; m++) {
+                    indexDS = 0;
+                    for (let s = 1; s < 10; s++) {
+                        if (simulatedStrategiesArray[i][j] != s &&
+                            simulatedStrategiesArray[i][m] != s &&
+                            simulatedStrategiesArray[i][j] + simulatedStrategiesArray[i][m] + s != 15) {
+                            indexDS = indexDS + 1
+                        }
+                    }
+                    if (indexDS == 7) {
+                        centralElement = simulatedStrategiesArray[i][3 - j - m]
+                        simulatedStrategiesArray2[simulatedStrategiesArray2.length] =
+                            [simulatedStrategiesArray[i][j],
+                            simulatedStrategiesArray[i][m],
+                                centralElement];
+                        simulatedStrategiesArray2[simulatedStrategiesArray2.length] =
+                            [simulatedStrategiesArray[i][m],
+                            simulatedStrategiesArray[i][j],
+                                centralElement];
+                        simulatedKeys2[simulatedKeys2.length] =
+                            simulatedKeys[i];
+                        simulatedKeys2[simulatedKeys2.length] =
+                            simulatedKeys[i];
+                    }
+
+                }
+            }
+        }
+
+    }
+    return simulatedStrategiesArray2, simulatedKeys2
+
+}
+
+makeAllVariationFunction(simulatedStrategiesArray, simulatedKeys) 
 
 makeSimulatedStrategies = function () {
-    simulatedStrategiesArray2 = Array();
+
+    makeAllVariationFunction(simulatedStrategiesArray, simulatedKeys)
+    simulatedStrategiesArray3=simulatedStrategiesArray2.slice(0)
+    simulatedKeys3=simulatedKeys2.slice(0);
+
+    /*simulatedStrategiesArray2 = Array();
     simulatedStrategiesArray3 = Array();
     simulatedKeys2 = Array();
     simulatedKeys3 = Array();
@@ -4830,7 +4949,7 @@ makeSimulatedStrategies = function () {
                 }
             }
         }
-    }
+    }*/
 
 
 
@@ -4865,7 +4984,7 @@ makeSimulatedStrategies = function () {
             noNeedFunctionForPatterns3(myArray, myCopy, myOriginalIndex)
         }
     };*/
-    cleaningThesimulatedStrategiesArray();
+    //cleaningThesimulatedStrategiesArray();
     makeNewPatternsArray6();
     //patternsArray6 = newPatternsArray6.slice(0);
     gameNumberC = 0;
@@ -5170,7 +5289,7 @@ choseStrategiesFromTriplets = function (myArray) {
         littleArray.sort();
         cKeys = cKeys_.slice(0);
     }
-    console.log(littleArray)
+    //console.log(littleArray)
     return littleArray, cKeys
 }
 
@@ -5234,22 +5353,58 @@ discoverStrategiesByLOGIC = function () {
     }
     discoveredStrategiesArray3 = Array();
     keys4DiscoveredStrategies3 = Array();
-    variations = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]]
+    basicStrategies = 0
+
+    makeAllVariationFunction(discoveredStrategiesArray2, keys4DiscoveredStrategies2)
+
+    discoveredStrategiesArray3 = simulatedStrategiesArray2.slice(0);
+    keys4DiscoveredStrategies3 = simulatedKeys2.slice(0)
+    /*variations = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]]
     for (let i = 0; i < discoveredStrategiesArray2.length; i++) {
-        for (let j = 0; j < variations.length; j++) {
-            discoveredStrategiesArray3[discoveredStrategiesArray3.length] =
-                [discoveredStrategiesArray2[i][variations[j][0]],
-                discoveredStrategiesArray2[i][variations[j][1]],
-                discoveredStrategiesArray2[i][variations[j][2]]];
+        if (keys4DiscoveredStrategies2[i].length == 3) {
+            basicStrategies = basicStrategies + 1
+            for (let j = 0; j < variations.length; j++) {
+                discoveredStrategiesArray3[discoveredStrategiesArray3.length] =
+                    [discoveredStrategiesArray2[i][variations[j][0]],
+                    discoveredStrategiesArray2[i][variations[j][1]],
+                    discoveredStrategiesArray2[i][variations[j][2]]];
 
-            keys4DiscoveredStrategies3[keys4DiscoveredStrategies3.length] =
-                [keys4DiscoveredStrategies2[i][variations[j][0]],
-                keys4DiscoveredStrategies2[i][variations[j][1]],
-                keys4DiscoveredStrategies2[i][variations[j][2]]];
+                keys4DiscoveredStrategies3[keys4DiscoveredStrategies3.length] =
+                    keys4DiscoveredStrategies2[i];
+                
+            }
         }
+        if (keys4DiscoveredStrategies2[i].length == 2) {
+            for (let j = 0; j < 2; j++) {
+                for (let m = j + 1; m < 3; m++) {
+                    indexDS = 0;
+                    for (let s = 1; s < 10; s++) {
+                        if (discoveredStrategiesArray2[i][j] != s &&
+                            discoveredStrategiesArray2[i][m] != s &&
+                            discoveredStrategiesArray2[i][j] + discoveredStrategiesArray2[i][m] + s != 15) {
+                            indexDS = indexDS + 1
+                        }
+                    }
+                    if (indexDS == 6) {
+                        centralElement = discoveredStrategiesArray2[i][3 - j - m]
+                        discoveredStrategiesArray3[discoveredStrategiesArray3.length] =
+                            [discoveredStrategiesArray2[i][j],
+                            discoveredStrategiesArray2[i][m],
+                                centralElement];
+                        discoveredStrategiesArray3[discoveredStrategiesArray3.length] =
+                            [discoveredStrategiesArray2[i][m],
+                            discoveredStrategiesArray2[i][j],
+                                centralElement];
+                        keys4DiscoveredStrategies3[keys4DiscoveredStrategies3.length] =
+                            keys4DiscoveredStrategies2[i];
+                        keys4DiscoveredStrategies3[keys4DiscoveredStrategies3.length] =
+                            keys4DiscoveredStrategies2[i];
+                    }
 
-    }
-
+                }
+            }
+        }
+    }*/
 
     patternsArray6 = Array();
     for (let i = 0; i < discoveredStrategiesArray3.length; i++) {
@@ -5347,4 +5502,5 @@ showBasicPatterns7 = function () {
     //gameNumberC = 0;
 
 }
+
 
