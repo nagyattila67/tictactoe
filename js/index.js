@@ -143,9 +143,11 @@ whoStart = function () {
         //gameByLearntMemory(); stepOnTheBoard(number); isWinner();
     }
     if (document.querySelector("#withSimulatedAI").checked == true && nowLearning == false) {
-        if (firstStep == "computer") { step = 1; stepShowsColor = 1; }
-        number = Math.ceil(Math.random() * 9);
-        stepOnTheBoard(number); isWinner();
+        if (firstStep == "computer") {
+            step = 1; stepShowsColor = 1;
+            number = Math.ceil(Math.random() * 9);
+            stepOnTheBoard(number); isWinner();
+        }
     }
     if (document.querySelector("#withLearningMemory").checked == true
         && nowLearning == true) {
@@ -264,6 +266,7 @@ gameWithRandom = function (hereNow) {
 gameWithAI = function (hereNow) {
     hereNow_ = hereNow;
     //document.querySelector("#normal2").checked = true;
+    estimatedRunningNumberOninput();
     gameWithNotRandom(hereNow_)
 }
 
@@ -399,8 +402,34 @@ whoIsThePartner = function () {
     if (document.querySelector("#withRandom").checked == true) { partner = "random" };
     if (document.querySelector("#withSimulatedAI").checked == true) { partner = "simulatedAI" };
     if (document.querySelector("#withLearningMemory_").checked == true) { partner = "learningMemory" };
+    estimatedRunningNumberOninput()
 }
-whoIsThePartner();
+
+
+estimatedRunningNumberOninput = function () {
+    limit = document.querySelector("#runningNumber").value;
+    limit = parseInt(limit);
+    if (document.querySelector("#withSimulatedLearntStrategy").checked == true) {
+        if (document.querySelector("#withSimulatedAI").checked == true) {
+            appRunTime = limit * 0.082;
+        }
+        if (document.querySelector("#withRandom").checked == true) {
+            appRunTime = limit * 0.056;
+        }
+        if (document.querySelector("#withProgram").checked == true) {
+            appRunTime = limit * 0.052;
+        }
+        if (document.querySelector("#withLearningMemory_").checked == true) {
+            appRunTime = 0;
+            document.querySelector("#estimatedRunTime").innerHTML = "?"
+        }
+        if (appRunTime > 0) {
+            whereShowTime = "#estimatedRunTime"
+            showTime2(whereShowTime, appRunTime)
+        }
+    }
+}
+
 
 allRunsUntilNow = 0;
 allRuns = 0;
@@ -485,6 +514,7 @@ learning = function () {
         if (s % 1000 == 0) { console.log("s=", s) }
 
         learningStepByStep();
+        //if(red[0]==9 && blue[0]==6 && coins[0]=="red"){console.log("most");break}
         allSteps[s] = coins;
 
         if (document.querySelector("#withRandomEngine").checked == false) {
@@ -553,6 +583,7 @@ learning = function () {
 
 
 learningStepByStep = function () {
+    //a computer kék a gamer piros
     if (document.querySelector("#stepAlternately").checked == true) {
         if (s % 2 == 0) { firstStep = "computer" }
         if (s % 2 == 1) { firstStep = "gamer" }
@@ -1017,7 +1048,8 @@ learningStepByStep = function () {
 
                     };
                 }
-
+                //if(red[0]==9 && blue[0]==6 && coins[0]=="red"){console.log("most");break}
+                //console.log(red[0],blue[0],coins[0])
 
             }
         }
@@ -2029,16 +2061,16 @@ lookingForBasicPatterns = function () {
                 learntStrategies2a[i][variations[j][1]],
                 learntStrategies2a[i][variations[j][2]]];
         }
-
+ 
     }
     noNeedFunctionForArrayOfArrays(learntStrategies2b)
     learntStrategies2c = myArray2.slice(0)
-
-
-
-
-
-
+ 
+ 
+ 
+ 
+ 
+ 
     learntStrategies3 = Array();
     for (let i = 0; i < learntStrategies2c.length; i++) {
         if (noNeed.includes(i) == false) {
@@ -2046,7 +2078,7 @@ lookingForBasicPatterns = function () {
         }
     }
    
-
+ 
  learntStrategiesKeyPlaces3 = Array();
     for (let m = 0; m < learntStrategies3.length; m++) {
         myArray = learntStrategies3[m].slice(0);
@@ -2088,9 +2120,9 @@ lookingForBasicPatterns = function () {
         learntStrategiesKeyPlaces2a[learntStrategiesKeyPlaces2a.length] = myArrayForKeys;
     }
 
-    makeAllVariationFunction(learntStrategies2a,learntStrategiesKeyPlaces2a)
-    learntStrategies3=simulatedStrategiesArray2.slice(0)
-    learntStrategiesKeyPlaces3=simulatedKeys2.slice(0)
+    makeAllVariationFunction(learntStrategies2a, learntStrategiesKeyPlaces2a)
+    learntStrategies3 = simulatedStrategiesArray2.slice(0)
+    learntStrategiesKeyPlaces3 = simulatedKeys2.slice(0)
 
 
 
@@ -2257,6 +2289,8 @@ showTime2 = function (whereShowTime, time) {
     hour2 = Math.floor(time / 3600);
     document.querySelector(`${whereShowTime}`).innerHTML = `${hour2} óra, ${min2} perc, ${sec2} mp`;
 }
+estimatedRunningNumberOninput();
+whoIsThePartner();
 
 buildingStrategyForAttact = function (myArray, keys) {
 
@@ -2417,6 +2451,7 @@ lookingForForbiddenPlace = function (friendArray, enemyArray) {
 
 
 buildingStrategyForDefence = function (myArray, keys) {
+
     if (forbiddenPlacesArray.length == 0) {
         lookingForForbiddenPlace(colorArrayMe, colorArrayRival);
     }
@@ -2718,15 +2753,15 @@ gameByLearntMemory = function () {
     number_everyArrayHasIt4Attack = -10;
     number_almostEveryArrayHasIt4Defence = -10;
     number_almostEveryArrayHasIt4Attack = -10;
-    myImportantDefenceStepArray2 = Array();
-    myImportantDefenceStepArray3 = Array();
+    //myImportantDefenceStepArray2 = Array();
+    //myImportantDefenceStepArray3 = Array();
     //myImportantDefenceStepArray = Array();
-    stepsForDefenceArray = Array();
+    //stepsForDefenceArray = Array();
     number = -10;
-    strategicalSteps = Array();
-    strategicalStepsForDefence = Array();
-    strategicalStepsForDefenceImportant = Array();
-    defenceStep = Array();
+    //strategicalSteps = Array();
+    //strategicalStepsForDefence = Array();
+    //strategicalStepsForDefenceImportant = Array();
+    //defenceStep = Array();
     for (let i = 0; i < learntStrategies3.length; i++) {
         myArray = learntStrategies3[i].slice(0);
         keys = learntStrategiesKeyPlaces3[i].slice(0);
@@ -3085,16 +3120,28 @@ gameByLearntMemory = function () {
         console.error("everyArrayHasIt4Defence", number_everyArrayHasIt4Defence)
         console.error("almostEveryArrayHasIt4Defence", number_almostEveryArrayHasIt4Defence)
         console.log(everyArrayHasIt4Attack, almostEveryArrayHasIt4Attack, everyArrayHasIt4Defence, almostEveryArrayHasIt4Defence)
+        console.log(strategicalStepsForDefence,strategicalSteps)
+        console.log(strategicalStepsForDefence3)
     }
+    
 
 
+    strategicalSteps = Array();
     strategicalStepsForStart = Array();
-
-
-
-
-
-
+    strategicalStepsForDefence = Array();
+    strategicalStepsForDefence2 = Array();
+    strategicalStepsForDefence3 = Array();
+    strategicalStepsForDefence4 = Array();
+    everyArrayHasIt4Defence = Array();
+    almostEveryArrayHasIt4Defence = Array();
+    everyArrayHasIt4Attack = Array();
+    almostEveryArrayHasIt4Attack = Array();
+    strategicalStepsWithMaxOccurrance = Array();
+    firstDefenceStep = Array();
+    myImportantDefenceStep = Array();
+    myImportantDefenceStep2 = Array();
+    myImportantDefenceStep3 = Array();
+    forbiddenPlacesForcesToStepHere = Array();
 
     if (number == -10) {
         chance = Math.floor(Math.random() * freePlace.length);
@@ -3103,8 +3150,13 @@ gameByLearntMemory = function () {
         if (nowLearning == false) { console.log("RND") };
     }
 
-    //ha ez a kettő nem lenne itt, akkor lenne mesterséges intelligencia !!!
-    /*if (blue.length <= 1 && red[0] != 5 && blue[0] != 5) {
+    //ha ez a négy nem lenne itt, akkor lenne mesterséges intelligencia !!!
+    if (blue.length <= 1 && red[0] != 5 && blue[0] != 5) {
+        number = 5;
+        document.querySelector("#stepOfEngine").innerHTML = "automatikusan belép középre"
+        whatWeStep = "automatikusan belép középre";
+    }
+    if (red.length <= 1 && red[0] != 5 && blue[0] != 5) {
         number = 5;
         document.querySelector("#stepOfEngine").innerHTML = "automatikusan belép középre"
         whatWeStep = "automatikusan belép középre";
@@ -3114,7 +3166,13 @@ gameByLearntMemory = function () {
         number = corner[chance];
         document.querySelector("#stepOfEngine").innerHTML = "automatikusan a sarokba lép"
         whatWeStep = "automatikusan a sarokba lép";
-    }*/
+    }
+    if (red.length == 1 && red[0] == 5 && blue.length == 0) {
+        chance = Math.floor(Math.random() * 4)
+        number = corner[chance];
+        document.querySelector("#stepOfEngine").innerHTML = "automatikusan a sarokba lép"
+        whatWeStep = "automatikusan a sarokba lép";
+    }
 
 
     whatWeStepArray[whatWeStepArray.length] = whatWeStep;
@@ -4922,13 +4980,13 @@ makeAllVariationFunction = function (simulatedStrategiesArray, simulatedKeys) {
 
 }
 
-makeAllVariationFunction(simulatedStrategiesArray, simulatedKeys) 
+makeAllVariationFunction(simulatedStrategiesArray, simulatedKeys)
 
 makeSimulatedStrategies = function () {
 
     makeAllVariationFunction(simulatedStrategiesArray, simulatedKeys)
-    simulatedStrategiesArray3=simulatedStrategiesArray2.slice(0)
-    simulatedKeys3=simulatedKeys2.slice(0);
+    simulatedStrategiesArray3 = simulatedStrategiesArray2.slice(0)
+    simulatedKeys3 = simulatedKeys2.slice(0);
 
     /*simulatedStrategiesArray2 = Array();
     simulatedStrategiesArray3 = Array();
@@ -4963,7 +5021,7 @@ makeSimulatedStrategies = function () {
         originalArray2 = Array;
         copy = Array(); myCopy = Array();
         myCopy = simulatedStrategiesArray2[i].slice(0);
-
+ 
         noNeedFunctionForPatterns2(myArray, myCopy, myOriginalIndex)
         for (let j = 0; j < 4; j++) {
             if (j > 0) {
@@ -5368,7 +5426,7 @@ discoverStrategiesByLOGIC = function () {
                     [discoveredStrategiesArray2[i][variations[j][0]],
                     discoveredStrategiesArray2[i][variations[j][1]],
                     discoveredStrategiesArray2[i][variations[j][2]]];
-
+ 
                 keys4DiscoveredStrategies3[keys4DiscoveredStrategies3.length] =
                     keys4DiscoveredStrategies2[i];
                 
@@ -5400,7 +5458,7 @@ discoverStrategiesByLOGIC = function () {
                         keys4DiscoveredStrategies3[keys4DiscoveredStrategies3.length] =
                             keys4DiscoveredStrategies2[i];
                     }
-
+ 
                 }
             }
         }
