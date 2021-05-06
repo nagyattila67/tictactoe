@@ -57,25 +57,6 @@ forbiddenPlacesArray = Array();
 sensitivePlaces_ = Array();
 sensitivePlacesAll = Array();
 forbiddenPlacesForcesToStepHere = Array();
-strategicalStepsForDefence4 = Array();
-strategicalStepsForStart = Array();
-strategicalSteps = Array();
-strategicalStepsForStart = Array();
-strategicalStepsForDefence = Array();
-strategicalStepsForDefence2 = Array();
-strategicalStepsForDefence3 = Array();
-strategicalStepsForDefence4 = Array();
-everyArrayHasIt4Defence = Array();
-almostEveryArrayHasIt4Defence = Array();
-everyArrayHasIt4Attack = Array();
-almostEveryArrayHasIt4Attack = Array();
-strategicalStepsWithMaxOccurrance = Array();
-firstDefenceStep = Array();
-myImportantDefenceStep = Array();
-myImportantDefenceStep2 = Array();
-myImportantDefenceStep3 = Array();
-forbiddenPlacesForcesToStepHere = Array();
-pleaseNotThis = 0;
 
 programParts = 41;
 for (let i = 0; i < programParts; i++) {
@@ -152,7 +133,7 @@ whoStart = function () {
         //stepShowsColor = 0;
         //firstStep = "gamer"; step = 0;
         computerStep = false;
-        //showRightSideInfo();
+        showRightSideInfo();
     };
     if (document.querySelector("#withSimulatedAI").checked == true && nowLearning == true
         //if (partner == "simulatedAI"
@@ -162,11 +143,9 @@ whoStart = function () {
         //gameByLearntMemory(); stepOnTheBoard(number); isWinner();
     }
     if (document.querySelector("#withSimulatedAI").checked == true && nowLearning == false) {
-        if (firstStep == "computer") {
-            step = 1; stepShowsColor = 1;
-            number = Math.ceil(Math.random() * 9);
-            stepOnTheBoard(number); isWinner();
-        }
+        if (firstStep == "computer") { step = 1; stepShowsColor = 1; }
+        number = Math.ceil(Math.random() * 9);
+        stepOnTheBoard(number); isWinner();
     }
     if (document.querySelector("#withLearningMemory").checked == true
         && nowLearning == true) {
@@ -285,7 +264,6 @@ gameWithRandom = function (hereNow) {
 gameWithAI = function (hereNow) {
     hereNow_ = hereNow;
     //document.querySelector("#normal2").checked = true;
-    estimatedRunningNumberOninput();
     gameWithNotRandom(hereNow_)
 }
 
@@ -421,34 +399,8 @@ whoIsThePartner = function () {
     if (document.querySelector("#withRandom").checked == true) { partner = "random" };
     if (document.querySelector("#withSimulatedAI").checked == true) { partner = "simulatedAI" };
     if (document.querySelector("#withLearningMemory_").checked == true) { partner = "learningMemory" };
-    estimatedRunningNumberOninput()
 }
-
-
-estimatedRunningNumberOninput = function () {
-    limit = document.querySelector("#runningNumber").value;
-    limit = parseInt(limit);
-    if (document.querySelector("#withSimulatedLearntStrategy").checked == true) {
-        if (document.querySelector("#withSimulatedAI").checked == true) {
-            appRunTime = limit * 0.082;
-        }
-        if (document.querySelector("#withRandom").checked == true) {
-            appRunTime = limit * 0.056;
-        }
-        if (document.querySelector("#withProgram").checked == true) {
-            appRunTime = limit * 0.052;
-        }
-        if (document.querySelector("#withLearningMemory_").checked == true) {
-            appRunTime = 0;
-            document.querySelector("#estimatedRunTime").innerHTML = "?"
-        }
-        if (appRunTime > 0) {
-            whereShowTime = "#estimatedRunTime"
-            showTime2(whereShowTime, appRunTime)
-        }
-    }
-}
-
+whoIsThePartner();
 
 allRunsUntilNow = 0;
 allRuns = 0;
@@ -533,7 +485,6 @@ learning = function () {
         if (s % 1000 == 0) { console.log("s=", s) }
 
         learningStepByStep();
-        //if(red[0]==9 && blue[0]==6 && coins[0]=="red"){console.log("most");break}
         allSteps[s] = coins;
 
         if (document.querySelector("#withRandomEngine").checked == false) {
@@ -602,7 +553,6 @@ learning = function () {
 
 
 learningStepByStep = function () {
-    //a computer kék a gamer piros
     if (document.querySelector("#stepAlternately").checked == true) {
         if (s % 2 == 0) { firstStep = "computer" }
         if (s % 2 == 1) { firstStep = "gamer" }
@@ -1067,8 +1017,7 @@ learningStepByStep = function () {
 
                     };
                 }
-                //if(red[0]==9 && blue[0]==6 && coins[0]=="red"){console.log("most");break}
-                //console.log(red[0],blue[0],coins[0])
+
 
             }
         }
@@ -1447,7 +1396,7 @@ cleaningTheMemory2 = function () {
     document.querySelector("#numberOfStoredGames1").innerHTML = `${shortMemory.length}`;
     document.querySelector("#numberOfStoredGames3").innerHTML = `${shortMemory.length}`;
     showBasicPatterns();
-    //showBasicPatterns3();
+    showBasicPatterns3();
 
 }
 
@@ -1643,19 +1592,6 @@ showTheGamesFromTheUltimateMemories = function () {
 
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
 noNeedFunctionForPatterns = function (myArray) {
     for (let i = 0; i < myArray.length - 1; i++) {
         for (let j = i + 1; j < myArray.length; j++) {
@@ -1704,9 +1640,6 @@ noNeedFunctionForPatterns2 = function (myArray, myCopy, myOriginalIndex) {
 
 blueWonBigFilterArray4 = Array();
 blueWonBigFilterArray5 = Array();
-
-
-
 lookingForPatterns = function () {
     patternsArray = Array();
     patternsArray2 = Array();
@@ -2069,8 +2002,7 @@ lookingForBasicPatterns = function () {
             noNeedFunctionForPatterns2(myArray, myCopy, myOriginalIndex)
         }
     }
-    //innen
-    /*
+
     learntStrategies2b = Array();
     variations = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]]
     for (let i = 0; i < learntStrategies2a.length; i++) {
@@ -2080,25 +2012,24 @@ lookingForBasicPatterns = function () {
                 learntStrategies2a[i][variations[j][1]],
                 learntStrategies2a[i][variations[j][2]]];
         }
- 
+
     }
     noNeedFunctionForArrayOfArrays(learntStrategies2b)
-    learntStrategies2c = myArray2.slice(0)
- 
- 
- 
- 
- 
- 
+    learntStrategies2c=myArray2.slice(0)
+
+
+
+
+
+
     learntStrategies3 = Array();
     for (let i = 0; i < learntStrategies2c.length; i++) {
         if (noNeed.includes(i) == false) {
             learntStrategies3[learntStrategies3.length] = learntStrategies2c[i];
         }
     }
-   
- 
- learntStrategiesKeyPlaces3 = Array();
+
+    learntStrategiesKeyPlaces3 = Array();
     for (let m = 0; m < learntStrategies3.length; m++) {
         myArray = learntStrategies3[m].slice(0);
         myArrayForKeys = Array();
@@ -2112,42 +2043,6 @@ lookingForBasicPatterns = function () {
         }
         learntStrategiesKeyPlaces3[learntStrategiesKeyPlaces3.length] = myArrayForKeys;
     }
-    */
-
-
-    //idáig
-
-    for (let i = 0; i < learntStrategies2a.length; i++) {
-        learntStrategies2a[i].sort()
-    }
-    noNeedFunctionForArrayOfArrays(learntStrategies2a)
-    learntStrategies2a = myArray2.slice(0)
-
-    learntStrategiesKeyPlaces2a = Array();
-    for (let m = 0; m < learntStrategies2a.length; m++) {
-        myArray = learntStrategies2a[m].slice(0);
-        myArrayForKeys = Array();
-        for (let i = 0; i < myArray.length - 1; i++) {
-            for (let j = i + 1; j < myArray.length; j++) {
-                key = 15 - myArray[i] - myArray[j];
-                if (key < 10 && key > 0 && key != myArray[i] && key != myArray[j]) {
-                    myArrayForKeys[myArrayForKeys.length] = key;
-                }
-            }
-        }
-        myArrayForKeys.sort();
-        learntStrategiesKeyPlaces2a[learntStrategiesKeyPlaces2a.length] = myArrayForKeys;
-    }
-
-    makeAllVariationFunction(learntStrategies2a, learntStrategiesKeyPlaces2a)
-    learntStrategies3 = simulatedStrategiesArray2.slice(0)
-    learntStrategiesKeyPlaces3 = simulatedKeys2.slice(0)
-
-
-
-
-    console.error("learntStrategiesKeyPlaces3", learntStrategiesKeyPlaces3)
-
     patternsArray6 = Array();
     for (let i = 0; i < learntStrategies3.length; i++) {
         pattern = ["nothing", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty", "empty"];
@@ -2168,7 +2063,6 @@ lookingForBasicPatterns = function () {
     gameNumberB = 0;
     gameNumberC = 0;
 };
-
 
 showBasicPatterns = function () {
     if (blueWonMemory.length == 0) { patternsArray6 = Array() }
@@ -2308,8 +2202,6 @@ showTime2 = function (whereShowTime, time) {
     hour2 = Math.floor(time / 3600);
     document.querySelector(`${whereShowTime}`).innerHTML = `${hour2} óra, ${min2} perc, ${sec2} mp`;
 }
-estimatedRunningNumberOninput();
-whoIsThePartner();
 
 buildingStrategyForAttact = function (myArray, keys) {
 
@@ -2470,7 +2362,6 @@ lookingForForbiddenPlace = function (friendArray, enemyArray) {
 
 
 buildingStrategyForDefence = function (myArray, keys) {
-
     if (forbiddenPlacesArray.length == 0) {
         lookingForForbiddenPlace(colorArrayMe, colorArrayRival);
     }
@@ -2772,15 +2663,15 @@ gameByLearntMemory = function () {
     number_everyArrayHasIt4Attack = -10;
     number_almostEveryArrayHasIt4Defence = -10;
     number_almostEveryArrayHasIt4Attack = -10;
-    //myImportantDefenceStepArray2 = Array();
-    //myImportantDefenceStepArray3 = Array();
+    myImportantDefenceStepArray2 = Array();
+    myImportantDefenceStepArray3 = Array();
     //myImportantDefenceStepArray = Array();
-    //stepsForDefenceArray = Array();
+    stepsForDefenceArray = Array();
     number = -10;
-    //strategicalSteps = Array();
-    //strategicalStepsForDefence = Array();
-    //strategicalStepsForDefenceImportant = Array();
-    //defenceStep = Array();
+    strategicalSteps = Array();
+    strategicalStepsForDefence = Array();
+    strategicalStepsForDefenceImportant = Array();
+    defenceStep = Array();
     for (let i = 0; i < learntStrategies3.length; i++) {
         myArray = learntStrategies3[i].slice(0);
         keys = learntStrategiesKeyPlaces3[i].slice(0);
@@ -2953,8 +2844,6 @@ gameByLearntMemory = function () {
             strategicalSteps[strategicalSteps.length] = thisWasStrategicalSteps[k];
         }
     }
-    console.log("!!!!!!!!!!!!!!!!!!!!", strategicalSteps)
-
 
     if (strategicalSteps.length > 0) {
         chance = Math.floor(Math.random() * strategicalSteps.length);
@@ -3141,10 +3030,16 @@ gameByLearntMemory = function () {
         console.error("everyArrayHasIt4Defence", number_everyArrayHasIt4Defence)
         console.error("almostEveryArrayHasIt4Defence", number_almostEveryArrayHasIt4Defence)
         console.log(everyArrayHasIt4Attack, almostEveryArrayHasIt4Attack, everyArrayHasIt4Defence, almostEveryArrayHasIt4Defence)
-        console.log(strategicalStepsForDefence)
-        console.log(strategicalSteps)
-        console.log(strategicalStepsForDefence4)
     }
+
+
+    strategicalStepsForStart = Array();
+
+
+
+
+
+
 
     if (number == -10) {
         chance = Math.floor(Math.random() * freePlace.length);
@@ -3153,13 +3048,8 @@ gameByLearntMemory = function () {
         if (nowLearning == false) { console.log("RND") };
     }
 
-    //ha ez a négy nem lenne itt, akkor lenne mesterséges intelligencia !!!
-    if (blue.length <= 1 && red[0] != 5 && blue[0] != 5) {
-        number = 5;
-        document.querySelector("#stepOfEngine").innerHTML = "automatikusan belép középre"
-        whatWeStep = "automatikusan belép középre";
-    }
-    if (red.length <= 1 && red[0] != 5 && blue[0] != 5) {
+    //ha ez a kettő nem lenne itt, akkor lenne mesterséges intelligencia !!!
+    /*if (blue.length <= 1 && red[0] != 5 && blue[0] != 5) {
         number = 5;
         document.querySelector("#stepOfEngine").innerHTML = "automatikusan belép középre"
         whatWeStep = "automatikusan belép középre";
@@ -3169,33 +3059,13 @@ gameByLearntMemory = function () {
         number = corner[chance];
         document.querySelector("#stepOfEngine").innerHTML = "automatikusan a sarokba lép"
         whatWeStep = "automatikusan a sarokba lép";
-    }
-    if (red.length == 1 && red[0] == 5 && blue.length == 0) {
-        chance = Math.floor(Math.random() * 4)
-        number = corner[chance];
-        document.querySelector("#stepOfEngine").innerHTML = "automatikusan a sarokba lép"
-        whatWeStep = "automatikusan a sarokba lép";
-    }
-    showRightSideInfo();
-    /*strategicalSteps = Array();
-    strategicalStepsForStart = Array();
-    strategicalStepsForDefence = Array();
-    strategicalStepsForDefence2 = Array();
-    strategicalStepsForDefence3 = Array();
-    strategicalStepsForDefence4 = Array();
-    everyArrayHasIt4Defence = Array();
-    almostEveryArrayHasIt4Defence = Array();
-    everyArrayHasIt4Attack = Array();
-    almostEveryArrayHasIt4Attack = Array();
-    strategicalStepsWithMaxOccurrance = Array();
-    firstDefenceStep = Array();
-    myImportantDefenceStep = Array();
-    myImportantDefenceStep2 = Array();
-    myImportantDefenceStep3 = Array();
-    forbiddenPlacesForcesToStepHere = Array();
-    whatWeStepArray[whatWeStepArray.length] = whatWeStep;*/
+    }*/
+
+
+    whatWeStepArray[whatWeStepArray.length] = whatWeStep;
 
 }
+
 
 
 dontForceHimToWin = function (number_) {
@@ -4568,7 +4438,7 @@ stepOnTheBoard = function (number) {
     }
     colorArrayMe = blue.slice(0);
     colorArrayRival = red.slice(0);
-    //showRightSideInfo();
+    showRightSideInfo();
 };
 
 isWinner = function () {
@@ -4797,7 +4667,7 @@ stepBack = function () {
         document.querySelector("#stepOfEngine").innerHTML = whatWeStepArray[whatWeStepArray.length - 1]
     }
     else { document.querySelector("#stepOfEngine").innerHTML = " - " }
-    //showRightSideInfo();
+    showRightSideInfo();
     stepOfEngineArray.pop();
     //document.querySelector("#stepOfEngine").innerHTML = stepOfEngineArray[stepOfEngineArray.length - 1];
     if (stepOfEngineArray.length > 0) {
@@ -4869,48 +4739,20 @@ showRightSideInfo = function () {
     document.querySelector("#blueInfo").innerHTML = blue;
     document.querySelector("#redInfo").innerHTML = red;
     document.querySelector("#freePlaceInfo").innerHTML = freePlace;
-
+    noNeedFunctionForArray(thisWasStrategicalSteps);
+    myArray2.sort();
+    document.querySelector("#attackStrategiesOriginalInfo").innerHTML = myArray2;
     noNeedFunctionForArray(strategicalSteps);
     myArray2.sort();
-    if (strategicalSteps.length > 0) {document.querySelector("#egy").innerHTML = myArray2}
-    noNeedFunctionForArray(strategicalStepsForStart);
+    document.querySelector("#attackStrategiesFilteredInfo").innerHTML = myArray2;
+    mySSFD = Array();
+    for (let i = 0; i < strategicalStepsForDefence.length; i++) {
+        mySSFD = mySSFD.concat(strategicalStepsForDefence[i])
+    }
+    noNeedFunctionForArray(mySSFD);
     myArray2.sort();
-    if (strategicalStepsForStart.length > 0) { document.querySelector("#kettő").innerHTML = myArray2}
-    noNeedFunctionForArray(strategicalStepsForDefence4);
-    myArray2.sort();
-    if (strategicalStepsForDefence4.length > 0) { document.querySelector("#három").innerHTML =myArray2 }
-    noNeedFunctionForArray(everyArrayHasIt4Defence);
-    myArray2.sort();
-    if (everyArrayHasIt4Defence.length > 0) { document.querySelector("#négy").innerHTML = myArray2 }
-    noNeedFunctionForArray(almostEveryArrayHasIt4Defence);
-    myArray2.sort();
-    if(almostEveryArrayHasIt4Defence.length>0){document.querySelector("#öt").innerHTML = myArray2}
-    noNeedFunctionForArray(everyArrayHasIt4Attack);
-    myArray2.sort();
-    if (everyArrayHasIt4Attack.length > 0) { document.querySelector("#hat").innerHTML = myArray2 }
-    noNeedFunctionForArray(almostEveryArrayHasIt4Attack);
-    myArray2.sort();
-    if (almostEveryArrayHasIt4Attack.length > 0) { document.querySelector("#hét").innerHTML = myArray2 }
-    noNeedFunctionForArray(strategicalStepsWithMaxOccurrance);
-    myArray2.sort();
-    if (strategicalStepsWithMaxOccurrance.length > 0) { document.querySelector("#nyolc").innerHTML = myArray2 }
-    noNeedFunctionForArray(firstDefenceStep);
-    myArray2.sort();
-    if (firstDefenceStep.length > 0) { document.querySelector("#kilenc").innerHTML = myArray2 }
-    noNeedFunctionForArray(myImportantDefenceStep3);
-    myArray2.sort();
-    if (myImportantDefenceStep3.length > 0) { document.querySelector("#tíz").innerHTML = myArray2 }
-    noNeedFunctionForArray(forbiddenPlacesForcesToStepHere);
-    myArray2.sort();
-    if (forbiddenPlacesForcesToStepHere.length > 0) { document.querySelector("#tizenegy").innerHTML = myArray2 }
-    if (pleaseNotThis > 0 && pleaseNotThis < 10) { document.querySelector("#tizenkettő").innerHTML = ` ${pleaseNotThis}` }
-    thisWasStrategicalSteps = Array();
-    noNeedFunctionForArray(strategicalSteps);
-    myArray2.sort();
-    if (myArray2.length > 0) { document.querySelector("#attackStrategiesFilteredInfo").innerHTML = myArray2; }
-    if (myArray2.length > 0) { document.querySelector("#tízenhárom").innerHTML = `filteredAttackStrategies: ${myArray2}` }
-
-    //document.querySelector("#engineStepInfo").innerHTML = number;
+    document.querySelector("#defenceStrategiesOriginalInfo").innerHTML = myArray2;
+    document.querySelector("#engineStepInfo").innerHTML = number;
 
     for (let i = 1; i < 10; i++) {
         document.querySelector(`#littleTbody8 td[name='${i}']`).style["background-color"] = "#dbdbdb";
@@ -4967,73 +4809,9 @@ simulatedKeys = [[5, 7, 9], [6, 8, 3], [2, 3], [6, 8, 9], [1, 4], [5, 8], [4, 5]
 simulatedStrategiesArray2 = Array();
 simulatedStrategiesArray3 = Array();
 
-makeAllVariationFunction = function (simulatedStrategiesArray, simulatedKeys) {
-    simulatedStrategiesArray2 = Array();
-    simulatedStrategiesArray3 = Array();
-    simulatedKeys2 = Array();
-    simulatedKeys3 = Array();
-    for (let i = 0; i < simulatedStrategiesArray.length; i++) {
-        if (simulatedKeys[i].length == 3) {
-            for (let m = 0; m < 3; m++) {
-                for (let n = 0; n < 3; n++) {
-                    for (let s = 0; s < 3; s++) {
-                        if (n != m && n != s && m != s) {
-                            myArray = Array();
-                            myArray[n] = simulatedStrategiesArray[i][0];
-                            myArray[m] = simulatedStrategiesArray[i][1];
-                            myArray[s] = simulatedStrategiesArray[i][2];
-                            simulatedStrategiesArray2[simulatedStrategiesArray2.length] = myArray.slice(0);
-                            simulatedKeys2[simulatedKeys2.length] = simulatedKeys[i].slice(0);
-                        }
-                    }
-                }
-            }
-        }
-        if (simulatedKeys[i].length == 2) {
-            for (let j = 0; j < 2; j++) {
-                for (let m = j + 1; m < 3; m++) {
-                    indexDS = 0;
-                    for (let s = 1; s < 10; s++) {
-                        if (simulatedStrategiesArray[i][j] != s &&
-                            simulatedStrategiesArray[i][m] != s &&
-                            simulatedStrategiesArray[i][j] + simulatedStrategiesArray[i][m] + s != 15) {
-                            indexDS = indexDS + 1
-                        }
-                    }
-                    if (indexDS == 7) {
-                        centralElement = simulatedStrategiesArray[i][3 - j - m]
-                        simulatedStrategiesArray2[simulatedStrategiesArray2.length] =
-                            [simulatedStrategiesArray[i][j],
-                            simulatedStrategiesArray[i][m],
-                                centralElement];
-                        simulatedStrategiesArray2[simulatedStrategiesArray2.length] =
-                            [simulatedStrategiesArray[i][m],
-                            simulatedStrategiesArray[i][j],
-                                centralElement];
-                        simulatedKeys2[simulatedKeys2.length] =
-                            simulatedKeys[i];
-                        simulatedKeys2[simulatedKeys2.length] =
-                            simulatedKeys[i];
-                    }
-
-                }
-            }
-        }
-
-    }
-    return simulatedStrategiesArray2, simulatedKeys2
-
-}
-
-makeAllVariationFunction(simulatedStrategiesArray, simulatedKeys)
 
 makeSimulatedStrategies = function () {
-
-    makeAllVariationFunction(simulatedStrategiesArray, simulatedKeys)
-    simulatedStrategiesArray3 = simulatedStrategiesArray2.slice(0)
-    simulatedKeys3 = simulatedKeys2.slice(0);
-
-    /*simulatedStrategiesArray2 = Array();
+    simulatedStrategiesArray2 = Array();
     simulatedStrategiesArray3 = Array();
     simulatedKeys2 = Array();
     simulatedKeys3 = Array();
@@ -5052,7 +4830,7 @@ makeSimulatedStrategies = function () {
                 }
             }
         }
-    }*/
+    }
 
 
 
@@ -5066,7 +4844,7 @@ makeSimulatedStrategies = function () {
         originalArray2 = Array;
         copy = Array(); myCopy = Array();
         myCopy = simulatedStrategiesArray2[i].slice(0);
- 
+
         noNeedFunctionForPatterns2(myArray, myCopy, myOriginalIndex)
         for (let j = 0; j < 4; j++) {
             if (j > 0) {
@@ -5087,7 +4865,7 @@ makeSimulatedStrategies = function () {
             noNeedFunctionForPatterns3(myArray, myCopy, myOriginalIndex)
         }
     };*/
-    //cleaningThesimulatedStrategiesArray();
+    cleaningThesimulatedStrategiesArray();
     makeNewPatternsArray6();
     //patternsArray6 = newPatternsArray6.slice(0);
     gameNumberC = 0;
@@ -5392,7 +5170,7 @@ choseStrategiesFromTriplets = function (myArray) {
         littleArray.sort();
         cKeys = cKeys_.slice(0);
     }
-    //console.log(littleArray)
+    console.log(littleArray)
     return littleArray, cKeys
 }
 
@@ -5456,58 +5234,22 @@ discoverStrategiesByLOGIC = function () {
     }
     discoveredStrategiesArray3 = Array();
     keys4DiscoveredStrategies3 = Array();
-    basicStrategies = 0
-
-    makeAllVariationFunction(discoveredStrategiesArray2, keys4DiscoveredStrategies2)
-
-    discoveredStrategiesArray3 = simulatedStrategiesArray2.slice(0);
-    keys4DiscoveredStrategies3 = simulatedKeys2.slice(0)
-    /*variations = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]]
+    variations = [[0, 1, 2], [0, 2, 1], [1, 0, 2], [1, 2, 0], [2, 0, 1], [2, 1, 0]]
     for (let i = 0; i < discoveredStrategiesArray2.length; i++) {
-        if (keys4DiscoveredStrategies2[i].length == 3) {
-            basicStrategies = basicStrategies + 1
-            for (let j = 0; j < variations.length; j++) {
-                discoveredStrategiesArray3[discoveredStrategiesArray3.length] =
-                    [discoveredStrategiesArray2[i][variations[j][0]],
-                    discoveredStrategiesArray2[i][variations[j][1]],
-                    discoveredStrategiesArray2[i][variations[j][2]]];
- 
-                keys4DiscoveredStrategies3[keys4DiscoveredStrategies3.length] =
-                    keys4DiscoveredStrategies2[i];
-                
-            }
+        for (let j = 0; j < variations.length; j++) {
+            discoveredStrategiesArray3[discoveredStrategiesArray3.length] =
+                [discoveredStrategiesArray2[i][variations[j][0]],
+                discoveredStrategiesArray2[i][variations[j][1]],
+                discoveredStrategiesArray2[i][variations[j][2]]];
+
+            keys4DiscoveredStrategies3[keys4DiscoveredStrategies3.length] =
+                [keys4DiscoveredStrategies2[i][variations[j][0]],
+                keys4DiscoveredStrategies2[i][variations[j][1]],
+                keys4DiscoveredStrategies2[i][variations[j][2]]];
         }
-        if (keys4DiscoveredStrategies2[i].length == 2) {
-            for (let j = 0; j < 2; j++) {
-                for (let m = j + 1; m < 3; m++) {
-                    indexDS = 0;
-                    for (let s = 1; s < 10; s++) {
-                        if (discoveredStrategiesArray2[i][j] != s &&
-                            discoveredStrategiesArray2[i][m] != s &&
-                            discoveredStrategiesArray2[i][j] + discoveredStrategiesArray2[i][m] + s != 15) {
-                            indexDS = indexDS + 1
-                        }
-                    }
-                    if (indexDS == 6) {
-                        centralElement = discoveredStrategiesArray2[i][3 - j - m]
-                        discoveredStrategiesArray3[discoveredStrategiesArray3.length] =
-                            [discoveredStrategiesArray2[i][j],
-                            discoveredStrategiesArray2[i][m],
-                                centralElement];
-                        discoveredStrategiesArray3[discoveredStrategiesArray3.length] =
-                            [discoveredStrategiesArray2[i][m],
-                            discoveredStrategiesArray2[i][j],
-                                centralElement];
-                        keys4DiscoveredStrategies3[keys4DiscoveredStrategies3.length] =
-                            keys4DiscoveredStrategies2[i];
-                        keys4DiscoveredStrategies3[keys4DiscoveredStrategies3.length] =
-                            keys4DiscoveredStrategies2[i];
-                    }
- 
-                }
-            }
-        }
-    }*/
+
+    }
+
 
     patternsArray6 = Array();
     for (let i = 0; i < discoveredStrategiesArray3.length; i++) {
@@ -5605,5 +5347,4 @@ showBasicPatterns7 = function () {
     //gameNumberC = 0;
 
 }
-
 
