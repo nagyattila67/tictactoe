@@ -24,6 +24,9 @@ strategicalStepsForStart = Array();
 thisWasStrategicalSteps = Array();
 strategicalStepsForDefence = Array();
 strategicalStepsForDefence2 = Array();
+strategicalStepsForDefence3 = Array();
+strategicalStepsForDefence4 = Array();
+strategicalStepsForDefence5 = Array();
 myStoredGame = Array();
 myStoredGameIndex = Number();
 learntStep = false;
@@ -182,7 +185,6 @@ whoStart = function () {
         textForStepOfEngine = `Az első lépés: random.`
         learntStep = false;
         //console.log("number", number)
-        console.log("mostmostmost")
         stepOnTheBoard(number); isWinner();
     }
     exNumber = number;
@@ -2471,6 +2473,7 @@ lookingForForbiddenPlace = function (friendArray, enemyArray) {
 
 buildingStrategyForDefence = function (myArray, keys) {
 
+    beCareful = false;
     if (forbiddenPlacesArray.length == 0) {
         lookingForForbiddenPlace(colorArrayMe, colorArrayRival);
     }
@@ -2781,45 +2784,115 @@ gameByLearntMemory = function () {
     //strategicalStepsForDefence = Array();
     //strategicalStepsForDefenceImportant = Array();
     //defenceStep = Array();
+
+    allMemoriesCopy = Array();
+    allKeysCopy = Array();
     for (let i = 0; i < learntStrategies3.length; i++) {
         myArray = learntStrategies3[i].slice(0);
         keys = learntStrategiesKeyPlaces3[i].slice(0);
         copy = Array(); myCopy = Array();
         myCopy2 = Array(); myKeys2 = Array();
 
-        gameByLearntMemoryStepByStep(myArray, keys);
+        allMemoriesCopy[allMemoriesCopy.length] = myArray;
+        allKeysCopy[allKeysCopy.length] = keys;
         for (let j = 0; j < 4; j++) {
             if (j > 0) {
                 rotation90DegreeForLearnt(myArray);
                 myArray = copy.slice(0);
                 rotation90DegreeForLearnt(keys);
                 keys = copy.slice(0);
-                gameByLearntMemoryStepByStep(myArray, keys);
+                allMemoriesCopy[allMemoriesCopy.length] = myArray;
+                allKeysCopy[allKeysCopy.length] = keys;
             }
             verticalReflectionForLearnt(myArray); myCopy = copy.slice(0);
             verticalReflectionForLearnt(keys); myKeys = copy.slice(0);
-            gameByLearntMemoryStepByStep(myCopy, myKeys);
+            allMemoriesCopy[allMemoriesCopy.length] = myCopy;
+            allKeysCopy[allKeysCopy.length] = myKeys;
 
             centralReflectionForLearnt(myCopy); myCopy2 = copy.slice(0);
             centralReflectionForLearnt(myKeys); myKeys2 = copy.slice(0);
-            gameByLearntMemoryStepByStep(myCopy2, myKeys2);
+            allMemoriesCopy[allMemoriesCopy.length] = myCopy2;
+            allKeysCopy[allKeysCopy.length] = myKeys2;
 
             horizontalReflectionForLearnt(myArray); myCopy = copy.slice(0);
             horizontalReflectionForLearnt(keys); myKeys = copy.slice(0);
-            gameByLearntMemoryStepByStep(myCopy, myKeys);
+            allMemoriesCopy[allMemoriesCopy.length] = myCopy;
+            allKeysCopy[allKeysCopy.length] = myKeys;
 
 
             centralReflectionForLearnt(myCopy); myCopy2 = copy.slice(0);
             centralReflectionForLearnt(myKeys); myKeys2 = copy.slice(0);
-            gameByLearntMemoryStepByStep(myCopy2, myKeys2);
+            allMemoriesCopy[allMemoriesCopy.length] = myCopy2;
+            allKeysCopy[allKeysCopy.length] = myKeys2;
 
             centralReflectionForLearnt(myArray); myCopy = copy.slice(0);
             centralReflectionForLearnt(keys); myKeys = copy.slice(0);
-            gameByLearntMemoryStepByStep(myCopy, myKeys);
+            allMemoriesCopy[allMemoriesCopy.length] = myCopy;
+            allKeysCopy[allKeysCopy.length] = myKeys;
+        }
+    }
+
+    //for (let i = 0; i < allMemoriesCopy.length; i++) {
+    //allMemoriesCopy[i].sort();
+    //}
+    allMemoriesCopy2 = Array();
+    allKeysCopy2 = Array();
+    noNeedFunctionForArrayOfArrays(allMemoriesCopy);
+    for (let i = 0; i < allMemoriesCopy.length; i++) {
+        if (noNeed.includes(i) == false) {
+            allMemoriesCopy2[allMemoriesCopy2.length] = allMemoriesCopy[i];
+            allKeysCopy2[allKeysCopy2.length] = allKeysCopy[i]
+        }
+    }
+
+
+    //innen
+
+    searchingCorrespondenceArray = Array();
+    for (let i = 0; i < allMemoriesCopy2.length; i++) {
+        myArray = allMemoriesCopy2[i].slice(0);
+        keys = allKeysCopy2[i].slice(0);
+        goAhead = true;
+        signal = 0;
+        signalTwo = 0;
+        for (let j = 0; j < colorArrayRival.length; j++) {
+            if (myArray[j] == colorArrayRival[j] && goAhead == true) {
+                signal = signal + 1;
+            }
+            if (myArray[j] != colorArrayRival[j]) { goAhead = false }
+        }
+        if (signal == colorArrayRival.length) {
+            for (let k = signal; k < myArray.length; k++) {
+                //if (blue.includes(myArray[k]) == false &&
+                //red.includes(myArray[k]) == false) {
+                if (freePlace.includes(myArray[k]) == true) {
+                    signalTwo = 0;
+                    //signalTwoArray = Array();
+                    for (let g = 0; g < keys.length; g++) {
+                        if (freePlace.includes(keys[g]) == true) {
+                            signalTwo = signalTwo + 1;
+                            //signalTwoArray[signalTwoArray.length] = keys[g];
+                        }
+                    }
+                }
+            }
+            searchingCorrespondenceArray[searchingCorrespondenceArray.length] = myArray[2];
         }
 
-
     }
+
+    //idáig
+
+    for (let i = 0; i < allMemoriesCopy.length; i++) {
+        gameByLearntMemoryStepByStep(allMemoriesCopy[i], allKeysCopy[i])
+    }
+
+    //allMemoriesCopy = Array();
+    //allKeysCopy = Array();
+
+    //allMemoriesCopy[allMemoriesCopy.length]=
+    //allKeysCopy[allKeysCopy.length]=
+
     //a strategicalStepsForDefence arrayokból áll, az ismétlődő (azonos) array-okat stűri ki
     if (strategicalStepsForDefence.length > 0) {
         noNeedFunctionForArrayOfArrays(strategicalStepsForDefence);
@@ -2938,12 +3011,30 @@ gameByLearntMemory = function () {
         }
     }
 
-    number_ = 0;
+    //ha a kék lép
     noNeed = Array();
-    for (let k = 0; k < strategicalSteps.length; k++) {
-        number_ = strategicalSteps[k];
-        dontForceHimToWin(number_);
-        if (pleaseNotThis == true) { noNeed[noNeed.length] = number_ }
+    if (coins[coins.length - 2] == "red") {
+        number_ = 0;
+        noNeed = Array();
+        for (let k = 0; k < strategicalSteps.length; k++) {
+            number_ = strategicalSteps[k];
+            dontForceHimToWinForBlue(number_);
+            if (pleaseNotThis == true) { noNeed[noNeed.length] = number_ }
+            //if (pleaseNotThis == true) { console.log("most", coins, number_) }
+        }
+
+    }
+
+    if (coins[coins.length - 2] == "blue") {
+        number_ = 0;
+        noNeed = Array();
+        for (let k = 0; k < strategicalSteps.length; k++) {
+            number_ = strategicalSteps[k];
+            dontForceHimToWinForRed(number_);
+            if (pleaseNotThis == true) { noNeed[noNeed.length] = number_ }
+            //if (pleaseNotThis == true) { console.log("most", coins, number_) }
+        }
+
     }
 
     thisWasStrategicalSteps = strategicalSteps.slice(0);
@@ -2953,7 +3044,8 @@ gameByLearntMemory = function () {
             strategicalSteps[strategicalSteps.length] = thisWasStrategicalSteps[k];
         }
     }
-    console.log("!!!!!!!!!!!!!!!!!!!!", strategicalSteps)
+    if (thisWasStrategicalSteps.length != strategicalSteps.length) {
+    }
 
 
     if (strategicalSteps.length > 0) {
@@ -2986,15 +3078,41 @@ gameByLearntMemory = function () {
     for (let i = 0; i < strategicalStepsForDefence2.length; i++) {
         strategicalStepsForDefence3 = strategicalStepsForDefence3.concat(strategicalStepsForDefence2[i])
     }
+
     strategicalStepsForDefence4 = Array();
+    if (nowLearning == false) { console.log(strategicalStepsForDefence3) }
+    if (nowLearning == false) { console.log("forbiddenPlacesArray", forbiddenPlacesArray) }
+    if (nowLearning == false) { console.log("searchingCorrespondenceArray", searchingCorrespondenceArray) }
     for (let i = 0; i < strategicalStepsForDefence3.length; i++) {
-        if (strategicalStepsForDefence3[i] != forbiddenPlace && freePlace.includes(strategicalStepsForDefence3[i]) == true)
+        if (forbiddenPlacesArray.includes(strategicalStepsForDefence3[i]) == false &&
+            freePlace.includes(strategicalStepsForDefence3[i]) == true)
             strategicalStepsForDefence4[strategicalStepsForDefence4.length] = strategicalStepsForDefence3[i]
     }
-    if (strategicalStepsForDefence4.length > 0) {
-        chance = Math.floor(Math.random() * strategicalStepsForDefence4.length);
+
+    strategicalStepsForDefence5 = Array();
+    if (coins[coins.length - 2] == "red") { myFriendsArray = blue.slice(0) }
+    if (coins[coins.length - 2] == "blue") { myFriendsArray = red.slice(0) }
+    if (searchingCorrespondenceArray.length > 0) {
+        for (let i = 0; i < myFriendsArray.length; i++) {
+            for (let j = 0; j < freePlace.length; j++) {
+                for (let k = 0; k < searchingCorrespondenceArray.length; k++) {
+                    if (myFriendsArray[i] + freePlace[j] + strategicalStepsForDefence4[k] == 15 &&
+                        searchingCorrespondenceArray.includes(strategicalStepsForDefence4[k])==true) {
+                        strategicalStepsForDefence5[strategicalStepsForDefence5.length] = strategicalStepsForDefence4[k]
+                    }
+                }
+            }
+        }
+    }
+
+
+
+
+
+    if (strategicalStepsForDefence5.length > 0) {
+        chance = Math.floor(Math.random() * strategicalStepsForDefence5.length);
         number_strategicalStepsForDefence = -10;
-        number_strategicalStepsForDefence = strategicalStepsForDefence4[chance]
+        number_strategicalStepsForDefence = strategicalStepsForDefence5[chance]
     }
 
 
@@ -3095,13 +3213,13 @@ gameByLearntMemory = function () {
         }
         forbiddenPlacesForcesToStepHere = Array();
 
+        if (number_strategicalStepsForDefence != -10 && number == -10) { number = number_strategicalStepsForDefence }
         if (number_myImportantDefenceStep != -10 && number == -10) { number = number_myImportantDefenceStep }
         if (number_firstDefenceStep != -10 && number == -10) { number = number_firstDefenceStep }
         if (number_everyArrayHasIt4Defence != -10 &&
             freePlace.includes(number_everyArrayHasIt4Defence) == true && number == -10) { number = number_everyArrayHasIt4Defence }
         if (number_almostEveryArrayHasIt4Defence != -10 &&
             freePlace.includes(number_almostEveryArrayHasIt4Defence) == true && number == -10) { number = number_almostEveryArrayHasIt4Defence }
-        if (number_strategicalStepsForDefence != -10 && number == -10) { number = number_strategicalStepsForDefence }
         if (number_strategicalSteps != -10 && number == -10) { number = number_strategicalSteps }
         if (number_strategicalStepsWithMaxOccurrance != -10 &&
             freePlace.includes(number_strategicalStepsWithMaxOccurrance) == true && number == -10) { number = number_strategicalStepsWithMaxOccurrance }
@@ -3176,13 +3294,14 @@ gameByLearntMemory = function () {
         document.querySelector("#stepOfEngine").innerHTML = "automatikusan a sarokba lép"
         whatWeStep = "automatikusan a sarokba lép";
     }
-    showRightSideInfo();
-    /*strategicalSteps = Array();
+    if (nowLearning == false) { showRightSideInfo() };
+    strategicalSteps = Array();
     strategicalStepsForStart = Array();
     strategicalStepsForDefence = Array();
     strategicalStepsForDefence2 = Array();
     strategicalStepsForDefence3 = Array();
     strategicalStepsForDefence4 = Array();
+    strategicalStepsForDefence5 = Array();
     everyArrayHasIt4Defence = Array();
     almostEveryArrayHasIt4Defence = Array();
     everyArrayHasIt4Attack = Array();
@@ -3193,12 +3312,95 @@ gameByLearntMemory = function () {
     myImportantDefenceStep2 = Array();
     myImportantDefenceStep3 = Array();
     forbiddenPlacesForcesToStepHere = Array();
-    whatWeStepArray[whatWeStepArray.length] = whatWeStep;*/
+    whatWeStepArray[whatWeStepArray.length] = whatWeStep;
 
 }
 
 
-dontForceHimToWin = function (number_) {
+dontForceHimToWinForBlue = function (number_) {
+    pleaseNotThis = false;
+
+    blueWas = Array(); redWas = Array(); freePlacesWas = Array(); freePlaceWas2 = Array();
+    blueWas = blue.slice(0);
+    redWas = red.slice(0);
+    freePlaceWas = freePlace.slice(0);
+    blue.push(number_);
+    freePlace = Array();
+    for (let i = 0; i < freePlaceWas.length; i++) {
+        if (freePlaceWas[i] != number_) {
+            freePlace[freePlace.length] = freePlaceWas[i];
+        }
+    }
+    defenceOrAttack2();
+    if (numberBlue != 0) {
+        red.push(numberBlue);
+        freePlaceWas2 = freePlace.slice(0);
+        freePlace = Array();
+        for (let i = 0; i < freePlaceWas2.length; i++) {
+            if (freePlaceWas2[i] != numberBlue) {
+                freePlace[freePlace.length] = freePlaceWas2[i];
+            }
+        }
+        defenceOrAttack2();
+        if (numberRedArray.length >= 2) {
+            pleaseNotThis = true;
+            defenceOrAttack2();
+            if (numberBlueArray.length >= 2) {
+                pleaseNotThis = false;
+            }
+        }
+
+
+    }
+    blue = blueWas.slice(0);
+    red = redWas.slice(0);
+    freePlace = freePlaceWas.slice(0);
+    return pleaseNotThis
+}
+
+dontForceHimToWinForRed = function (number_) {
+    pleaseNotThis = false;
+
+    blueWas = Array(); redWas = Array(); freePlacesWas = Array(); freePlaceWas2 = Array();
+    blueWas = blue.slice(0);
+    redWas = red.slice(0);
+    freePlaceWas = freePlace.slice(0);
+    red.push(number_);
+    freePlace = Array();
+    for (let i = 0; i < freePlaceWas.length; i++) {
+        if (freePlaceWas[i] != number_) {
+            freePlace[freePlace.length] = freePlaceWas[i];
+        }
+    }
+    defenceOrAttack2();
+    if (numberRed != 0) {
+        blue.push(numberRed);
+        freePlaceWas2 = freePlace.slice(0);
+        freePlace = Array();
+        for (let i = 0; i < freePlaceWas2.length; i++) {
+            if (freePlaceWas2[i] != numberRed) {
+                freePlace[freePlace.length] = freePlaceWas2[i];
+            }
+        }
+        defenceOrAttack2();
+        if (numberBlueArray.length >= 2) {
+            pleaseNotThis = true;
+            defenceOrAttack2();
+            if (numberRedArray.length >= 2) {
+                pleaseNotThis = false;
+            }
+        }
+
+
+    }
+    blue = blueWas.slice(0);
+    red = redWas.slice(0);
+    freePlace = freePlaceWas.slice(0);
+    return pleaseNotThis
+}
+
+
+/*dontForceHimToWin = function (number_) {
     pleaseNotThis = false;
     blueWas = Array(); redWas = Array(); freePlacesWas = Array(); freePlaceWas2 = Array();
     blueWas = blue.slice(0);
@@ -3235,7 +3437,7 @@ dontForceHimToWin = function (number_) {
     blue = blueWas.slice(0);
     red = redWas.slice(0);
     freePlace = freePlaceWas.slice(0);
-}
+}*/
 
 
 /*noNeedFunctionForArray = function (myArray) {
@@ -3432,7 +3634,6 @@ putCoin = function (this_) {
         if (document.querySelector("#withSimulatedAI").checked == true && nowLearning == true) {
             if (thereIsWinner != "no") { alert("Nincs több lépése!"); }
             else {
-                console.error("MOST")
                 stepOnTheBoard(number);
                 isWinner();
                 if (thereIsWinner == "no") {
@@ -4872,19 +5073,19 @@ showRightSideInfo = function () {
 
     noNeedFunctionForArray(strategicalSteps);
     myArray2.sort();
-    if (strategicalSteps.length > 0) {document.querySelector("#egy").innerHTML = myArray2}
+    if (strategicalSteps.length > 0) { document.querySelector("#egy").innerHTML = myArray2 }
     noNeedFunctionForArray(strategicalStepsForStart);
     myArray2.sort();
-    if (strategicalStepsForStart.length > 0) { document.querySelector("#kettő").innerHTML = myArray2}
-    noNeedFunctionForArray(strategicalStepsForDefence4);
+    if (strategicalStepsForStart.length > 0) { document.querySelector("#kettő").innerHTML = myArray2 }
+    noNeedFunctionForArray(strategicalStepsForDefence5);
     myArray2.sort();
-    if (strategicalStepsForDefence4.length > 0) { document.querySelector("#három").innerHTML =myArray2 }
+    if (strategicalStepsForDefence5.length > 0) { document.querySelector("#három").innerHTML = myArray2 }
     noNeedFunctionForArray(everyArrayHasIt4Defence);
     myArray2.sort();
     if (everyArrayHasIt4Defence.length > 0) { document.querySelector("#négy").innerHTML = myArray2 }
     noNeedFunctionForArray(almostEveryArrayHasIt4Defence);
     myArray2.sort();
-    if(almostEveryArrayHasIt4Defence.length>0){document.querySelector("#öt").innerHTML = myArray2}
+    if (almostEveryArrayHasIt4Defence.length > 0) { document.querySelector("#öt").innerHTML = myArray2 }
     noNeedFunctionForArray(everyArrayHasIt4Attack);
     myArray2.sort();
     if (everyArrayHasIt4Attack.length > 0) { document.querySelector("#hat").innerHTML = myArray2 }
@@ -4907,8 +5108,8 @@ showRightSideInfo = function () {
     thisWasStrategicalSteps = Array();
     noNeedFunctionForArray(strategicalSteps);
     myArray2.sort();
-    if (myArray2.length > 0) { document.querySelector("#attackStrategiesFilteredInfo").innerHTML = myArray2; }
-    if (myArray2.length > 0) { document.querySelector("#tízenhárom").innerHTML = `filteredAttackStrategies: ${myArray2}` }
+    // if (myArray2.length > 0) { document.querySelector("#attackStrategiesFilteredInfo").innerHTML = myArray2; }
+    //if (myArray2.length > 0) { document.querySelector("#tízenhárom").innerHTML = `filteredAttackStrategies: ${myArray2}` }
 
     //document.querySelector("#engineStepInfo").innerHTML = number;
 
