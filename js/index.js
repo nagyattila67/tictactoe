@@ -326,7 +326,7 @@ gameWithNotRandom = function (hereNow) {
     hereNow_ = hereNow;
     bluringOrNot(hereNow_);
     gameWithSimulatedOrNOt();
-    newGame();
+    //newGame();
 
 }
 
@@ -3092,12 +3092,12 @@ gameByLearntMemory = function () {
     strategicalStepsForDefence5 = Array();
     if (coins[coins.length - 2] == "red") { myFriendsArray = blue.slice(0) }
     if (coins[coins.length - 2] == "blue") { myFriendsArray = red.slice(0) }
-    if (searchingCorrespondenceArray.length > 0) {
+    if (searchingCorrespondenceArray.length > 0 && coins.length > 0) {
         for (let i = 0; i < myFriendsArray.length; i++) {
             for (let j = 0; j < freePlace.length; j++) {
                 for (let k = 0; k < searchingCorrespondenceArray.length; k++) {
                     if (myFriendsArray[i] + freePlace[j] + strategicalStepsForDefence4[k] == 15 &&
-                        searchingCorrespondenceArray.includes(strategicalStepsForDefence4[k])==true) {
+                        searchingCorrespondenceArray.includes(strategicalStepsForDefence4[k]) == true) {
                         strategicalStepsForDefence5[strategicalStepsForDefence5.length] = strategicalStepsForDefence4[k]
                     }
                 }
@@ -3105,7 +3105,7 @@ gameByLearntMemory = function () {
         }
     }
 
-
+    //strategicalStepsForDefence5 = strategicalStepsForDefence5.slice(0)
 
 
 
@@ -4704,6 +4704,8 @@ noStrategy = function () {
 };
 
 gameForTwoPeople = function (number) {
+    if (document.querySelector("#blueStarts").checked == true && coins.length == 0) { step = 1; stepShowsColor = 1; }
+    if (document.querySelector("#redStarts").checked == true && coins.length == 0) { step = 0; stepShowsColor = 2; }
     if (thereIsWinner != "no") {
         if (thereIsWinner == "red") { alert("Győzött a piros."); }
         else { alert("Győzött a kék.") }
@@ -4712,6 +4714,22 @@ gameForTwoPeople = function (number) {
         stepOnTheBoard(number);
     };
 };
+
+engineContinues = function(){
+    if(document.querySelector("#withComputer").checked==true){
+        nowTheComputerStep();
+        stepOnTheBoard(number);
+        isWinner();
+    }
+    if(document.querySelector("#withSimulatedLearntStrategy").checked==true){
+        gameByLearntMemory();
+        learntStrategies3 = simulatedStrategiesArray3.slice(0);
+        stepOnTheBoard(number);
+        isWinner();
+    }
+
+    
+}
 
 stepOnTheBoard = function (number) {
 

@@ -523,15 +523,27 @@
 
                     </div>
                     <div class="col-6">
+                        <button id="infoButton" onclick="infoLink()">Info a játékról</button>
+                        <br><br>
+                        <div style="background-color: #dbdbdb; padding:10px; line-height:80%"><small>Beállíthat egy
+                                adott kezdő
+                                lépéssorozatot, majd lentebb kiválaszthatja, hogy melyik géptípus folytassa a játékok.
+                                (Figyelem: a gép mindig a kék!)</small></div>
                         <input type="radio" id="twoPeople" class="littleMargin" name="typeOfGame"
                             oninput="gameWithNotRandom(this)"><label class="larger" for="twoPeople">Két
                             személy játszik</label>
-                        <button id="infoButton" onclick="infoLink()">Info a játékról</button>
-                        <br><br>
+                        <small><label for="redStarts" style="margin: 10px 0px 0px 33px">a piros kezd</label>
+                            <input checked id="redStarts" type="radio" name="whatColorStarts">
+                            <label for="blueStarts" style="margin: 10px 0px 0px 33px">a kék kezd</label>
+                            <input id="blueStarts" type="radio" name="whatColorStarts">
+                            <br>
+                            <button onclick="engineContinues()" style="margin: 10px 0px 10px 33px" class="button btn-secondary btn-small">A gép
+                                folytatja</button>
+                        </small>
+                        <br>
                         <div style="background-color: #dbdbdb; padding:10px"><small>Ön a pirossal játszik, a gép a
                                 kékkel. A gép
                                 típusát innen választhatja ki.</small></div>
-                        <br>
                         <input type="radio" id="withComputer" class="littleMargin" name="typeOfGame"
                             oninput="gameWithNotRandom(this)" checked><label class="larger" for="withComputer">Játék a
                             programmal</label>
@@ -785,11 +797,11 @@
                                         id="stepAlternatelyRed">
                                 </div>
                                 <div class="col-6">
-                                    <div style="background-color: #dbdbdb;padding:10px"><small>Az egyik játékos a fenti
+                                    <div style="background-color: #dbdbdb;padding:10px; line-height:80%"><small>Az egyik
+                                            játékos a fenti
                                             választás
                                             (piros), a másik játékost innen választhatja
                                             (kék):</small></div>
-
                                     <input checked type="radio" onclick="whoIsThePartner()" name="partnerForGame"
                                         id="withRandom">
                                     <label for="withRandom"> véletlenszám generátor - </label>
@@ -988,23 +1000,23 @@
                     <p>piros: <span id="redInfo"></span></p>
 
                     <p>szabad helyek: <span id="freePlaceInfo"></span></p>
-                    <p>strategicalSteps: <span id="egy"> - <span></span></p> 
-                    <p>strategicalStepsForStart: <span id="kettő"> - <span></span></p> 
-                    <p>strategicalStepsForDefence5: <span id="három"> - <span></span></p> 
-                    <p>everyArrayHasIt4Defence: <span id="négy"> - <span></span></p> 
-                    <p>almostEveryArrayHasIt4Defence: <span id="öt"> - <span></span></p> 
-                    <p>everyArrayHasIt4Attack: <span id="hat"> - <span></span></p> 
-                    <p>almostEveryArrayHasIt4Attack:<span id="hét"> - <span></span></p> 
-                    <p>strategicalStepsWithMaxOccurrance:<span id="nyolc"> - <span></span></p> 
-                    <p>firstDefenceStep: <span id="kilenc"> - <span></span></p> 
-                    <p>myImportantDefenceStep3: <span id="tíz"> - <span></span></p> 
-                    <p>forbiddenPlacesForcesToStepHere:<span id="tizenegy"> - <span></span></p> 
-                    <p>pleaseNotThis: <span id="tizenkettő"> - <span></span></p> 
-                    
-                    
+                    <p>strategicalSteps: <span id="egy"> - <span></span></p>
+                    <p>strategicalStepsForStart: <span id="kettő"> - <span></span></p>
+                    <p>strategicalStepsForDefence5: <span id="három"> - <span></span></p>
+                    <p>everyArrayHasIt4Defence: <span id="négy"> - <span></span></p>
+                    <p>almostEveryArrayHasIt4Defence: <span id="öt"> - <span></span></p>
+                    <p>everyArrayHasIt4Attack: <span id="hat"> - <span></span></p>
+                    <p>almostEveryArrayHasIt4Attack:<span id="hét"> - <span></span></p>
+                    <p>strategicalStepsWithMaxOccurrance:<span id="nyolc"> - <span></span></p>
+                    <p>firstDefenceStep: <span id="kilenc"> - <span></span></p>
+                    <p>myImportantDefenceStep3: <span id="tíz"> - <span></span></p>
+                    <p>forbiddenPlacesForcesToStepHere:<span id="tizenegy"> - <span></span></p>
+                    <p>pleaseNotThis: <span id="tizenkettő"> - <span></span></p>
+
+
                     <br>
                     <p>A gép ezt lépi: <span id="engineStepInfo"></span></p>
-                    
+
                     <p>A táblán lévő helyek számai (bűvös négyzet):</p>
                     <div class="mt-3" id="divForLittleTable8_" style="display:inline-block">
                         <table id="littleTable8_">
