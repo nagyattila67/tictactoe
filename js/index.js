@@ -786,13 +786,13 @@ learningStepByStep = function () {
             if (partner == "simulatedAI") {
                 if (firstStep == "computer") {
 
-                    if(coins.length==0){stepShowsColor = 1;}
+                    if (coins.length == 0) { stepShowsColor = 1; }
                     nowTheComputerStep();
                     stepOnTheBoard(number);
                     isWinner();
 
                     if (thereIsWinner == "no") {
-                        if(coins.length==0){stepShowsColor = 1;}
+                        if (coins.length == 0) { stepShowsColor = 1; }
                         gameByLearntMemory();
                         computerStep = true;
                         stepOnTheBoard(number);
@@ -802,13 +802,13 @@ learningStepByStep = function () {
 
                 }
                 if (firstStep == "gamer") {
-                    if(coins.length==0){stepShowsColor = 2};
+                    if (coins.length == 0) { stepShowsColor = 2 };
                     gameByLearntMemory();
                     stepOnTheBoard(number);
                     isWinner();
 
                     if (thereIsWinner == "no") {
-                        if(coins.length==0){stepShowsColor = 2;}
+                        if (coins.length == 0) { stepShowsColor = 2; }
                         nowTheComputerStep();
                         computerStep = true;
                         stepOnTheBoard(number);
@@ -968,9 +968,9 @@ learningStepByStep = function () {
             gameWithSimulatedOrNOt();
             if (partner == "program") {
                 if (firstStep == "computer") {
-                    IPlayWith = "red";
+                    //IPlayWith = "red";
 
-                    stepShowsColor = 1;
+                    //stepShowsColor = 1;step=1
                     nowTheComputerStep();
                     computerStep = true;
                     stepOnTheBoard(number);
@@ -982,10 +982,10 @@ learningStepByStep = function () {
                         stepOnTheBoard(number);
                         isWinner();
                     };
-                    IPlayWith = "noData"
+                    //IPlayWith = "noData"
                 }
                 if (firstStep == "gamer") {
-                    stepShowsColor = 2;
+                    //stepShowsColor = 2;step=0;
                     gameByLearntMemory();
                     stepOnTheBoard(number);
                     isWinner();
@@ -2415,7 +2415,7 @@ buildingStrategyForAttact = function (myArray, keys) {
 sensitivePlaces_ = Array();
 sensitivePlacesAll = Array();
 lookingForForbiddenPlace = function (friendArray, enemyArray) {
-    forbiddenPlacesArray = Array();
+    //forbiddenPlacesArray = Array();
     forbiddenPlace = -10;
     sensitivePlace1 = 0;
     sensitivePlace2 = 0;
@@ -2519,7 +2519,7 @@ buildingStrategyForDefence = function (myArray, keys) {
                         }
 
                         strategicalStepsForDefence[strategicalStepsForDefence.length] = defenceArray;
-                        //console.log(strategicalStepsForDefence)
+                        if(nowLearning==false){console.log(strategicalStepsForDefence)}
                     }
                 }
             }
@@ -2863,20 +2863,22 @@ gameByLearntMemory = function () {
         }
         if (signal == colorArrayRival.length) {
             for (let k = signal; k < myArray.length; k++) {
-                //if (blue.includes(myArray[k]) == false &&
-                //red.includes(myArray[k]) == false) {
+                signalThree = 0
                 if (freePlace.includes(myArray[k]) == true) {
                     signalTwo = 0;
-                    //signalTwoArray = Array();
                     for (let g = 0; g < keys.length; g++) {
                         if (freePlace.includes(keys[g]) == true) {
                             signalTwo = signalTwo + 1;
-                            //signalTwoArray[signalTwoArray.length] = keys[g];
                         }
                     }
                 }
+                if (signalTwo >= 2) { signalThree = signalThree + 1 }
             }
-            searchingCorrespondenceArray[searchingCorrespondenceArray.length] = myArray[2];
+            //pl. 4-6, akkor több harmadik elem is lehet különböző nyertes stratégiákhoz, ezek a
+            //harmadik elemek kerülnek be a searchingCorrespondenceArray Array-aiba
+            if (signalThree > 0) {
+                searchingCorrespondenceArray[searchingCorrespondenceArray.length] = myArray[2];
+            }
         }
 
     }
@@ -3096,9 +3098,11 @@ gameByLearntMemory = function () {
         for (let i = 0; i < myFriendsArray.length; i++) {
             for (let j = 0; j < freePlace.length; j++) {
                 for (let k = 0; k < searchingCorrespondenceArray.length; k++) {
-                    if (myFriendsArray[i] + freePlace[j] + strategicalStepsForDefence4[k] == 15 &&
-                        searchingCorrespondenceArray.includes(strategicalStepsForDefence4[k]) == true) {
+                    if (myFriendsArray[i] + freePlace[j] + strategicalStepsForDefence4[k] == 15
+                        && searchingCorrespondenceArray.includes(strategicalStepsForDefence4[k]) == true
+                        ) {
                         strategicalStepsForDefence5[strategicalStepsForDefence5.length] = strategicalStepsForDefence4[k]
+                    //console.log("strategicalStepsForDefence5",strategicalStepsForDefence5)
                     }
                 }
             }
@@ -3313,6 +3317,7 @@ gameByLearntMemory = function () {
     myImportantDefenceStep2 = Array();
     myImportantDefenceStep3 = Array();
     forbiddenPlacesForcesToStepHere = Array();
+    forbiddenPlacesArray = Array();
     whatWeStepArray[whatWeStepArray.length] = whatWeStep;
 
 }
@@ -4735,6 +4740,7 @@ gameForTwoPeople = function (number) {
 
 engineContinues = function () {
     learntStrategies3 = simulatedStrategiesArray3.slice(0);
+    learntStrategiesKeyPlaces3=simulatedKeys3.slice(0);
     if (document.querySelector("#twoPeople").checked == true) {
         alert("Nem választotta ki, hogy melyik gép játsszon.")
     }
