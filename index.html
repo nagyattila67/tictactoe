@@ -12,7 +12,9 @@
 </head>
 
 <body>
+    <script src="lib\jquery\jquery-3.6.0.min.js"></script>
     <div class="container-fluid">
+        <div id="forLoadMyValue" style="display:none"></div>
         <div class="row">
             <div class="col"> <br> </div>
         </div>
@@ -528,7 +530,7 @@
                         <div style="background-color: #dbdbdb; padding:10px; line-height:80%"><small>Beállíthat egy
                                 adott kezdő
                                 lépéssorozatot, majd lentebb kiválaszthatja, hogy melyik géptípus folytassa a játékok.
-                                </small></div>
+                            </small></div>
                         <input type="radio" id="twoPeople" class="littleMargin" name="typeOfGame"
                             oninput="gameWithNotRandom(this)"><label class="larger" for="twoPeople">Két
                             személy játszik</label>
@@ -537,7 +539,8 @@
                             <label for="blueStarts" style="margin: 10px 0px 0px 33px">a kék kezd</label>
                             <input id="blueStarts" type="radio" name="whatColorStarts">
                             <br>
-                            <button onclick="engineContinues()" style="margin: 10px 0px 10px 33px" class="button btn-secondary btn-small">A gép
+                            <button onclick="engineContinues()" style="margin: 10px 0px 10px 33px"
+                                class="button btn-secondary btn-small">A gép
                                 folytatja</button>
                         </small>
                         <br>
@@ -619,7 +622,7 @@
 
                         <br>
                         <input type="radio" id="withStoredLearningMemory" class="littleMargin" name="typeOfGame"
-                            oninput="gameWithNotRandom(this)" disabled><label class="larger"
+                            oninput="gameWithNotRandom(this)"><label class="larger"
                             for="withStoredLearningMemory">Játék
                             a
                             beépített
@@ -645,7 +648,9 @@
                                 játékot, így nem szükséges a tanulójátékok futtatása. <br><br>
                                 Ezek a játékok egyszer már valóban lefutottak, s a rendszer akkor elmentette azokat.
                                 <br><br>
-                                Az XXX játék lefuttatása YYY idő alatt történt ZZZ beállítással.
+                                Az 1 000 000 játék lefuttatása 22 óra alatt történt meg 'véletlenszám generátor -
+                                véletlenszám generátor' beállítással és 36 833 különböző játszmát eredményezett. Ebből 8
+                                %-ban nyert a piros és 8 %-ban nyert a kék.
                                 <br><br>
                                 <p style="text-align: center;">&#8275</p>
 
@@ -778,7 +783,12 @@
                             <div class="row sometimesBlur">
                                 <div class="col-6" style="border-right: 1px solid gray;">
                                     <button class="button btn-primary littleMargin" id="learningGameButton"
-                                        onclick="learning()">Tanulójáték</button>
+                                        onclick="learningWithSpinner()">Tanulójáték
+                                        <span style="visibility: hidden" id="spinner_tanulojatek"
+                                            class="spinner-border spinner-border-sm" role="" aria-hidden=""></span>
+                                    </button>
+
+
                                     <input class="littleMargin" type="number" style="width:100px" id="runningNumber"
                                         value="1000" oninput="estimatedRunningNumberOninput()"><span> játék
                                         futtatása</span>
@@ -1105,6 +1115,7 @@
 
 
     <script src="js\index.js"></script>
+
 </body>
 
 </html>

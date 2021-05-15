@@ -322,6 +322,17 @@ gameWithNotRandom = function (hereNow) {
         document.querySelector("#labelForSimulatedAI").innerHTML = "a szimuláltMI";
         document.querySelector("#labelForSimulatedAI").style.color = "black"
     }
+    if (document.querySelector("#withStoredLearningMemory").checked == true) {
+        memoryFromLoad = document.querySelector("#forLoadMyValue").innerHTML;
+        memoryFromLoad = JSON.parse(memoryFromLoad);
+        learningMemory = memoryFromLoad.game[0].game;
+        cleaningIsDone = true;
+
+        prepareGameWithStoredLearningMemory();
+        whatWeShow();
+        gameNumber5 = 1;
+        gameWithLearningMemory();
+    }
     document.querySelector("#labelForProgram").innerHTML = "a program";
     document.querySelector("#labelForProgram").style.color = "black";
     hereNow_ = hereNow;
@@ -455,7 +466,33 @@ estimatedRunningNumberOninput = function () {
 
 allRunsUntilNow = 0;
 allRuns = 0;
+
+$(document).ready(function () {
+    $("#learningGameButton").click(function () {
+        mySpinner
+    })
+});
+
+mySpinner = function () {
+    document.querySelector("#spinner_tanulojatek").style.visibility = "visible";
+    //learningWithSpinner();
+}
+
+learningWithSpinner = function () {
+    //setTimeout(learning(), 0)
+    nowLearning = true;
+    myPromise = new Promise((resolve, reject) => {
+        learning();
+        if (nowLearning == false) { resolve("hidden") }
+    })
+
+    console.log(document.querySelector("#spinner_tanulojatek").style.visibility)
+    myPromise.then(data => { document.querySelector("#spinner_tanulojatek").style.visibility = data; console.log(data) })
+}
+
 learning = function () {
+
+
     myWonMemory = Array();
     for (let i = 0; i < document.querySelectorAll(".forLightBlue").length; i++) {
         document.querySelectorAll(".forLightBlue")[i].classList.remove("lightBlue")
@@ -601,6 +638,8 @@ learning = function () {
     showBasicPatterns3();
     newGame();
     nowLearning = false;
+
+
 };
 
 
@@ -728,7 +767,7 @@ learningStepByStep = function () {
         if (document.querySelector("#withComputer").checked == true) {
             if (partner == "random") {
                 if (firstStep == "computer") {
-                    stepShowsColor = 1;
+                    //stepShowsColor = 1;
                     nowTheComputerStep();
                     computerStep = true;
                     stepOnTheBoard(number);
@@ -736,6 +775,7 @@ learningStepByStep = function () {
                     isWinner();
 
                     if (thereIsWinner == "no") {
+                        stepShowsColor = 2;
                         defenceOrAttack(myId = checkBoxForCleverRandom2.id);
 
                         if (number == 0) {
@@ -750,7 +790,7 @@ learningStepByStep = function () {
                     };
                 };
                 if (firstStep == "gamer") {
-                    stepShowsColor = 2;
+                    stepShowsColor = 1;
                     defenceOrAttack(myId = checkBoxForCleverRandom2.id);
                     if (number == 0) {
                         myNumber = Math.floor(Math.random() * freePlace.length);
@@ -759,6 +799,7 @@ learningStepByStep = function () {
                     stepOnTheBoard(number);
                     isWinner();
                     if (thereIsWinner == "no") {
+                        stepShowColors = 2;
                         nowTheComputerStep();
                         computerStep = true;
                         stepOnTheBoard(number);
@@ -2519,7 +2560,7 @@ buildingStrategyForDefence = function (myArray, keys) {
                         }
 
                         strategicalStepsForDefence[strategicalStepsForDefence.length] = defenceArray;
-                        if(nowLearning==false){console.log(strategicalStepsForDefence)}
+                        if (nowLearning == false) { console.log(strategicalStepsForDefence) }
                     }
                 }
             }
@@ -3100,9 +3141,9 @@ gameByLearntMemory = function () {
                 for (let k = 0; k < searchingCorrespondenceArray.length; k++) {
                     if (myFriendsArray[i] + freePlace[j] + strategicalStepsForDefence4[k] == 15
                         && searchingCorrespondenceArray.includes(strategicalStepsForDefence4[k]) == true
-                        ) {
+                    ) {
                         strategicalStepsForDefence5[strategicalStepsForDefence5.length] = strategicalStepsForDefence4[k]
-                    //console.log("strategicalStepsForDefence5",strategicalStepsForDefence5)
+                        //console.log("strategicalStepsForDefence5",strategicalStepsForDefence5)
                     }
                 }
             }
@@ -3567,7 +3608,9 @@ putCoin = function (this_) {
                 };
             };
         };
-        if (document.querySelector("#withLearningMemory").checked == true) {
+        if (document.querySelector("#withLearningMemory").checked == true
+            || document.querySelector("#withStoredLearningMemory").checked == true
+        ) {
             if (thereIsWinner != "no") { alert("Nincs több lépése!"); }
             else {
                 stepOnTheBoard(number);
@@ -3664,7 +3707,26 @@ check = function () {
     }
 }
 
-
+prepareGameWithStoredLearningMemory = function () {
+    blueWonMemory = Array();
+    for (let i = 0; i < learningMemory.length; i++) {
+        if (learningMemory[i][learningMemory[i].length - 1] == "BLUE") {
+            blueWonMemory[blueWonMemory.length] = learningMemory[i];
+        }
+    }
+    redWonMemory = Array();
+    for (let i = 0; i < learningMemory.length; i++) {
+        if (learningMemory[i][learningMemory[i].length - 1] == "RED") {
+            redWonMemory[redWonMemory.length] = learningMemory[i];
+        }
+    }
+    undecidedMemory = Array();
+    for (let i = 0; i < learningMemory.length; i++) {
+        if (learningMemory[i][learningMemory[i].length - 1] == "UNDECIDED") {
+            undecidedMemory[undecidedMemory.length] = learningMemory[i];
+        }
+    }
+}
 
 gameWithLearningMemory = function () {
     itWasBlueWonMemory = blueWonMemory.slice(0);
@@ -4740,7 +4802,7 @@ gameForTwoPeople = function (number) {
 
 engineContinues = function () {
     learntStrategies3 = simulatedStrategiesArray3.slice(0);
-    learntStrategiesKeyPlaces3=simulatedKeys3.slice(0);
+    learntStrategiesKeyPlaces3 = simulatedKeys3.slice(0);
     if (document.querySelector("#twoPeople").checked == true) {
         alert("Nem választotta ki, hogy melyik gép játsszon.")
     }
@@ -5198,7 +5260,7 @@ showRightSideInfo = function () {
         document.querySelector(`#littleTbody8 td[name='${i}']`).style["background-color"] = "#dbdbdb";
 
     }
-    document.querySelector(`#littleTbody8 td[name='${number}']`).style["background-color"] = "rgb(238, 220, 130)";
+    //document.querySelector(`#littleTbody8 td[name='${number}']`).style["background-color"] = "rgb(238, 220, 130)";
 }
 
 buildingTable = function () {
@@ -5907,5 +5969,39 @@ showBasicPatterns7 = function () {
     //gameNumberC = 0;
 
 }
+
+myData = Object();
+myData2 = Object();
+myFetch = function () {
+    fetchInit = {
+        method: "GET",
+        headers: new Headers(),
+        mode: "cors",
+        cache: "default"
+    }
+
+    fetch("http://localhost:3000/users", fetchInit).then(response => response.json()).then(data => console.log(data[0].name))
+}
+
+myFetch2 = function () {
+    data = { game: learningMemory }
+    fetchInit = {
+        method: "POST",
+        mode: "cors",
+        cache: "no-cache",
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data)
+    }
+
+    fetch(`http://localhost:3000/game`, fetchInit)
+}
+
+
+myValue = "db/db.json";
+$(document).ready(function () {
+    $("#forLoadMyValue").load(myValue);
+})
+
+
 
 
