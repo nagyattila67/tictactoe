@@ -622,8 +622,7 @@
 
                         <br>
                         <input type="radio" id="withStoredLearningMemory" class="littleMargin" name="typeOfGame"
-                            oninput="gameWithNotRandom(this)"><label class="larger"
-                            for="withStoredLearningMemory">Játék
+                            oninput="gameWithNotRandom(this)"><label class="larger" for="withStoredLearningMemory">Játék
                             a
                             beépített
                             tanulómemóriával - </label>
@@ -783,7 +782,7 @@
                             <div class="row sometimesBlur">
                                 <div class="col-6" style="border-right: 1px solid gray;">
                                     <button class="button btn-primary littleMargin" id="learningGameButton"
-                                        onclick="learningWithSpinner()">Tanulójáték
+                                        onclick="learning()">Tanulójáték
                                         <span style="visibility: hidden" id="spinner_tanulojatek"
                                             class="spinner-border spinner-border-sm" role="" aria-hidden=""></span>
                                     </button>
@@ -832,6 +831,11 @@
                                     <input type="radio" onclick="whoIsThePartner()" name="partnerForGame"
                                         id="withLearningMemory_">
                                     <label for="withLearningMemory_"><span id="labelForLearningMemory">a tanulómemória
+                                        </span></label>
+                                    <br>
+                                    <input type="radio" onclick="whoIsThePartner()" name="partnerForGame"
+                                        id="withStoredLearningMemory">
+                                    <label for="withStoredLearningMemory"><span id="labelForLearningMemory">a beépített tanulómemória
                                         </span></label>
                                     <br>
                                     <input type="radio" onclick="whoIsThePartner()" name="partnerForGame"

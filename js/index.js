@@ -80,6 +80,7 @@ myImportantDefenceStep3 = Array();
 forbiddenPlacesForcesToStepHere = Array();
 pleaseNotThis = 0;
 myWonMemory = Array();
+noStep = false;
 
 programParts = 41;
 for (let i = 0; i < programParts; i++) {
@@ -323,15 +324,7 @@ gameWithNotRandom = function (hereNow) {
         document.querySelector("#labelForSimulatedAI").style.color = "black"
     }
     if (document.querySelector("#withStoredLearningMemory").checked == true) {
-        memoryFromLoad = document.querySelector("#forLoadMyValue").innerHTML;
-        memoryFromLoad = JSON.parse(memoryFromLoad);
-        learningMemory = memoryFromLoad.game[0].game;
-        cleaningIsDone = true;
-
-        prepareGameWithStoredLearningMemory();
-        whatWeShow();
-        gameNumber5 = 1;
-        gameWithLearningMemory();
+        prepareForStoredLeraningMemory()
     }
     document.querySelector("#labelForProgram").innerHTML = "a program";
     document.querySelector("#labelForProgram").style.color = "black";
@@ -340,6 +333,18 @@ gameWithNotRandom = function (hereNow) {
     gameWithSimulatedOrNOt();
     //newGame();
 
+}
+
+function prepareForStoredLeraningMemory() {
+    memoryFromLoad = document.querySelector("#forLoadMyValue").innerHTML;
+    memoryFromLoad = JSON.parse(memoryFromLoad);
+    learningMemory = memoryFromLoad.game[0].game;
+    cleaningIsDone = true;
+
+    prepareGameWithStoredLearningMemory();
+    whatWeShow();
+    gameNumber5 = 1;
+    gameWithLearningMemory();
 }
 
 running3In1 = function () {
@@ -491,7 +496,7 @@ learningWithSpinner = function () {
 }
 
 learning = function () {
-
+if(document.querySelector("#withStoredLearningMemory").checked == true){prepareForStoredLeraningMemory()}
 
     myWonMemory = Array();
     for (let i = 0; i < document.querySelectorAll(".forLightBlue").length; i++) {
@@ -669,10 +674,12 @@ learningStepByStep = function () {
     avArrayStep[0] = "-";
 
     while (thereIsWinner == "no") {
-        if (document.querySelector("#withLearningMemory").checked == true) {
+        if (document.querySelector("#withLearningMemory").checked == true
+            || document.querySelector("#withStoredLearningMemory").checked == true
+        ) {
             if (partner == "program") {
                 if (firstStep == "computer") {
-                    stepShowsColor = 1;
+                    if (coins.length == 0) {stepShowsColor = 1;}
                     nowTheComputerStep();
                     computerStep = true;
                     stepOnTheBoard(number);
@@ -686,7 +693,7 @@ learningStepByStep = function () {
                     };
                 }
                 if (firstStep == "gamer") {
-                    stepShowsColor = 2;
+                    if (coins.length == 0) {stepShowsColor = 2;}
                     gameWithLearningMemory();
                     stepOnTheBoard(number);
                     isWinner();
@@ -704,7 +711,7 @@ learningStepByStep = function () {
                 //miért kell a thereIsWinner == "no" ???????????????
                 //??????????????????????????????????????????????????
                 if (firstStep == "computer") {
-                    stepShowsColor = 1;
+                    if (coins.length == 0) {stepShowsColor = 1;}
                     myNumber = Math.floor(Math.random() * freePlace.length);
                     number = freePlace[myNumber];
                     stepOnTheBoard(number);
@@ -717,7 +724,7 @@ learningStepByStep = function () {
                     };
                 }
                 if (firstStep == "gamer") {
-                    stepShowsColor = 2;
+                    if (coins.length == 0) {stepShowsColor = 2;}
                     gameWithLearningMemory();
                     stepOnTheBoard(number);
                     isWinner();
@@ -731,9 +738,10 @@ learningStepByStep = function () {
             }
             if (thereIsWinner != "no") { improveShortMemory() };
             if (partner == "learningMemory") {
+                prepareGameWithStoredLearningMemory();
                 if (firstStep == "computer") {
                     //a learningMemory csak olyan játékokat ismer, amelyek ugyanazzal s színnel kezdődnek, ezért itt cserélni kell a színeket
-                    stepShowsColor = 1;
+                    if (coins.length == 0) {stepShowsColor = 1;}
                     changeColor();
                     gameWithLearningMemory()
                     changeColorBack();
@@ -750,7 +758,7 @@ learningStepByStep = function () {
                     changeColorBack();
                 }
                 if (firstStep == "gamer") {
-                    stepShowsColor = 2;
+                    if (coins.length == 0) {stepShowsColor = 2;}
                     gameWithLearningMemory()
                     stepOnTheBoard(number);
                     isWinner();
@@ -764,6 +772,13 @@ learningStepByStep = function () {
 
             }
         }
+
+        //if (document.querySelector("#withSimulatedLearntStrategy").checked == true) {
+
+        //}
+
+
+
         if (document.querySelector("#withComputer").checked == true) {
             if (partner == "random") {
                 if (firstStep == "computer") {
@@ -3733,7 +3748,7 @@ gameWithLearningMemory = function () {
     itWasRedWonMemory = redWonMemory.slice(0);
     itWasUndecidedMemory = undecidedMemory.slice(0);
     blueWonMemory = blueWonMemory.concat(blueWonMemoryFake)
-    console.log(blueWonMemoryFake, blueWonMemoryFake)
+    //console.log(blueWonMemoryFake, blueWonMemoryFake)
     redWonMemory = redWonMemory.concat(redWonMemoryFake)
     undecidedMemory = undecidedMemory.concat(undecidedMemoryFake)
 
@@ -3856,7 +3871,7 @@ gameWithLearningMemory = function () {
                 store = "undecidedMemory";
                 myStoredGameHistory[myStoredGameHistory.length] = myStoredGame;
                 stepNumber = 1;
-                showTheStoredGameSteps();
+                if (nowLearning == false) { showTheStoredGameSteps() };
             }
             if (importantBlue == false) {
                 for (let i = 0; i < redWonMemory.length; i++) {
@@ -3871,7 +3886,7 @@ gameWithLearningMemory = function () {
                         if (index == coins.length) {
                             nextStepRedWon = redWonMemory[i][redWonMemory[i].length - 2];
                             number = nextStepRedWon;
-                            console.log("redWonStep:", nextStepRedWon);
+                            //console.log("redWonStep:", nextStepRedWon);
                             break
                         }
                         if (index == coins.length) { break };
