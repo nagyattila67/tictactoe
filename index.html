@@ -9,12 +9,14 @@
     <link rel="stylesheet"
         href="lib/bootstrap/bootstrap-5.0.0-beta2-dist/bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/selectors.css">
+    <!--<script type="application/json" src="db/db.json"></script>-->
 </head>
 
 <body>
     <script src="lib\jquery\jquery-3.6.0.min.js"></script>
     <div class="container-fluid">
-        <div id="forLoadMyValue" style="display:none"></div>
+        <div id="forLoadMyValue1" style="display:none"></div>
+        <div id="forLoadMyValue2" style="display:none"></div>
         <div class="row">
             <div class="col"> <br> </div>
         </div>
@@ -622,7 +624,7 @@
 
                         <br>
                         <input type="radio" id="withStoredLearningMemory" class="littleMargin" name="typeOfGame"
-                            oninput="gameWithNotRandom(this)"><label class="larger" for="withStoredLearningMemory">Játék
+                            oninput="gameWithNotRandom(this);storedGamesOnclick()"><label class="larger" for="withStoredLearningMemory">Játék
                             a
                             beépített
                             tanulómemóriával - </label>
@@ -637,6 +639,10 @@
                                 lép.
                             </span>
                         </span>
+                        <label for="storedGamesMemoria1">memória-1</label>
+                        <input type="radio" id="storedGamesMemoria1" name="storedGamesMemoria" onclick="storedGamesOnclick()">
+                        <label for="storedGamesMemoria2">memória-2</label>
+                        <input type="radio" id="storedGamesMemoria2" name="storedGamesMemoria" onclick="storedGamesOnclick()" checked>
                         <span style="margin: 0px 0px 0px 20px"><small> - Tárolt játékok száma: <span
                                     id="numberOfBuiltedInGames"> 0 </span></small></span> <br>
 
@@ -647,9 +653,15 @@
                                 játékot, így nem szükséges a tanulójátékok futtatása. <br><br>
                                 Ezek a játékok egyszer már valóban lefutottak, s a rendszer akkor elmentette azokat.
                                 <br><br>
-                                Az 1 000 000 játék lefuttatása 22 óra alatt történt meg 'véletlenszám generátor -
+                                memória-1: Az 1 000 000 játék lefuttatása 22 óra alatt történt meg 'véletlenszám
+                                generátor -
                                 véletlenszám generátor' beállítással és 36 833 különböző játszmát eredményezett. Ebből 8
                                 %-ban nyert a piros és 8 %-ban nyert a kék.
+                                <br><br>
+                                memória-2: Az 1 000 000 játék lefuttatása 17 és fél óra alatt történt meg 'váltakozva:
+                                computer - random; computer - computer; random - computer; random - random' beállítással
+                                és 33 277 különböző játszmát eredményezett. Ebből 9
+                                %-ban nyert a piros és 9 %-ban nyert a kék.
                                 <br><br>
                                 <p style="text-align: center;">&#8275</p>
 
@@ -804,6 +816,10 @@
                                             kezd.</small></label>
                                     <input style="display:inline; margin-left:5px" type="radio" name="inTurns"
                                         id="stepAlternatelyRed">
+                                    <hr>
+                                    <input type="checkbox" id="withChange" onclick=clickMakeInputsInactive()>
+                                    <label for="withChange">Felváltva program és random</label>
+                                    <span><small> (Minden más beállítást inaktívvá tesz!)</small></span>
                                 </div>
                                 <div class="col-6">
                                     <div style="background-color: #dbdbdb;padding:10px; line-height:80%"><small>Az egyik
@@ -835,7 +851,8 @@
                                     <br>
                                     <input type="radio" onclick="whoIsThePartner()" name="partnerForGame"
                                         id="withStoredLearningMemory">
-                                    <label for="withStoredLearningMemory"><span id="labelForLearningMemory">a beépített tanulómemória
+                                    <label for="withStoredLearningMemory"><span id="labelForLearningMemory">a beépített
+                                            tanulómemória
                                         </span></label>
                                     <br>
                                     <input type="radio" onclick="whoIsThePartner()" name="partnerForGame"
