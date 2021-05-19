@@ -7,6 +7,11 @@ $(document).ready(function () {
     $("#forLoadMyValue2").load(myValue2);
 })
 
+
+
+
+
+
 s = 0;
 previousS = -10;
 previousBlue = -10
@@ -361,17 +366,7 @@ gameWithNotRandom = function (hereNow) {
 }
 
 function prepareForStoredLeraningMemory() {
-    memoryFromLoad1 = document.querySelector("#forLoadMyValue1").innerHTML;
-    memoryFromLoad2 = document.querySelector("#forLoadMyValue2").innerHTML;
-    memoryFromLoad1 = JSON.parse(memoryFromLoad1);
-    memoryFromLoad2 = JSON.parse(memoryFromLoad2);
 
-    cleaningIsDone = true;
-
-    prepareGameWithStoredLearningMemory();
-    //whatWeShow();
-    //gameNumber5 = 1;
-    //gameWithLearningMemory();
 }
 
 running3In1 = function () {
@@ -550,6 +545,7 @@ function clickMakeInputsInactive() {
     }
 }
 
+wasLearning = false;
 learning = function () {
     if (document.querySelector("#withStoredLearningMemory").checked == true) { prepareForStoredLeraningMemory() }
 
@@ -602,6 +598,10 @@ learning = function () {
     document.querySelector("#undecidedForShowing").innerHTML = " - ";
 
 
+    blueWonMemory = Array();
+    redWonMemory = Array();
+    undecidedMemory = Array();
+
     nowLearning = true;
     timeStart = new Date();
     limit = document.querySelector("#runningNumber").value;
@@ -611,6 +611,7 @@ learning = function () {
         allRuns = limit;
         allRunsUntilNow = limit;
         learningMemory = Array();
+        shortMemory = Array();
 
         whoWon = { red: 0, blue: 0, undecided: 0 };
         howManyAV = Array();
@@ -705,8 +706,9 @@ learning = function () {
     showTime2(whereShowTime, appRunTime);
     showBasicPatterns3();
     newGame();
-    nowLearning = false;
 
+    nowLearning = false;
+    wasLearning = true;
 
 };
 
@@ -751,7 +753,7 @@ learningStepByStep = function () {
                         isWinner();
 
                         if (thereIsWinner == "no") {
-                            defenceOrAttack(id="checkBoxForCleverRandom2");
+                            defenceOrAttack(id = "checkBoxForCleverRandom2");
                             if (number == 0) {
                                 gameWithLearningMemory();
                             }
@@ -761,7 +763,7 @@ learningStepByStep = function () {
                     }
                     if (firstStep == "gamer") {
                         //if (coins.length == 0) { stepShowsColor = 2; step = 0 }
-                        defenceOrAttack(id="checkBoxForCleverRandom2");
+                        defenceOrAttack(id = "checkBoxForCleverRandom2");
                         if (number == 0) {
                             gameWithLearningMemory();
                         }
@@ -815,7 +817,7 @@ learningStepByStep = function () {
                         };
                     }
                 }
-                if (thereIsWinner != "no") { improveShortMemory() };
+
                 if (partner == "learningMemory" || partner == "storedLearningMemory") {
                     prepareGameWithStoredLearningMemory();
                     if (firstStep == "computer") {
@@ -852,6 +854,7 @@ learningStepByStep = function () {
                     }
 
                 }
+                if (thereIsWinner != "no") { improveShortMemory() };
             }
 
             //if (document.querySelector("#withSimulatedLearntStrategy").checked == true) {
@@ -1291,14 +1294,66 @@ learningStepByStep = function () {
 };
 
 function storedGamesOnclick() {
+    wasLearening = true;
     prepareForStoredLeraningMemory();
     //document.querySelector("#numberOfBuiltedInGames").innerHTML=memoryFromLoad.game[0].game.length;
-    if (document.querySelector("#storedGamesMemoria1").checked == true) {
+    if (document.querySelector("#withStoredLearningMemory").checked == true) {
+        if (document.querySelector("#storedGamesMemoria1").checked == true) {
+            memoryFromLoad1 = document.querySelector("#forLoadMyValue1").innerHTML
+            memoryFromLoad1 = JSON.parse(memoryFromLoad1);
+            myWonMemory_FromLoad = document.querySelector("#forLoadMyValue1").innerHTML
+            myWonMemory_FromLoad = JSON.parse(myWonMemory_FromLoad)
+            shortMemory = memoryFromLoad1.game[0].game;
+        }
+        if (document.querySelector("#storedGamesMemoria2").checked == true) {
+            memoryFromLoad2 = document.querySelector("#forLoadMyValue2").innerHTML
+            memoryFromLoad2 = JSON.parse(memoryFromLoad2);
+            shortMemory = memoryFromLoad2.game[0].game;
+            myWonMemory_FromLoad = document.querySelector("#forLoadMyValue2").innerHTML
+            myWonMemory_FromLoad = JSON.parse(myWonMemory_FromLoad);
+        }
+        blueWonMemory = Array();
+        redWonMemory = Array();
+        undecidedMemory = Array();
+        for (let i = 0; i < shortMemory.length; i++) {
+            if (shortMemory[i][shortMemory[i].length - 1] == "BLUE") {
+                blueWonMemory[blueWonMemory.length] = shortMemory[i];
+            }
+            if (shortMemory[i][shortMemory[i].length - 1] == "RED") {
+                redWonMemory[redWonMemory.length] = shortMemory[i];
+            }
+            if (shortMemory[i][shortMemory[i].length - 1] == "UNDECIDED") {
+                undecidedMemory[undecidedMemory.length] = shortMemory[i];
+            }
+        }
+    }
+    myWonMemory = Array();
+    if (document.querySelector("#radioBlue").checked == true) { myWonMemory = blueWonMemory.slice(0) }
+    if (document.querySelector("#radioRed").checked == true) { myWonMemory = redWonMemory.slice(0) }
+    if (document.querySelector("#radioUndecided").checked == true) { myWonMemory = undecidedMemory.slice(0) }
+    //makeSimulatedStrategies();
+
+    stepNumber = 1;
+    gameNumber5 = 0;
+    document.querySelector("#blueWonNumber").innerHTML = blueWonMemory.length;
+    document.querySelector("#redWonNumber").innerHTML = redWonMemory.length;
+    document.querySelector("#undecidedNumber").innerHTML = undecidedMemory.length;
+    //if (document.querySelector("#radioBlue").checked == true) { myWonMemory = blueWonMemory.slice(0) }
+    //if (document.querySelector("#radioRed").checked == true) { myWonMemory = redWonMemory.slice(0) }
+    //if (document.querySelector("#radioUndecided").checked == true) { myWonMemory = undecidedMemory.slice(0) }
+    document.querySelector("#gameNumberInfo").innerHTML = myWonMemory.length;
+    gameNumber5 = 1;
+    stepNumber = 1;
+    gameNumber6 = 0;
+    showTheGames();
+    //whatWeShow();
+    //showTheStoredGameSteps();
+    /*if (document.querySelector("#storedGamesMemoria1").checked == true) {
         document.querySelector("#numberOfBuiltedInGames").innerHTML = memoryFromLoad1.game[0].game.length;
     }
     if (document.querySelector("#storedGamesMemoria2").checked == true) {
         document.querySelector("#numberOfBuiltedInGames").innerHTML = memoryFromLoad2.game[0].game.length;
-    }
+    }*/
 }
 
 //setTimeout(function(){storedGamesOnclick()},100);
@@ -1365,7 +1420,7 @@ check2 = function () {
 }
 
 blueWonMemoryOriginalIndex = Array();
-improveShortMemory = function () {
+function improveShortMemory() {
     wantIt = 0;
     for (let i = 0; i < shortMemory.length; i++) {
         index = 0;
@@ -1445,6 +1500,7 @@ cleaningTheMemory = function () {
         document.querySelector("#learningGameButton").style.boxShadow = "5px 10px black"
     }
     else {
+        cleaningIsDone = true;
         document.querySelector("#cleaningTheMemoryButton1").style.boxShadow = "none";
         myConfirm = true;
         if (document.querySelector("#autoClean").checked == false) {
@@ -1517,13 +1573,12 @@ cleaningTheMemory = function () {
             document.querySelector("#undecidedForShowing").innerHTML = `${undecidedMemory.length}  (${percentage4} %)`;
         }
         if (blueWonMemory.length > 0) { showGames() };
-        document.querySelector("#gamesInLearningMemory").innerHTML = learningMemory.length;
-        cleaningIsDone = true;
         if (document.querySelector("#autoClean2").checked == true) { cleaningTheMemory2() }
         makeFakeMemoryForGameWithLearningMemory();
-
+        
     }
-
+    whatWeShow();
+   
 }
 
 makeFakeMemoryForGameWithLearningMemory = function () {
@@ -3892,7 +3947,7 @@ check = function () {
     }
 }
 
-prepareGameWithStoredLearningMemory = function () {
+function prepareGameWithStoredLearningMemory() {
     blueWonMemory = Array();
     for (let i = 0; i < learningMemory.length; i++) {
         if (learningMemory[i][learningMemory[i].length - 1] == "BLUE") {
@@ -4117,6 +4172,7 @@ backInTable10 = function () {
 }
 
 showTheStoredGameSteps = function () {
+    storedGamesOnclick();
     for (let i = 1; i < 10; i++) {
         document.querySelector(`#littleTbody10 td[name='${i}']`).innerHTML = "";
     }
@@ -4985,7 +5041,7 @@ gameForTwoPeople = function (number) {
     };
 };
 
-engineContinues = function () {
+function engineContinues() {
     learntStrategies3 = simulatedStrategiesArray3.slice(0);
     learntStrategiesKeyPlaces3 = simulatedKeys3.slice(0);
     if (document.querySelector("#twoPeople").checked == true) {
@@ -5029,9 +5085,11 @@ engineContinues = function () {
         }
         if (document.querySelector("#withStoredLearningMemory").checked == true) {
             if (document.querySelector("#storedGamesMemoria1").checked == true) {
+                memoryFromLoad1 = document.querySelector("#forLoadMyValue1").innerHTML
                 learningMemory = memoryFromLoad1.game[0].game;
             }
             if (document.querySelector("#storedGamesMemoria2").checked == true) {
+                memoryFromLoad2 = document.querySelector("#forLoadMyValue2").innerHTML
                 learningMemory = memoryFromLoad2.game[0].game;
             }
             gameWithLearningMemory();
@@ -5752,14 +5810,27 @@ gameWithSimulatedOrNOt = function () {
 makeSimulatedStrategies();
 
 function whatWeShow() {
+    if (document.querySelector("#withStoredLearningMemory").checked == true &&
+        wasLearning == false) {
+        storedGamesOnclick()
+    }
+    if (document.querySelector("#withStoredLearningMemory").checked == true &&
+        wasLearning == true) {
+        prepareGameWithStoredLearningMemory();
+    }
+    console.log("length", blueWonMemory.length)
+    //else {
     myWonMemory = Array();
     if (document.querySelector("#radioBlue").checked == true) { myWonMemory = blueWonMemory.slice(0) }
     if (document.querySelector("#radioRed").checked == true) { myWonMemory = redWonMemory.slice(0) }
     if (document.querySelector("#radioUndecided").checked == true) { myWonMemory = undecidedMemory.slice(0) }
     showGames();
+    //}
+
 }
 
 showGames = function () {
+    document.querySelector("#gamesInLearningMemory").innerHTML = learningMemory.length;
     document.querySelector("#blueWonNumber").innerHTML = blueWonMemory.length;
     document.querySelector("#redWonNumber").innerHTML = redWonMemory.length;
     document.querySelector("#undecidedNumber").innerHTML = undecidedMemory.length;
@@ -5770,6 +5841,8 @@ showGames = function () {
     gameNumber5 = 1;
     stepNumber = 1;
     gameNumber6 = 0;
+    if (document.querySelector("#withStoredLearningMemory").checked == true &&
+    wasLearning == false) {showTheStoredGameSteps();}
     showTheGames();
 }
 
