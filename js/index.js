@@ -462,7 +462,7 @@ whoIsThePartner = function () {
     if (document.querySelector("#withRandom").checked == true) { partner = "random" };
     if (document.querySelector("#withSimulatedAI").checked == true) { partner = "simulatedAI" };
     if (document.querySelector("#withLearningMemory_").checked == true) { partner = "learningMemory" };
-    if (document.querySelector("#withStoredLearningMemory").checked == true) { partner = "storedLearningMemory" }
+    if (document.querySelector("#withStoredLearningMemory_").checked == true) { partner = "storedLearningMemory" }
     estimatedRunningNumberOninput()
 }
 
@@ -547,6 +547,17 @@ function clickMakeInputsInactive() {
 
 wasLearning = false;
 learning = function () {
+    nowLearning = true;
+    wasLearning = false;
+    //if(document.querySelector("#notIndependentResult").checked==false){learningMemory=Array()}
+    /*learningMemory=Array()
+    learningMemoryBlueWon=Array;
+    learningMemoryRedWon=Array();
+    learningMemoryUndecided=Array();
+    shortMemory=Array();
+    blueWonMemory=Array();
+    redWonMemory=Array();
+    undecidedMemory=Array();*/
     if (document.querySelector("#withStoredLearningMemory").checked == true) { prepareForStoredLeraningMemory() }
 
     myWonMemory = Array();
@@ -666,7 +677,8 @@ learning = function () {
 
 
     };
-    if (document.querySelector("#withLearningMemory").checked == false) {
+    if (document.querySelector("#withLearningMemory").checked == false
+    || document.querySelector("#withStoredLearningMemory").checked == false) {
         shortMemory = learningMemory.slice(0);
     }
 
@@ -741,11 +753,10 @@ learningStepByStep = function () {
     while (thereIsWinner == "no") {
         if (document.querySelector("#withChange").checked == false) {
             if (document.querySelector("#withLearningMemory").checked == true
-                || document.querySelector("#withStoredLearningMemory").checked == true
             ) {
                 if (partner == "program") {
                     if (firstStep == "computer") {
-                        //if (coins.length == 0) { stepShowsColor = 1; step = 1 }
+                        if (coins.length == 0) { stepShowsColor = 1; step = 1 }
                         nowTheComputerStep();
                         computerStep = true;
                         stepOnTheBoard(number);
@@ -753,7 +764,7 @@ learningStepByStep = function () {
                         isWinner();
 
                         if (thereIsWinner == "no") {
-                            defenceOrAttack(id = "checkBoxForCleverRandom2");
+                            defenceOrAttack(myId = "cleverGame");
                             if (number == 0) {
                                 gameWithLearningMemory();
                             }
@@ -762,8 +773,8 @@ learningStepByStep = function () {
                         };
                     }
                     if (firstStep == "gamer") {
-                        //if (coins.length == 0) { stepShowsColor = 2; step = 0 }
-                        defenceOrAttack(id = "checkBoxForCleverRandom2");
+                        if (coins.length == 0) { stepShowsColor = 2; step = 0 }
+                        defenceOrAttack(myId = "cleverGame");
                         if (number == 0) {
                             gameWithLearningMemory();
                         }
@@ -785,7 +796,7 @@ learningStepByStep = function () {
                     //??????????????????????????????????????????????????
                     if (firstStep == "computer") {
                         //stepShowsColor = 1; step = 1
-                        defenceOrAttack(myId = checkBoxForCleverRandom2.id);
+                        defenceOrAttack(myId = cleverGame.id);
 
                         if (number == 0) {
                             myNumber = Math.floor(Math.random() * freePlace.length);
@@ -806,7 +817,123 @@ learningStepByStep = function () {
                         stepOnTheBoard(number);
                         isWinner();
                         if (thereIsWinner == "no") {
-                            defenceOrAttack(myId = checkBoxForCleverRandom2.id);
+                            defenceOrAttack(myId = cleverGame.id);
+
+                            if (number == 0) {
+                                myNumber = Math.floor(Math.random() * freePlace.length);
+                                number = freePlace[myNumber];
+                            }
+                            stepOnTheBoard(number);
+                            isWinner();
+                        };
+                    }
+                }
+
+                if (partner == "learningMemory" || partner == "storedLearningMemory") {
+                    prepareGameWithStoredLearningMemory();
+                    if (firstStep == "computer") {
+                        //a learningMemory csak olyan játékokat ismer, amelyek ugyanazzal s színnel kezdődnek, ezért itt cserélni kell a színeket
+                        stepShowsColor = 1; step = 1
+
+                        changeColor();
+                        gameWithLearningMemory()
+                        changeColorBack();
+                        stepOnTheBoard(number);
+                        isWinner();
+                        if (thereIsWinner == "no") {
+                            changeColor();
+                            gameWithLearningMemory()
+                            changeColorBack();
+                            stepOnTheBoard(number);
+                            isWinner();
+                            //console.log("s", s, "red", red, "blue", blue, "av", av, "coins", coins, "avArray", avArray);
+                        };
+                        changeColorBack();
+                    }
+                    if (firstStep == "gamer") {
+                        //stepShowsColor = 2; step = 0
+
+                        gameWithLearningMemory()
+                        stepOnTheBoard(number);
+                        isWinner();
+                        if (thereIsWinner == "no") {
+                            gameWithLearningMemory()
+                            stepOnTheBoard(number);
+                            isWinner();
+                            //console.log("s", s, "red", red, "blue", blue, "av", av, "coins", coins, "avArray", avArray);
+                        };
+                    }
+
+                }
+                if (thereIsWinner != "no") { improveShortMemory() };
+            }
+
+            if (document.querySelector("#withStoredLearningMemory").checked == true
+            ) {
+                if (partner == "program") {
+                    if (firstStep == "computer") {
+                        if (coins.length == 0) { stepShowsColor = 1; step = 1 }
+                        nowTheComputerStep();
+                        computerStep = true;
+                        stepOnTheBoard(number);
+                        computerStep = false;
+                        isWinner();
+
+                        if (thereIsWinner == "no") {
+                            defenceOrAttack(myId = "cleverGame2");
+                            if (number == 0) {
+                                gameWithLearningMemory();
+                            }
+                            stepOnTheBoard(number);
+                            isWinner();
+                        };
+                    }
+                    if (firstStep == "gamer") {
+                        if (coins.length == 0) { stepShowsColor = 2; step = 0 }
+                        defenceOrAttack(myId = "cleverGame2");
+                        if (number == 0) {
+                            gameWithLearningMemory();
+                        }
+
+                        stepOnTheBoard(number);
+                        isWinner();
+                        if (thereIsWinner == "no") {
+                            nowTheComputerStep();
+                            computerStep = true;
+                            stepOnTheBoard(number);
+                            computerStep = false;
+                            isWinner();
+                            //console.log("s", s, "red", red, "blue", blue, "av", av, "coins", coins, "avArray", avArray);
+                        };
+                    }
+                }
+                if (partner == "random" && thereIsWinner == "no") {
+                    //miért kell a thereIsWinner == "no" ???????????????
+                    //??????????????????????????????????????????????????
+                    if (firstStep == "computer") {
+                        //stepShowsColor = 1; step = 1
+                        defenceOrAttack(myId = cleverGame.id);
+
+                        if (number == 0) {
+                            myNumber = Math.floor(Math.random() * freePlace.length);
+                            number = freePlace[myNumber];
+                        }
+                        stepOnTheBoard(number);
+                        isWinner();
+
+                        if (thereIsWinner == "no") {
+                            gameWithLearningMemory();
+                            stepOnTheBoard(number);
+                            isWinner();
+                        };
+                    }
+                    if (firstStep == "gamer") {
+                        //stepShowsColor = 2; step = 0
+                        gameWithLearningMemory();
+                        stepOnTheBoard(number);
+                        isWinner();
+                        if (thereIsWinner == "no") {
+                            defenceOrAttack(myId = cleverGame2.id);
 
                             if (number == 0) {
                                 myNumber = Math.floor(Math.random() * freePlace.length);
@@ -921,6 +1048,45 @@ learningStepByStep = function () {
                         isWinner();
                         //console.log("s", s, "red", red, "blue", blue, "av", av, "coins", coins, "avArray", avArray);
                     };
+
+                }
+                if (partner == "learningMemory" || partner == "storedLearningMemory") {
+                    prepareGameWithStoredLearningMemory();
+                    if (firstStep == "computer") {
+                        //a learningMemory csak olyan játékokat ismer, amelyek ugyanazzal s színnel kezdődnek, ezért itt cserélni kell a színeket
+                        stepShowsColor = 1; step = 1
+
+                        //changeColor();
+                        nowTheComputerStep();
+                        computerStep = true;
+                        stepOnTheBoard(number);
+                        computerStep = false;
+                        isWinner();
+                        if (thereIsWinner == "no") {
+                            //changeColor();
+                            gameWithLearningMemory()
+                            //changeColorBack();
+                            stepOnTheBoard(number);
+                            isWinner();
+                            //console.log("s", s, "red", red, "blue", blue, "av", av, "coins", coins, "avArray", avArray);
+                        };
+                        //changeColorBack();
+                    }
+                    if (firstStep == "gamer") {
+                        //stepShowsColor = 2; step = 0
+
+                        gameWithLearningMemory()
+                        stepOnTheBoard(number);
+                        isWinner();
+                        if (thereIsWinner == "no") {
+                            nowTheComputerStep();
+                            computerStep = true;
+                            stepOnTheBoard(number);
+                            computerStep = false;
+                            isWinner();
+                            //console.log("s", s, "red", red, "blue", blue, "av", av, "coins", coins, "avArray", avArray);
+                        };
+                    }
 
                 }
                 if (partner == "simulatedAI") {
@@ -1574,11 +1740,11 @@ cleaningTheMemory = function () {
         }
         if (blueWonMemory.length > 0) { showGames() };
         if (document.querySelector("#autoClean2").checked == true) { cleaningTheMemory2() }
-        makeFakeMemoryForGameWithLearningMemory();
-        
+        if(document.querySelector("#withLearningMemory_").checked==true){makeFakeMemoryForGameWithLearningMemory();};
+
     }
     whatWeShow();
-   
+
 }
 
 makeFakeMemoryForGameWithLearningMemory = function () {
@@ -3973,6 +4139,7 @@ gameWithLearningMemory = function () {
     itWasRedWonMemory = redWonMemory.slice(0);
     itWasUndecidedMemory = undecidedMemory.slice(0);
     blueWonMemory = blueWonMemory.concat(blueWonMemoryFake)
+    
     //console.log(blueWonMemoryFake, blueWonMemoryFake)
     redWonMemory = redWonMemory.concat(redWonMemoryFake)
     undecidedMemory = undecidedMemory.concat(undecidedMemoryFake)
@@ -4151,7 +4318,6 @@ gameWithLearningMemory = function () {
     blueWonMemoryStrategies = itWasBlueWonMemoryStrategies.slice(0);
     redWonMemoryStrategies = itWasRedWonMemoryStrategies.slice(0);
     undecidedMemoryStrategies = itWasUndecidedMemoryStrategies.slice(0);
-
 
 
 }
@@ -5842,7 +6008,7 @@ showGames = function () {
     stepNumber = 1;
     gameNumber6 = 0;
     if (document.querySelector("#withStoredLearningMemory").checked == true &&
-    wasLearning == false) {showTheStoredGameSteps();}
+        wasLearning == false) { showTheStoredGameSteps(); }
     showTheGames();
 }
 
