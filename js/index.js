@@ -19,15 +19,15 @@ function changeToPhoneScreen() {
 }
 
 function newGameGamerStarts() {
+    document.querySelector("#score").style.color = "black";
     document.querySelector("#score").innerHTML = " - ";
-    document.querySelector("#score").color = "black";
     document.querySelector("#gamer").checked = true;
     newGame();
 }
 
 function newGameEngineStarts() {
     document.querySelector("#score").innerHTML = " - ";
-    document.querySelector("#score").color = "black";
+    document.querySelector("#score").style.color = "black";
     document.querySelector("#computer").checked = true;
     newGame();
 }

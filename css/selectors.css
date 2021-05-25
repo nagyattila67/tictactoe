@@ -1,4 +1,5 @@
 #col4phone{background-color: #ededed;}
+.phoneButton{border-radius: 10px;}
 .hrMargin{margin:0px}
 #stepOfEngine{background-color: rgb(238, 220, 130);}
 
@@ -24,7 +25,7 @@
 
 
 #millTbody tr td{width:70px;height:70px;border: 1px solid #000000;background-color:#dbdbdb;padding:20px}
-#millTbody4phone tr td{text-align:center;width:100px;height:100px;border: 1px solid #000000;background-color:#dbdbdb;padding:20px}
+#millTbody4phone tr td{text-align:center;width:80px;height:80px;border: 1px solid #000000;background-color:#dbdbdb;padding:20px}
 #myCleverRandom1:hover #infoForCleverRandom1{display:block;position:absolute;margin:10px 10px 10px 50px;opacity:85%;padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
 #myCleverGame:hover #infoForCleverGame{display:block;position:absolute;margin:10px 10px 10px 50px; opacity:85%; padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
 #myCleverRandom2:hover #infoForCleverRandom2{display:initial;position:absolute;margin:10px 10px 10px 50px;opacity:85%;padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
