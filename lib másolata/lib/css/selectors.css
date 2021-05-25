@@ -1,9 +1,7 @@
-#col4phone{background-color: #ededed;}
 .hrMargin{margin:0px}
 #stepOfEngine{background-color: rgb(238, 220, 130);}
 
 .lavenderBgr{background-color:#FFF0F5}
-.lightYellow{background-color:#fdfd96}
 .lightGreen{background-color:rgb(176,255,173)}
 .lightBlue{background-color: #bed1d8}
 .smallBorder{border:1px solid #dbdbdb;padding:5px;}
@@ -24,7 +22,6 @@
 
 
 #millTbody tr td{width:70px;height:70px;border: 1px solid #000000;background-color:#dbdbdb;padding:20px}
-#millTbody4phone tr td{text-align:center;width:100px;height:100px;border: 1px solid #000000;background-color:#dbdbdb;padding:20px}
 #myCleverRandom1:hover #infoForCleverRandom1{display:block;position:absolute;margin:10px 10px 10px 50px;opacity:85%;padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
 #myCleverGame:hover #infoForCleverGame{display:block;position:absolute;margin:10px 10px 10px 50px; opacity:85%; padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
 #myCleverRandom2:hover #infoForCleverRandom2{display:initial;position:absolute;margin:10px 10px 10px 50px;opacity:85%;padding:5px;border-radius:10px;background-color:grey;color:white;width:300px;}
@@ -34,7 +31,6 @@
 #infoForCleverRandom2{display:none}
 .dark-levander{background-color:#e7d4f9;margin:0px 10px 10px 10px;border: 1px solid #9979b8 }
 
-#rightInfo{width:300px;height:1250px}
 #stepsAndGames p{margin-bottom:5px}
 
 .littleMargin{margin:10px}
@@ -48,12 +44,9 @@
 #littleTbody6 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
 #littleTbody7 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
 #littleTbody8 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
-#littleTbody8_ tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
 #littleTbody9 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
 #littleTbody10 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
 #littleTbody11 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
-#littleTbody12 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
-#littleTbody13 tr td{border:1px solid #000000;background-color:#dbdbdb;width:30px;height:30px;padding-left:10px}
 #myCleverRandom2 label{margin-left:20px};
 .info{width:150px}
 .fore{z-index:2}

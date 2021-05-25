@@ -9,72 +9,15 @@
     <link rel="stylesheet"
         href="lib/bootstrap/bootstrap-5.0.0-beta2-dist/bootstrap-5.0.0-beta2-dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/selectors.css">
-    <!--<script type="application/json" src="db/db.json"></script>-->
 </head>
 
 <body>
-    <script src="lib\jquery\jquery-3.6.0.min.js"></script>
-    <div id="container4phone" class="container-fluid" style="display:initial">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-sm-0 col-md-2 col-lg-2"></div>
-            <div id="col4phone" class="col-sm-12 col-md-8 col-lg-8">
-
-                <table class=" mt-5 nav justify-content-center" id="millTable4phone">
-                    <tbody id="millTbody4phone">
-                        <tr>
-                            <td name="4" onclick="putCoin(this)"></td>
-                            <td name="9" onclick="putCoin(this)"></td>
-                            <td name="2" onclick="putCoin(this)"></td>
-                        </tr>
-                        <tr>
-                            <td name="3" onclick="putCoin(this)"></td>
-                            <td name="5" onclick="putCoin(this)"></td>
-                            <td name="7" onclick="putCoin(this)"></td>
-                        </tr>
-                        <tr>
-                            <td name="8" onclick="putCoin(this)"></td>
-                            <td name="1" onclick="putCoin(this)"></td>
-                            <td name="6" onclick="putCoin(this)"></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <table class=" mt-3 nav justify-content-center">
-                    <tbody>
-                        <tr>
-                            <td>A játék állása: </td>
-                            <td><span id="score" style="color:black"> - </span></td>
-                        </tr>
-                    </tbody>
-                </table>
-                <div class="mb-5" style="text-align: center;">
-                    <button class=" m-2 p-2 button btn-primary" onclick="newGameGamerStarts()">új játék - a játékos
-                        kezd</button>
-                    <br>
-                    <button class="m-2 p-2 button btn-primary" onclick="newGameEngineStarts()">új játék - a gép
-                        kezd</button>
-                    <br>
-                    <p>Jelenleg a <i>játék szimulált mesterséges intelligenciával</i> beállítást használja.</p>
-                    <p>Nagygépes változatban különböző beállításokkal kísérletezhet virtuális laborunkban.</p>
-                    <button class="m-2 p-2 button btn-success" onclick="changeToBigScreen()">váltás nagy gépre -
-                        labormunka</button>
-                </div>
-
-            </div>
-            <div class="col-sm-0 col-md-2 col-lg-2"></div>
+            <div class="col"> <br> </div>
         </div>
-
-    </div>
-    <div id="container4BigScreen" class="container-fluid" style="display:none">
-        <div id="forLoadMyValue1" style="display:none"></div>
-        <div id="forLoadMyValue2" style="display:none"></div>
-        <div class="row ml-1">
-            <div style="width:200px;height:500px" class="dark-levander behind col-2 col-sm-2 col-md-2 col-lg-2">
-                <div>
-                    <button class="mt-3 button btn-success btn-small"
-                        onclick="changeToPhoneScreen()">Váltás telefonos
-                        nézetre</button>
-                    <br><br>
-                </div>
+        <div class="row">
+            <div style="width:200px;height:500px" class="dark-levander  behind col-2 col-sm-2 col-md-2 col-lg-2">
                 <div class="row">
                     <div class="col">
                         <div id="infoAboutNoStrategy" class="info" style="display:none;position:absolute;">
@@ -130,7 +73,7 @@
                 <div class="row">
                     <div class="col">
                         <div class="dark-levander"
-                            style="width:200px; padding:10px; text-align: center; font-size:small; position:absolute; top:600px;left:1px;margin:0px">
+                            style="width:200px; padding:10px; text-align: center; font-size:small; position:absolute; top:550px;left:0px">
                             <button onclick="sendData()" class="mb-2 button btn-secondary btn-small">Adatok küldése a
                                 szervernek</button>
                             <p>Jelenleg nem tud <br> adatokat küldeni a szervernek.</p>
@@ -574,34 +517,30 @@
                                         onclick="backInMemory4()">Hátra</button>
                                     <p class="mt-2">Ez most a(z) <span id="numberOfGame5"> - </span>számú mintázat
                                     </p>
+
+
                                 </div>
+
+
+
+
+
+
+
+
+
+
+
                             </div>
                         </div>
 
                     </div>
                     <div class="col-6">
-                        <button id="infoButton" onclick="infoLink()">Info a játékról</button>
-                        <br><br>
-                        <div style="background-color: #dbdbdb; padding:10px; line-height:80%"><small>Beállíthat egy
-                                adott kezdő
-                                lépéssorozatot, majd lentebb kiválaszthatja, hogy melyik géptípus folytassa a játékok.
-                            </small></div>
                         <input type="radio" id="twoPeople" class="littleMargin" name="typeOfGame"
                             oninput="gameWithNotRandom(this)"><label class="larger" for="twoPeople">Két
                             személy játszik</label>
-                        <small><label for="redStarts" style="margin: 10px 0px 0px 33px">a piros kezd</label>
-                            <input checked id="redStarts" type="radio" name="whatColorStarts">
-                            <label for="blueStarts" style="margin: 10px 0px 0px 33px">a kék kezd</label>
-                            <input id="blueStarts" type="radio" name="whatColorStarts">
-                            <br>
-                            <button onclick="engineContinues()" style="margin: 10px 0px 10px 33px"
-                                class="button btn-secondary btn-small">A gép
-                                folytatja</button>
-                        </small>
+                        <button id="infoButton" onclick="infoLink()">Info a játékról</button>
                         <br>
-                        <div style="background-color: #dbdbdb; padding:10px"><small>Ön a pirossal játszik, a gép a
-                                kékkel. A gép
-                                típusát innen választhatja ki.</small></div>
                         <input type="radio" id="withComputer" class="littleMargin" name="typeOfGame"
                             oninput="gameWithNotRandom(this)" checked><label class="larger" for="withComputer">Játék a
                             programmal</label>
@@ -614,7 +553,7 @@
                         </label>
                         <span id="myCleverRandom1">
                             <label for="checkBoxForCleverRandom1"><small>Okosvéletlen: </small></label>
-                            <input type="checkbox" id="checkBoxForCleverRandom1">
+                            <input type="checkbox" id="checkBoxForCleverRandom1" checked>
                             <span id="infoForCleverRandom1">
                                 Amennyiben a következő lépésben ő vagy az ellenfél nyerne, akkor nem véletlenszerűen
                                 lép.
@@ -677,7 +616,7 @@
 
                         <br>
                         <input type="radio" id="withStoredLearningMemory" class="littleMargin" name="typeOfGame"
-                            oninput="gameWithNotRandom(this);storedGamesOnclick()"><label class="larger"
+                            oninput="gameWithNotRandom(this)" disabled><label class="larger"
                             for="withStoredLearningMemory">Játék
                             a
                             beépített
@@ -693,14 +632,6 @@
                                 lép.
                             </span>
                         </span>
-                        <br>
-                        <label for="storedGamesMemoria1" style="margin: 0px 0px 0px 33px">memória-1</label>
-                        <input type="radio" id="storedGamesMemoria1" name="storedGamesMemoria"
-                            onclick="storedGamesOnclick()">
-                        <label for="storedGamesMemoria2">memória-2</label>
-                        <input type="radio" id="storedGamesMemoria2" name="storedGamesMemoria"
-                            onclick="storedGamesOnclick()" checked>
-                        <br>
                         <span style="margin: 0px 0px 0px 20px"><small> - Tárolt játékok száma: <span
                                     id="numberOfBuiltedInGames"> 0 </span></small></span> <br>
 
@@ -711,15 +642,7 @@
                                 játékot, így nem szükséges a tanulójátékok futtatása. <br><br>
                                 Ezek a játékok egyszer már valóban lefutottak, s a rendszer akkor elmentette azokat.
                                 <br><br>
-                                memória-1: Az 1 000 000 játék lefuttatása 22 óra alatt történt meg 'véletlenszám
-                                generátor -
-                                véletlenszám generátor' beállítással és 36 833 különböző játszmát eredményezett. Ebből 8
-                                %-ban nyert a piros és 8 %-ban nyert a kék.
-                                <br><br>
-                                memória-2: Az 1 000 000 játék lefuttatása 17 és fél óra alatt történt meg 'váltakozva:
-                                computer - random; computer - computer; random - computer; random - random' beállítással
-                                és 33 277 különböző játszmát eredményezett. Ebből 9
-                                %-ban nyert a piros és 9 %-ban nyert a kék.
+                                Az XXX játék lefuttatása YYY idő alatt történt ZZZ beállítással.
                                 <br><br>
                                 <p style="text-align: center;">&#8275</p>
 
@@ -749,8 +672,7 @@
                             style="margin-right:10px; margin-left:35px"><small>normál</small></label><input type="radio"
                             id="normal2" name="typeOfStrategy2" checked>-->
                         <label style="margin: 0px 20px 0px 33px" for="defence2" style="margin-right:10px"> -
-                            <small>védekezik</small></label><input checked type="radio" id="defence2"
-                            name="typeOfStrategy2">
+                            <small>védekezik</small></label><input checked type="radio" id="defence2" name="typeOfStrategy2">
                         <label for="attack2"
                             style="margin-right:10px; margin-left:35px"><small>támad</small></label><input type="radio"
                             id="attack2" name="typeOfStrategy2">
@@ -802,8 +724,7 @@
 
 
                         <input type="radio" id="withSimulatedLearntStrategy" class="littleMargin" name="typeOfGame"
-                            oninput="gameWithAI(this)" checked><label class="larger"
-                            for="withSimulatedLearntStrategy">Játék a
+                            oninput="gameWithAI(this)"><label class="larger" for="withSimulatedLearntStrategy">Játék a
                             szimulált mesterséges intelligenciával (MI)</label>
                         <button style="margin-left:20px" id="miEzButton4" onclick="miez4()" class="whatIsThis">Mi
                             ez?</button>
@@ -811,8 +732,7 @@
                             style="margin-right:10px; margin-left:35px"><small>normál</small></label><input type="radio"
                             id="normal" name="typeOfStrategy" checked>-->
                         <label style="margin: 0px 20px 0px 33px" for="defence" style="margin-right:10px"> -
-                            <small>védekezik</small></label><input checked type="radio" id="defence"
-                            name="typeOfStrategy">
+                            <small>védekezik</small></label><input checked type="radio" id="defence" name="typeOfStrategy">
                         <label for="attack"
                             style="margin-right:10px; margin-left:35px"><small>támad</small></label><input type="radio"
                             id="attack" name="typeOfStrategy">
@@ -853,15 +773,9 @@
                             <div class="row sometimesBlur">
                                 <div class="col-6" style="border-right: 1px solid gray;">
                                     <button class="button btn-primary littleMargin" id="learningGameButton"
-                                        onclick="learning()">Tanulójáték
-                                        <span style="visibility: hidden" id="spinner_tanulojatek"
-                                            class="spinner-border spinner-border-sm" role="" aria-hidden=""></span>
-                                    </button>
-
-
+                                        onclick="learning()">Tanulójáték</button>
                                     <input class="littleMargin" type="number" style="width:100px" id="runningNumber"
-                                        value="1000" oninput="estimatedRunningNumberOninput()"><span> játék
-                                        futtatása</span>
+                                        value="1000"><span> játék futtatása</span>
                                     <br><br>
                                     <label style="display:inline" for="stepAlternately"><small>Felváltva kezd a két
                                             szín.</small></label>
@@ -875,17 +789,10 @@
                                             kezd.</small></label>
                                     <input style="display:inline; margin-left:5px" type="radio" name="inTurns"
                                         id="stepAlternatelyRed">
-                                    <hr>
-                                    <input type="checkbox" id="withChange" onclick=clickMakeInputsInactive()>
-                                    <label for="withChange">Felváltva program és random</label>
-                                    <span><small> (Minden más beállítást inaktívvá tesz!)</small></span>
+
                                 </div>
                                 <div class="col-6">
-                                    <div style="background-color: #dbdbdb;padding:10px; line-height:80%"><small>Az egyik
-                                            játékos a fenti
-                                            választás
-                                            (piros), a másik játékost innen választhatja
-                                            (kék):</small></div>
+                                    <p>Az ellenfél (a kék):</p>
                                     <input checked type="radio" onclick="whoIsThePartner()" name="partnerForGame"
                                         id="withRandom">
                                     <label for="withRandom"> véletlenszám generátor - </label>
@@ -909,12 +816,6 @@
                                         </span></label>
                                     <br>
                                     <input type="radio" onclick="whoIsThePartner()" name="partnerForGame"
-                                        id="withStoredLearningMemory_">
-                                    <label for="withStoredLearningMemory_"><span id="labelForLearningMemory">a beépített
-                                            tanulómemória
-                                        </span></label>
-                                    <br>
-                                    <input type="radio" onclick="whoIsThePartner()" name="partnerForGame"
                                         id="withSimulatedAI">
                                     <label for="withSimulatedAI"><span id="labelForSimulatedAI">a szimulált
                                             MI</span></label>
@@ -922,7 +823,6 @@
                             </div>
                             <div class="row sometimesBlur">
                                 <div class="col">
-                                    <p class="mt-2">Becsült futásidő: <span id="estimatedRunTime"> - </span></p>
                                     <p class="mt-2">Futásidő: <span id="runTime"> - </span></p>
                                     <span style="color:#808080"><small><label for="notIndependentResult"></label>Ne
                                             önálló
@@ -955,12 +855,12 @@
                                                 <td><span id="MemoryLengthForShowing"> - </span></td>
                                             </tr>
                                             <tr>
-                                                <td>Ebből nyert a piros:</td>
-                                                <td><span id="redWonForShowing"> - </span></td>
-                                            </tr>
-                                            <tr>
                                                 <td>Ebből nyert a kék:</td>
                                                 <td><span id="blueWonForShowing"> - </span></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Ebből nyert a piros:</td>
+                                                <td><span id="redWonForShowing"> - </span></td>
                                             </tr>
                                             <tr>
                                                 <td>Ebből döntetlen:</td>
@@ -985,17 +885,14 @@
                             <div class="row">
                                 <div class="col">
                                     <p>Stratégiák létrehozása tanulójátékok nélkül - számításokkal (gyors).</p>
-                                    <button onclick="discoverStrategiesByLOGIC()"
-                                        class="button btn-primary btn-small">Számol</button>
-                                    <p>Ekkor a '<i>Játék a mesterséges intelligenciával (MI)</i>' beállítás esetén a gép
-                                        ezeket a stratégiákat használja, amíg nem futtat le tanulójátékot.</p>
+                                    <button onclick="discoverStrategiesByLOGIC()" class="button btn-primary btn-small">Számol</button>
+                                <p>Ekkor a '<i>Játék a mesterséges intelligenciával (MI)</i>' beállítás esetén a gép ezeket a stratégiákat használja, amíg nem futtat le tanulójátékot.</p>
                                 </div>
                             </div>
                             <div class="mt-3 smallBorder lightYellow">
-                                <p>Itt a gép által számításokkal felállított
+                                <p>Itt a gép által számításokkal felállított 
                                     három lépéses stratégiákat láthatja, amelyek egy játékon belül az összes
-                                    lépéssorrendet tartalmazzák. Ezek száma: <span id="all4"> - </span>
-                                    Az alapstratégiák száma: <span id="all5"> - </span></p>
+                                    lépéssorrendet tartalmazzák. Ezek száma: <span id="all4"> - </span></p>
                                 <div class="mt-1" id="divForLittleTable12" style="display:inline-block">
                                     <table id="littleTable12">
                                         <tbody id="littleTbody12">
@@ -1041,7 +938,8 @@
                                 <p class="mt-3">Mozgás a mintázatok között:</p>
                                 <button class="button btn-secondary btn-small"
                                     onclick="forwardInMemory7()">Előre</button>
-                                <button class="button btn-secondary btn-small" onclick="backInMemory7()">Hátra</button>
+                                <button class="button btn-secondary btn-small"
+                                    onclick="backInMemory7()">Hátra</button>
                                 <p class="mt-2">Ez most a(z) <span id="numberOfGame7"> - </span>számú mintázat
                                 </p>
 
@@ -1081,8 +979,7 @@
 
 
             <div class="behind col-2 col-sm-2 col-md-2 col-lg-2">
-                <div id="rightInfo" class="dark-levander smallBorder littlePadding">
-                    <p><i>Részletes lépésinfó MI <br> vagy szimulált MI esetén:</i></p>
+                <div class="dark-levander smallBorder littlePadding">
                     <p>korongok: <span id="coinsInfo"></span></p>
 
                     <p>kék: <span id="blueInfo"></span></p>
@@ -1090,27 +987,19 @@
                     <p>piros: <span id="redInfo"></span></p>
 
                     <p>szabad helyek: <span id="freePlaceInfo"></span></p>
-                    <p>strategicalSteps: <span id="egy"> - <span></span></p>
-                    <p>strategicalStepsForStart: <span id="kettő"> - <span></span></p>
-                    <p>strategicalStepsForDefence5: <span id="három"> - <span></span></p>
-                    <p>everyArrayHasIt4Defence: <span id="négy"> - <span></span></p>
-                    <p>almostEveryArrayHasIt4Defence: <span id="öt"> - <span></span></p>
-                    <p>everyArrayHasIt4Attack: <span id="hat"> - <span></span></p>
-                    <p>almostEveryArrayHasIt4Attack:<span id="hét"> - <span></span></p>
-                    <p>strategicalStepsWithMaxOccurrance:<span id="nyolc"> - <span></span></p>
-                    <p>firstDefenceStep: <span id="kilenc"> - <span></span></p>
-                    <p>myImportantDefenceStep3: <span id="tíz"> - <span></span></p>
-                    <p>forbiddenPlacesForcesToStepHere:<span id="tizenegy"> - <span></span></p>
-                    <p>pleaseNotThis: <span id="tizenkettő"> - <span></span></p>
 
-
-                    <br>
+                    <p>Támadó stratégiai lépések eredetileg:</p>
+                    <p id="attackStrategiesOriginalInfo"></p>
+                    <p>kiszűrve: </p>
+                    <p id="attackStrategiesFilteredInfo"></p>
+                    <p>Védekező stratégiai lépések:</p>
+                    <p id="defenceStrategiesOriginalInfo"></p>
                     <p>A gép ezt lépi: <span id="engineStepInfo"></span></p>
 
                     <p>A táblán lévő helyek számai (bűvös négyzet):</p>
-                    <div class="mt-3" id="divForLittleTable8_" style="display:inline-block">
-                        <table id="littleTable8_">
-                            <tbody id="littleTbody8_">
+                    <div class="mt-3" id="divForLittleTable8" style="display:inline-block">
+                        <table id="littleTable8">
+                            <tbody id="littleTbody8">
                                 <tr>
                                     <td name="4">4</td>
                                     <td name="9">9</td>
@@ -1138,13 +1027,13 @@
                     <p>Ezeket a játékokat itt újrajátszhatja. <small style="color:grey">(Először futassa:
                             <i>Tanulójáték</i>, majd
                             <i>Memória tisztítása-1)</i></small></p>
-                    <p><input onclick="whatWeShow()" type="radio" name="wonNumber" id="radioBlue">
+                    <p><input onclick="whatWeShow()" type="radio" name="wonNumber" checked id="radioBlue">
                         A <i>'kék nyert'</i> játékok száma: <span><span id="blueWonNumber"> - </span>
                             - Ezeket kérem lejátszani.</span></p>
                     <p><input onclick="whatWeShow()" type="radio" name="wonNumber" id="radioRed">
                         A <i>'piros nyert'</i> játékok száma: <span><span id="redWonNumber"> - </span>
                             - Ezeket kérem lejátszani.</span></p>
-                    <p><input onclick="whatWeShow()" type="radio" name="wonNumber" checked id="radioUndecided">
+                    <p><input onclick="whatWeShow()" type="radio" name="wonNumber" id="radioUndecided">
                         A <i>'döntetlen lett'</i> játékok száma: <span><span id="undecidedNumber"> - </span>
                             - Ezeket kérem lejátszani.</span></p>
 
@@ -1195,7 +1084,6 @@
 
 
     <script src="js\index.js"></script>
-
 </body>
 
 </html>
